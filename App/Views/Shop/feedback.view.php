@@ -76,8 +76,7 @@ $layout = '';
 <div class="action-buttons">
     <div class="btn btn-secondary" style="background-color: purple">Discard</div>
     <div class="btn btn-secondary" style="background-color: purple">
-        <a href="<?= $link->url('intro.shop') ?>"></a>
-        Cancel
+        <a href="<?= $link->url('intro.shop') ?>">Cancel</a>
     </div>
     <div class="btn btn-secondary" style="background-color: purple">Send</div>
 </div>
