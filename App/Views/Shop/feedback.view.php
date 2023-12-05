@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
-<title>Pizza Pro - Feedback</title>
+<title>Pizza feedback</title>
 <link rel="stylesheet" href="/public/css/styl_feedback.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
