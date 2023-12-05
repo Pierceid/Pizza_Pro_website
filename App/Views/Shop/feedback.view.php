@@ -1,5 +1,6 @@
 <?php
-
+$layout = '';
+/* @var \App\Core\LinkGenerator $link */
 ?>
 
 <!DOCTYPE html>
@@ -17,9 +18,9 @@
 <body>
 
 <div class="container-fluid">
-    <a href="#"><img src="/public/images/others/logo.png" alt=""></a>
+    <a href="<?= $link->url('home.intro') ?>"><img src="/public/images/others/logo.png" alt=""></a>
     <h1 style="font-size: x-large; font-weight: bold">Give us your feedback</h1>
-    <a href="#"><img src="/public/images/others/logo.png" alt=""></a>
+    <a href="<?= $link->url('home.intro') ?>"><img src="/public/images/others/logo.png" alt=""></a>
 </div>
 
 <div class="question">
