@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
-use Pizza;
 
 class PizzaController extends AControllerBase
 {
@@ -14,7 +13,6 @@ class PizzaController extends AControllerBase
      */
     public function index(): Response
     {
-        Pizza::getAll();
         return $this->html();
     }
 

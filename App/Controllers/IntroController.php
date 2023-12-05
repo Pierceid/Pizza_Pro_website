@@ -15,4 +15,9 @@ class IntroController extends AControllerBase
     {
         return $this->html();
     }
+
+    public function shop(): Response
+    {
+        return $this->html();
+    }
 }

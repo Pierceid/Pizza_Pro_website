@@ -13,6 +13,6 @@ class CartController extends AControllerBase
      */
     public function index(): Response
     {
-        // TODO: Implement index() method.
+        return $this->html();
     }
 }

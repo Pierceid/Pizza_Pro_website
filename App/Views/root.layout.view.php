@@ -14,15 +14,14 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="public/css/styl.css">
-    <script src="public/js/script.js"></script>
+    <link rel="stylesheet" href="/public/css/styl.css">
+    <script src="/public/js/script.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?= $link->url("home.index") ?>">
-            <img src="public/images/vaiicko_logo.png" title="<?= \App\Config\Configuration::APP_NAME ?>"
-                 title="<?= \App\Config\Configuration::APP_NAME ?>">
+            <img src="/public/images/vaiicko_logo.png" title="<?= \App\Config\Configuration::APP_NAME ?>" alt="">
         </a>
         <ul class="navbar-nav me-auto">
             <li class="nav-item">

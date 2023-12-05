@@ -41,7 +41,7 @@ class HomeController extends AControllerBase
     }
 
     // Pizza Pro page
-    public function pizzaPro(): Response
+    public function intro(): Response
     {
         return $this->html();
     }

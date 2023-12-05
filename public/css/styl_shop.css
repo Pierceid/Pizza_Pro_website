@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: url("public/images/backgrounds/blue_background.jpg");
+    background-image: url("../images/backgrounds/blue_background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
