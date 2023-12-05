@@ -49,7 +49,7 @@ $layout = 'eshop';
     </div>
 
     <div class="card col-md-4">
-        <a href="#"><img src="//public/images/pizzas/greek_pizza.png" alt=""></a>
+        <a href="#"><img src="/public/images/pizzas/greek_pizza.png" alt=""></a>
 
         <div class="content">
             <p class="name">Greek pizza</p>
