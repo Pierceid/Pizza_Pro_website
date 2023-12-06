@@ -8,7 +8,6 @@ use User;
 
 class UserController extends AControllerBase
 {
-
     /**
      * @inheritDoc
      */
@@ -29,6 +28,7 @@ class UserController extends AControllerBase
     {
         $formData = $this->app->getRequest()->getPost();
         $data = [];
+
         if (isset($formData['sign-up'])) {
             $name = $formData['name'];
             $email = $formData['email'];
@@ -42,6 +42,9 @@ class UserController extends AControllerBase
                 $newUser->setEmail($email);
                 $newUser->setPassword($password);
                 $newUser->save();
+                $data['name'] = $name;
+                $data['email'] = $email;
+                $data['password'] = $password;
             }
         }
         return $this->html($data);

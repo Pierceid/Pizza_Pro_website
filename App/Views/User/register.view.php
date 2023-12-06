@@ -24,7 +24,7 @@ $layout = '';
 <body>
 <div class="container">
     <div class="form-container sign-up">
-        <form>
+        <form class="form-sign-up" method="post" action="<?= $link->url("user.register") ?>">
             <h1 class="title">Register</h1>
 
             <div class="social-media">
@@ -42,12 +42,12 @@ $layout = '';
 
             <label><input id="password" type="password" placeholder="Password"></label>
 
-            <button id="sign-up" class="btn-submit">Sign up</button>
+            <button id="sign-up" class="btn-submit"><a href="<?= $link->url('shop.index') ?>">Sign up</a></button>
         </form>
     </div>
 
     <div class="form-container sign-in">
-        <form>
+        <form class="form-sign-in" method="post" action="<?= $link->url("user.register") ?>">
             <h1 class="title">Log in</h1>
 
             <div class="social-media">
@@ -65,7 +65,7 @@ $layout = '';
 
             <a href="#">Forgot your password?</a>
 
-            <button id="sign-in" class="btn-submit"><a href="<?= $link->url('user.shop')?>">Sign in</a></button>
+            <button id="sign-in" class="btn-submit"><a href="<?= $link->url('shop.index') ?>">Sign in</a></button>
         </form>
     </div>
 
