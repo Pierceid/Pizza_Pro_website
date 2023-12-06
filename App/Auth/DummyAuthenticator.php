@@ -54,14 +54,13 @@ class DummyAuthenticator implements IAuthenticator
     public function register($login, $email): bool
     {
         $users = User::getAll();
-        if (!empty($login) && !empty($email)) {
+        if (!empty(trim($login)) && !empty(trim($email))) {
             foreach ($users as $user) {
                 if ($user->getName() != $login && $user->getEmail() != $email) {
                     return true;
                 }
             }
         }
-
         return false;
     }
 

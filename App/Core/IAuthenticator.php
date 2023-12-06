@@ -11,6 +11,7 @@ interface IAuthenticator
 {
 
     /**
+     * Perform user registration
      * @param $login
      * @param $email
      * @return bool
