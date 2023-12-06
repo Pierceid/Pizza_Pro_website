@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models;
+
 class Pizza extends \App\Core\Model
 {
     protected ?int $id = null;

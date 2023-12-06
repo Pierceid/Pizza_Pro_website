@@ -3,7 +3,8 @@
 namespace App\Auth;
 
 use App\Core\IAuthenticator;
-use User;
+use App\Models\User;
+
 
 /**
  * Class DummyAuthenticator
@@ -54,7 +55,10 @@ class DummyAuthenticator implements IAuthenticator
     public function register($login, $email): bool
     {
         $users = User::getAll();
-        if (!empty(trim($login)) && !empty(trim($email))) {
+        if (count($users) == 0) {
+            return true;
+        }
+        elseif (!empty($login) || !empty($email)) {
             foreach ($users as $user) {
                 if ($user->getName() != $login && $user->getEmail() != $email) {
                     return true;

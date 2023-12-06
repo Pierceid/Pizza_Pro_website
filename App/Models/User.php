@@ -1,6 +1,11 @@
 <?php
 
-class User extends \App\Core\Model
+namespace App\Models;
+
+
+use App\Core\Model;
+
+class User extends Model
 {
     protected ?int $id = null;
     protected ?string $name;

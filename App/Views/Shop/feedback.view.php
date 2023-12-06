@@ -81,6 +81,5 @@ $layout = '';
     <div class="btn btn-secondary" style="background-color: purple">Send</div>
 </div>
 
-<script src="/public/js/script_feedback.js"></script>
 </body>
 </html>

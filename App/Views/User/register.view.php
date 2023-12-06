@@ -26,7 +26,7 @@ $layout = '';
 <body>
 <div class="container">
     <div class="form-container sign-up">
-        <form class="form-sign-up" method="post" action="<?= $link->url("user.register") ?>">
+        <form class="form-sign-up" method="post" action="<?= $link->url("user.checkRegister") ?>">
             <h1 class="title">Register</h1>
 
             <div class="social-media">
@@ -38,13 +38,13 @@ $layout = '';
 
             <span>or use your email for registration</span>
 
-            <label><input id="name" type="text" placeholder="Username"></label>
+            <label><input name="name" type="text" placeholder="Username"></label>
 
-            <label><input id="email" type="email" placeholder="Email"></label>
+            <label><input name="email" type="email" placeholder="Email"></label>
 
-            <label><input id="password" type="password" placeholder="Password"></label>
+            <label><input name="password" type="password" placeholder="Password"></label>
 
-            <button id="sign-up" class="btn-submit"><a href="<?= $link->url('shop.index') ?>">Sign up</a></button>
+            <button id="sign-up" class="btn-submit" type="submit">Sign up</button>
         </form>
     </div>
 
@@ -90,6 +90,6 @@ $layout = '';
     </div>
 </div>
 
-<script src="/public/js/script_intro.js"></script>
+<script src="/public/js/script_user.js"></script>
 </body>
 </html>

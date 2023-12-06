@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
-use User;
+use App\Models\User;
 
 class UserController extends AControllerBase
 {
@@ -26,25 +26,28 @@ class UserController extends AControllerBase
      */
     public function register(): Response
     {
-        $formData = $this->app->getRequest()->getPost();
-        $data = [];
-        $data['form'] = $formData;
-        if (isset($formData['sign-up'])) {
-            $name = $formData['name'];
-            $email = $formData['email'];
-            $password = $formData['password'];
+        return $this->html();
+    }
 
+    public function checkRegister() :Response
+    {
+        $formData = $this->app->getRequest();
+        $name = $formData->getValue("name");
+        $email = $formData->getValue("email");
+        $password = $formData->getValue("password");
+
+        if (!is_null($name) && !is_null($email) && !is_null($password)) {
             if (!$this->app->getAuth()->register($name, $email)) {
                 $data = ['message' => 'User already exists!'];
             } else {
-                $newUser = new User();
-                $newUser->setName($name);
-                $newUser->setEmail($email);
-                $newUser->setPassword($password);
-                $newUser->save();
-                $data['name'] = $newUser->getName();
+                $user = new User();
+                $user->setName($name);
+                $user->setEmail($email);
+                $user->setPassword($password);
+                $user->save();
+                return $this->redirect($this->url('shop.index'));
             }
         }
-        return $this->html($data);
+        return $this->redirect($this->url('user.register'));
     }
 }

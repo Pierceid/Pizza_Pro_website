@@ -7,7 +7,7 @@ $layout = 'eshop';
 ?>
 <link rel="stylesheet" href="/public/css/styl_addOrRemove.css">
 
-<form class="form form-remove" method="post" action="<?= $link->url("shop.remove") ?>">
+<form class="form form-remove" method="post" action="<?= $link->url("shop.removeItem") ?>">
     <h1 class="title">Remove pizza</h1>
 
     <label><input id="name" type="text" placeholder="Name"></label>
