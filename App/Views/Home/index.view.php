@@ -3,7 +3,7 @@
         <div class="col mt-5">
             <div class="text-center">
                 <h2>Vaííčko MVC FW</h2>
-                <img src="public/images/vaiicko_logo.png">
+                <img src="/public/images/vaiicko_logo.png" alt="">
                 <p>
                     Gratulujeme vám, úspešne sa vám podarilo nainštalovať a spustiť framework
                     <strong>Vaííčko</strong> <?= \App\Config\Configuration::FW_VERSION ?>!<br>

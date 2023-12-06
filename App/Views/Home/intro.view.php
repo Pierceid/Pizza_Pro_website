@@ -36,13 +36,13 @@ $layout = '';
 
             <span>or use your email for registration</span>
 
-            <label><input type="text" placeholder="Username"></label>
+            <label><input id="name" type="text" placeholder="Username"></label>
 
-            <label><input type="email" placeholder="Email"></label>
+            <label><input id="email" type="email" placeholder="Email"></label>
 
-            <label><input type="password" placeholder="Password"></label>
+            <label><input id="password" type="password" placeholder="Password"></label>
 
-            <button class="btn-submit"><a href="<?= $link->url("intro.shop") ?>">Sign up</a></button>
+            <button id="sign-up" class="btn-submit"><a href="<?= $link->url("user.shop") ?>">Sign up</a></button>
         </form>
     </div>
 
@@ -59,13 +59,13 @@ $layout = '';
 
             <span>or use your email and password</span>
 
-            <label><input type="email" placeholder="Email"></label>
+            <label><input id="email" type="email" placeholder="Email"></label>
 
-            <label><input type="password" placeholder="Password"></label>
+            <label><input id="password" type="password" placeholder="Password"></label>
 
             <a href="#">Forgot your password?</a>
 
-            <button class="btn-submit"><a href="<?= $link->url("intro.shop") ?>">Sign in</a></button>
+            <button id="sign-in" class="btn-submit"><a href="<?= $link->url("intro.shop") ?>">Sign in</a></button>
         </form>
     </div>
 

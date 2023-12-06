@@ -13,9 +13,9 @@ $layout = 'eshop';
             <p class="name">Neapolitan pizza</p>
             <p class="cost">Cost: 10,50 €</p>
             <div class="counter">
-                <img src="/public/images/icons/plus.png" alt="plus">
+                <img src="/public/images/icons/plus.png" alt="">
                 <span class="count">0</span>
-                <img src="/public/images/icons/minus.png" alt="minus">
+                <img src="/public/images/icons/minus.png" alt="">
             </div>
         </div>
     </div>
@@ -27,9 +27,9 @@ $layout = 'eshop';
             <p class="name">New York pizza</p>
             <p class="cost">Cost: 9,20 €</p>
             <div class="counter">
-                <img src="/public/images/icons/plus.png" alt="plus">
+                <img src="/public/images/icons/plus.png" alt="">
                 <span class="count">0</span>
-                <img src="/public/images/icons/minus.png" alt="minus">
+                <img src="/public/images/icons/minus.png" alt="">
             </div>
         </div>
     </div>
@@ -41,9 +41,9 @@ $layout = 'eshop';
             <p class="name">California pizza</p>
             <p class="cost">Cost: 9,50 €</p>
             <div class="counter">
-                <img src="/public/images/icons/plus.png" alt="plus">
+                <img src="/public/images/icons/plus.png" alt="">
                 <span class="count">0</span>
-                <img src="/public/images/icons/minus.png" alt="minus">
+                <img src="/public/images/icons/minus.png" alt="">
             </div>
         </div>
     </div>
@@ -55,9 +55,9 @@ $layout = 'eshop';
             <p class="name">Greek pizza</p>
             <p class="cost">Cost: 10,00 €</p>
             <div class="counter">
-                <img src="/public/images/icons/plus.png" alt="plus">
+                <img src="/public/images/icons/plus.png" alt="">
                 <span class="count">0</span>
-                <img src="/public/images/icons/minus.png" alt="minus">
+                <img src="/public/images/icons/minus.png" alt="">
             </div>
         </div>
     </div>
@@ -69,9 +69,9 @@ $layout = 'eshop';
             <p class="name">Roman pizza</p>
             <p class="cost">Cost: 10,20 €</p>
             <div class="counter">
-                <img src="/public/images/icons/plus.png" alt="plus">
+                <img src="/public/images/icons/plus.png" alt="">
                 <span class="count">0</span>
-                <img src="/public/images/icons/minus.png" alt="minus">
+                <img src="/public/images/icons/minus.png" alt="">
             </div>
         </div>
     </div>

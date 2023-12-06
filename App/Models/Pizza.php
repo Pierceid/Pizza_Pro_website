@@ -4,9 +4,10 @@ class Pizza extends \App\Core\Model
 {
     protected ?int $id = null;
     protected ?string $name;
-    protected ?string $imagePath;
     protected ?string $description;
     protected ?int $cost;
+    protected ?string $imagePath;
+
 
     public function getId(): ?int
     {
@@ -21,16 +22,6 @@ class Pizza extends \App\Core\Model
     public function setName(?string $name): void
     {
         $this->name = $name;
-    }
-
-    public function getImagePath(): ?string
-    {
-        return $this->imagePath;
-    }
-
-    public function setImagePath(?string $imagePath): void
-    {
-        $this->imagePath = $imagePath;
     }
 
     public function getDescription(): ?string
@@ -51,5 +42,15 @@ class Pizza extends \App\Core\Model
     public function setCost(?int $cost): void
     {
         $this->cost = $cost;
+    }
+
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    public function setImagePath(?string $imagePath): void
+    {
+        $this->imagePath = $imagePath;
     }
 }
