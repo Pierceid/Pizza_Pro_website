@@ -42,9 +42,7 @@ class UserController extends AControllerBase
                 $newUser->setEmail($email);
                 $newUser->setPassword($password);
                 $newUser->save();
-                $data['name'] = $name;
-                $data['email'] = $email;
-                $data['password'] = $password;
+                $data['newUser'] = $newUser;
             }
         }
         return $this->html($data);
