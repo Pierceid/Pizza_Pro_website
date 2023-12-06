@@ -27,12 +27,12 @@ class ShopController extends AControllerBase
 
     public function add(): Response
     {
-        return $this->redirect($this->url('shop.add'));
+        return $this->html();
     }
 
     public function remove(): Response
     {
-        return $this->redirect($this->url('shop.remove'));
+        return $this->html();
     }
 
     public function feedback(): Response
