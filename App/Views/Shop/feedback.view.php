@@ -18,9 +18,9 @@ $layout = '';
 <body>
 
 <div class="container-fluid">
-    <a href="<?= $link->url('home.intro') ?>"><img src="/public/images/others/logo.png" alt=""></a>
+    <a href="<?= $link->url("shop.index") ?>"><img src="/public/images/others/logo.png" alt=""></a>
     <h1 style="font-size: x-large; font-weight: bold">Give us your feedback</h1>
-    <a href="<?= $link->url('home.intro') ?>"><img src="/public/images/others/logo.png" alt=""></a>
+    <a href="<?= $link->url("shop.index") ?>"><img src="/public/images/others/logo.png" alt=""></a>
 </div>
 
 <div class="question">
@@ -76,7 +76,7 @@ $layout = '';
 <div class="action-buttons">
     <div class="btn btn-secondary" style="background-color: purple">Discard</div>
     <div class="btn btn-secondary" style="background-color: purple">
-        <a href="<?= $link->url('intro.shop') ?>">Cancel</a>
+        <a href="<?= $link->url("shop.index") ?>">Cancel</a>
     </div>
     <div class="btn btn-secondary" style="background-color: purple">Send</div>
 </div>

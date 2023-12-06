@@ -16,14 +16,18 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function intro(): Response
+    public function user(): Response
     {
+        return $this->html();
+    }
+
+    public function profile(): Response {
         return $this->html();
     }
 
     public function cart(): Response
     {
-        return $this->html();
+        return $this->redirect($this->url('shop.cart'));
     }
 
     public function feedback(): Response

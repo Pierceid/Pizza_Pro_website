@@ -17,6 +17,11 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
+    public function shop(): Response
+    {
+        return $this->html();
+    }
+
     /**
      * @throws \Exception
      */
@@ -25,7 +30,7 @@ class UserController extends AControllerBase
         $formData = $this->app->getRequest()->getPost();
         $data = [];
 
-        if (isset($formData['btn-submit'])) {
+        if (isset($formData['sign-up'])) {
             $name = $formData['name'];
             $email = $formData['email'];
             $password = $formData['password'];
@@ -42,10 +47,5 @@ class UserController extends AControllerBase
             }
         }
         return $this->html($data);
-    }
-
-    public function shop(): Response
-    {
-        return $this->html();
     }
 }

@@ -42,7 +42,7 @@ $layout = '';
 
             <label><input id="password" type="password" placeholder="Password"></label>
 
-            <button id="sign-up" class="btn-submit"><a href="<?= $link->url("user.shop") ?>">Sign up</a></button>
+            <button id="sign-up" class="btn-submit">Sign up</button>
         </form>
     </div>
 
@@ -65,7 +65,7 @@ $layout = '';
 
             <a href="#">Forgot your password?</a>
 
-            <button id="sign-in" class="btn-submit"><a href="<?= $link->url("intro.shop") ?>">Sign in</a></button>
+            <button id="sign-in" class="btn-submit"><a href="<?= $link->url('user.shop')?>">Sign in</a></button>
         </form>
     </div>
 

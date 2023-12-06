@@ -41,8 +41,8 @@ class HomeController extends AControllerBase
     }
 
     // Pizza Pro page
-    public function intro(): Response
+    public function user(): Response
     {
-        return $this->html();
+        return $this->redirect($this->url('user.index'));
     }
 }

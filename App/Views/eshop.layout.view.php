@@ -46,7 +46,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="<?= $link->url('home.intro')?>">Log out</a></li>
+                        <li><a class="dropdown-item" href="<?= $link->url('user.index')?>">Log out</a></li>
                     </ul>
                 </li>
             </ul>
