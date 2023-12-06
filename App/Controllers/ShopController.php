@@ -25,9 +25,14 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function cart(): Response
+    public function add(): Response
     {
-        return $this->redirect($this->url('shop.cart'));
+        return $this->redirect($this->url('shop.add'));
+    }
+
+    public function remove(): Response
+    {
+        return $this->redirect($this->url('shop.remove'));
     }
 
     public function feedback(): Response

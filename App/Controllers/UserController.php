@@ -28,7 +28,7 @@ class UserController extends AControllerBase
     {
         $formData = $this->app->getRequest()->getPost();
         $data = [];
-
+        $data['form'] = $formData;
         if (isset($formData['sign-up'])) {
             $name = $formData['name'];
             $email = $formData['email'];
@@ -42,7 +42,7 @@ class UserController extends AControllerBase
                 $newUser->setEmail($email);
                 $newUser->setPassword($password);
                 $newUser->save();
-                $data['newUser'] = $newUser;
+                $data['name'] = $newUser->getName();
             }
         }
         return $this->html($data);

@@ -1,9 +1,23 @@
 <?php
 $layout = 'eshop';
-/* @var \App\Core\LinkGenerator $link */
+/**
+ * @var \App\Core\LinkGenerator $link
+ * @var Array $data
+ */
 ?>
 
+<link rel="stylesheet" href="/public/css/styl_addOrRemove.css">
+
 <a href="#"><img class="banner" src="/public/images/others/banner.png" alt=""></a>
+
+<div class="action-buttons">
+    <div class="btn btn-secondary" style="background-color: purple">
+        <a href="<?= $link->url("shop.add") ?>">Add</a>
+    </div>
+    <div class="btn btn-secondary" style="background-color: purple">
+        <a href="<?= $link->url("shop.remove") ?>">Remove</a>
+    </div>
+</div>
 
 <div class="container-fluid pizzas-container row">
     <div class="card col-md-4">
