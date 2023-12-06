@@ -9,6 +9,14 @@ namespace App\Core;
  */
 interface IAuthenticator
 {
+
+    /**
+     * @param $login
+     * @param $email
+     * @return bool
+     */
+    public function register($login, $email): bool;
+
     /**
      * Perform user login
      * @param $login

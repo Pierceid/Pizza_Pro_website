@@ -29,13 +29,12 @@ class UserController extends AControllerBase
     {
         $formData = $this->app->getRequest()->getPost();
         $data = [];
-
         if (isset($formData['sign-up'])) {
             $name = $formData['name'];
             $email = $formData['email'];
             $password = $formData['password'];
 
-            if (!$this->app->getAuth()->register($name, $email, $password)) {
+            if (!$this->app->getAuth()->register($name, $email)) {
                 $data = ['message' => 'User already exists!'];
             } else {
                 $newUser = new User();
@@ -43,7 +42,6 @@ class UserController extends AControllerBase
                 $newUser->setEmail($email);
                 $newUser->setPassword($password);
                 $newUser->save();
-                $data = ['message' => 'Registration was successful!'];
             }
         }
         return $this->html($data);

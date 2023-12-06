@@ -28,6 +28,11 @@
                 <a class="nav-link" href="<?= $link->url("home.contact") ?>">Kontakt</a>
             </li>
         </ul>
+
+        <a href="<?= $link->url("user.register") ?>">
+            <img src="/public/images/others/logo.png" alt="" style="width: 40px; height: 40px">
+        </a>
+
         <?php if ($auth->isLogged()) { ?>
             <span class="navbar-text">Prihlásený používateľ: <b><?= $auth->getLoggedUserName() ?></b></span>
             <ul class="navbar-nav ms-auto">
