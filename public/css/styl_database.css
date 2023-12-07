@@ -18,6 +18,7 @@
 }
 
 .columns td {
+    font-weight: bold;
     background-color: mediumpurple;
 }
 
