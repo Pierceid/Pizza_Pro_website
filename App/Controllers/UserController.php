@@ -65,7 +65,6 @@ class UserController extends AControllerBase
             if (!$this->app->getAuth()->login($name, $password)) {
                 $data = ['message' => "Invalid password!"];
             } else {
-
                 return $this->redirect($this->url("shop.index"));
             }
         }
