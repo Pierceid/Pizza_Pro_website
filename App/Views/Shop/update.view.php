@@ -7,8 +7,10 @@ $layout = 'eshop';
 ?>
 <link rel="stylesheet" href="/public/css/styl_CRUD.css">
 
-<form class="form form-add" method="post" action="<?= $link->url("pizza.addItem") ?>">
-    <h1>Add pizza</h1>
+<form class="form form-update" method="post" action="<?= $link->url("pizza.updateItem") ?>">
+    <h1>Update pizza</h1>
+
+    <label><input name="id" type="text" placeholder="Id"></label>
 
     <label><input name="name" type="text" placeholder="Name"></label>
 
@@ -16,7 +18,7 @@ $layout = 'eshop';
 
     <label><input name="cost" type="text" placeholder="Cost"></label>
 
-    <button name="btn-add" class="btn-submit" type="submit">Add</button>
+    <button name="btn-update" class="btn-submit" type="submit">Update</button>
 
     <h2></h2>
 </form>

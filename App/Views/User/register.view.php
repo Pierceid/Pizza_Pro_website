@@ -49,7 +49,7 @@ $layout = '';
     </div>
 
     <div class="form-container sign-in">
-        <form class="form-sign-in" method="post" action="<?= $link->url("user.register") ?>">
+        <form class="form-sign-in" method="post" action="<?= $link->url("user.checkLogin") ?>">
             <h1 class="title">Log in</h1>
 
             <div class="social-media">

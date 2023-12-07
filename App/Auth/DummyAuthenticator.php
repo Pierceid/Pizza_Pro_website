@@ -26,6 +26,28 @@ class DummyAuthenticator implements IAuthenticator
     }
 
     /**
+     * Verify, if the user is already in DB
+     * @param $login
+     * @param $email
+     * @return bool
+     * @throws \Exception
+     */
+    public function register($login, $email): bool
+    {
+        $users = User::getAll();
+        if (count($users) == 0) {
+            return true;
+        } elseif (!empty($login) || !empty($email)) {
+            foreach ($users as $user) {
+                if ($user->getName() != $login && $user->getEmail() != $email) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Verify, if the user is in DB and has his password is correct
      * @param $login
      * @param $password
@@ -43,31 +65,6 @@ class DummyAuthenticator implements IAuthenticator
         }
         return false;
     }
-
-
-    /**
-     * Verify, if the user is already in DB
-     * @param $login
-     * @param $email
-     * @return bool
-     * @throws \Exception
-     */
-    public function register($login, $email): bool
-    {
-        $users = User::getAll();
-        if (count($users) == 0) {
-            return true;
-        }
-        elseif (!empty($login) || !empty($email)) {
-            foreach ($users as $user) {
-                if ($user->getName() != $login && $user->getEmail() != $email) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
     /**
      * Logout the user

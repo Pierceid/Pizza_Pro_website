@@ -25,17 +25,22 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
+    public function feedback(): Response
+    {
+        return $this->html();
+    }
+
     public function add(): Response
     {
         return $this->html();
     }
 
-    public function remove(): Response
+    public function update(): Response
     {
         return $this->html();
     }
 
-    public function feedback(): Response
+    public function remove(): Response
     {
         return $this->html();
     }

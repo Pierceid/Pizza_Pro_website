@@ -38,16 +38,37 @@ class UserController extends AControllerBase
 
         if (!is_null($name) && !is_null($email) && !is_null($password)) {
             if (!$this->app->getAuth()->register($name, $email)) {
-                $data = ['message' => 'User already exists!'];
+                $data = ['message' => "User already exists!"];
             } else {
                 $user = new User();
                 $user->setName($name);
                 $user->setEmail($email);
                 $user->setPassword($password);
                 $user->save();
-                return $this->redirect($this->url('shop.index'));
+                return $this->redirect($this->url("shop.index"));
             }
         }
-        return $this->redirect($this->url('user.register'));
+        return $this->redirect($this->url("user.register"));
+    }
+    public function login(): Response
+    {
+        return $this->html();
+    }
+
+    public function checkLogin() :Response
+    {
+        $formData = $this->app->getRequest();
+        $name = $formData->getValue("name");
+        $password = $formData->getValue("password");
+
+        if (!is_null($name) && !is_null($password)) {
+            if (!$this->app->getAuth()->login($name, $password)) {
+                $data = ['message' => "Invalid password!"];
+            } else {
+
+                return $this->redirect($this->url("shop.index"));
+            }
+        }
+        return $this->redirect($this->url("user.register"));
     }
 }

@@ -20,9 +20,9 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a href="#"><img src="/public/images/others/logo.png" alt=""></a>
+        <a href="<?= $link->url("shop.index") ?>"><img src="/public/images/others/logo.png" alt=""></a>
 
-        <a class="navbar-brand" href="#">PIZZA PRO</a>
+        <a class="navbar-brand" href="<?= $link->url("shop.index") ?>">PIZZA PRO</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" href="#">Profile</a></li>
-                <li class="nav-item"><a class="nav-link active" href="#">Cart</a></li>
+                <li class="nav-item"><a class="nav-link active" href="<?= $link->url('shop.database')?>">Database</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">

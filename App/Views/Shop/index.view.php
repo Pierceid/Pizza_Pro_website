@@ -6,13 +6,16 @@ $layout = 'eshop';
  */
 ?>
 
-<link rel="stylesheet" href="/public/css/styl_addOrRemove.css">
+<link rel="stylesheet" href="/public/css/styl_CRUD.css">
 
 <a href="#"><img class="banner" src="/public/images/others/banner.png" alt=""></a>
 
 <div class="action-buttons">
     <div class="btn btn-secondary" style="background-color: purple">
         <a href="<?= $link->url("shop.add") ?>">Add</a>
+    </div>
+    <div class="btn btn-secondary" style="background-color: purple">
+        <a href="<?= $link->url("shop.update") ?>">Update</a>
     </div>
     <div class="btn btn-secondary" style="background-color: purple">
         <a href="<?= $link->url("shop.remove") ?>">Remove</a>
