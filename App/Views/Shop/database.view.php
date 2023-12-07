@@ -15,10 +15,10 @@ $layout = 'eshop';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/public/css/styl_shop.css">
+    <link rel="stylesheet" href="/public/css/styl_database.css">
 </head>
 
-<div class="container" style="display: flex; justify-content: center">
+<div class="container">
     <div class="row mt-5">
         <div class="col">
             <div class="card mt-5">
@@ -30,11 +30,11 @@ $layout = 'eshop';
 
                 <table class="table table-bordered text-center">
                     <tr class="columns">
-                        <td style="background-color: mediumpurple">ID</td>
-                        <td style="background-color: mediumpurple">Name</td>
-                        <td style="background-color: mediumpurple">Description</td>
-                        <td style="background-color: mediumpurple">Cost</td>
-                        <td style="background-color: mediumpurple">Image path</td>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>Cost</td>
+                        <td>Image path</td>
                     </tr>
 
                     <?php for ($i = 0; $i < count($data); $i++) { ?>
@@ -43,7 +43,7 @@ $layout = 'eshop';
                             <td><?= $data[$i][1] ?></td>
                             <td><?= $data[$i][2] ?></td>
                             <td><?= $data[$i][3] ?></td>
-                            <td style="max-width: 150px; width: fit-content; overflow-x: hidden"><?= $data[$i][4] ?></td>
+                            <td><?= $data[$i][4] ?></td>
                         </tr>
                     <?php } ?>
                 </table>

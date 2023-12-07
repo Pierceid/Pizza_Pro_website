@@ -1,0 +1,28 @@
+.container {
+    justify-content: center;
+    width: 100%;
+}
+
+.card {
+    margin-top: 5rem;
+}
+
+.card-header {
+    background-color: purple;
+}
+
+.card-header h2 {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+.columns td {
+    background-color: mediumpurple;
+}
+
+.content td:last-child {
+    max-width: 180px;
+    width: fit-content;
+    overflow-x: hidden;
+}
