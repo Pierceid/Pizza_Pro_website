@@ -1,5 +1,5 @@
 <?php
-use App\Models\Pizza;
+
 $layout = 'eshop';
 /** @var string $contentHTML */
 /** @var \App\Core\IAuthenticator $auth */
@@ -17,14 +17,39 @@ $layout = 'eshop';
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/public/css/styl_shop.css">
-    <script src="/public/js/script.js"></script>
 </head>
 
-<script src="/public/js/script_database.js"></script>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2 class="display-6 text-center">Pizzas table</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered text-center">
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Description</td>
+                            <td>Cost</td>
+                            <td>Image path</td>
+                        </tr>
 
-<?php foreach ($row as $data['row']) { ?>
-    <?php echo $data['row'] . "<br>"; ?>
-<?php } ?>
-
+                        <?php for ($i = 0; $i < count($data); $i++) { ?>
+                                <tr>
+                                    <td><?= $data[$i][0] ?></td>
+                                    <td><?= $data[$i][1] ?></td>
+                                    <td><?= $data[$i][2] ?></td>
+                                    <td><?= $data[$i][3] ?></td>
+                                    <td><?= $data[$i][4] ?></td>
+                                </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>
