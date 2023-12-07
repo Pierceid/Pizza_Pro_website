@@ -30,7 +30,7 @@ class ShopController extends AControllerBase
     public function database(): Response
     {
         $pizzas = Pizza::getAll(orderBy: '`id` asc');
-        $data = [][5];
+        $data[] = [];
 
         for ($i = 0; $i < count($pizzas); $i++) {
             $data[$i][0] = $pizzas[$i]->getId();
