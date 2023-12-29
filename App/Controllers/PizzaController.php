@@ -103,7 +103,6 @@ class PizzaController extends AControllerBase
             } else {
                 $data["message"] = "Item with id (" . $id . ") successfully removed!";
                 $pizzaGetOne->delete();
-                $pizzaGetOne->save();
             }
         } else {
             $data["message"] = "Invalid input values!";
@@ -114,23 +113,25 @@ class PizzaController extends AControllerBase
 
     public function validateInputOnAdd($name, $description, $cost, $imagePath): bool
     {
-        return strlen($name) > 0 && strlen($name) < 50 &&
-            strlen($description) > 0 && strlen($description) < 300 &&
-            !is_null($cost) && strlen($cost) > 0 && is_int((int)$cost) &&
-            strlen($imagePath) > 0 && strlen($imagePath) < 300;
+        return !empty($name) && strlen($name) < 50 &&
+            !empty($description) && strlen($description) < 300 &&
+            !empty($cost) && is_int((int)$cost) &&
+            !empty($imagePath) && strlen($imagePath) < 300;
     }
 
     public function validateInputOnUpdate($id, $name, $description, $cost, $imagePath): bool
     {
-        return !is_null($id) && strlen($id) > 0 && is_int((int)$id) &&
-            strlen($name) > 0 && strlen($name) < 50 &&
-            strlen($description) > 0 && strlen($description) < 300 &&
-            !is_null($cost) && strlen($cost) > 0 && is_int((int)$cost) &&
-            strlen($imagePath) > 0 && strlen($imagePath) < 300;
+        return !empty($id) && is_int((int)$id) &&
+            !empty($name) && strlen($name) < 50 &&
+            !empty($description) && strlen($description) < 300 &&
+            !empty($cost) && is_int((int)$cost) &&
+            !empty($imagePath) && strlen($imagePath) < 300;
     }
 
     public function validateInputOnRemove($id): bool
     {
         return is_int((int)$id);
     }
+
+    // button + a - na CRUD s pizza kartami
 }

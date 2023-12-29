@@ -35,31 +35,26 @@ class DummyAuthenticator implements IAuthenticator
     public function register($login, $email): bool
     {
         $users = User::getAll();
-        if (count($users) == 0) {
-            return true;
-        } elseif (!empty($login) || !empty($email)) {
-            foreach ($users as $user) {
-                if ($user->getName() != $login && $user->getEmail() != $email) {
-                    return true;
-                }
-            }
+        foreach ($users as $user) {
+            if ($user->getEmail() == $email) return false;
         }
-        return false;
+        $_SESSION['user'] = $login;
+        return true;
     }
 
     /**
      * Verify, if the user is in DB and has his password is correct
-     * @param $login
+     * @param $email
      * @param $password
      * @return bool
      * @throws \Exception
      */
-    public function login($login, $password): bool
+    public function login($email, $password): bool
     {
         $users = User::getAll();
         foreach ($users as $user) {
-            if ($user->getName() == $login && $user->getPassword() == $password) {
-                $_SESSION['user'] = $login;
+            if ($user->getEmail() == $email && $user->getPassword() == $password) {
+                $_SESSION['user'] = $user->getName();
                 return true;
             }
         }

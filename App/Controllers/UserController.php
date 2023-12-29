@@ -32,14 +32,12 @@ class UserController extends AControllerBase
     public function checkRegister() :Response
     {
         $formData = $this->app->getRequest();
-        $name = $formData->getValue("name");
-        $email = $formData->getValue("email");
-        $password = $formData->getValue("password");
+        $name = $formData->getValue("sign-up-name");
+        $email = $formData->getValue("sign-up-email");
+        $password = $formData->getValue("sign-up-password");
 
-        if (!is_null($name) && !is_null($email) && !is_null($password)) {
-            if (!$this->app->getAuth()->register($name, $email)) {
-                $data = ['message' => "User already exists!"];
-            } else {
+        if (!empty($name) && !empty($email) && !empty($password)) {
+            if ($this->app->getAuth()->register($name, $email)) {
                 $user = new User();
                 $user->setName($name);
                 $user->setEmail($email);
@@ -48,7 +46,7 @@ class UserController extends AControllerBase
                 return $this->redirect($this->url("shop.index"));
             }
         }
-        return $this->redirect($this->url("user.register"));
+        return $this->redirect($this->url("user.index"));
     }
     public function login(): Response
     {
@@ -58,16 +56,14 @@ class UserController extends AControllerBase
     public function checkLogin() :Response
     {
         $formData = $this->app->getRequest();
-        $name = $formData->getValue("name");
-        $password = $formData->getValue("password");
+        $email = $formData->getValue("sign-in-email");
+        $password = $formData->getValue("sign-in-password");
 
-        if (!is_null($name) && !is_null($password)) {
-            if (!$this->app->getAuth()->login($name, $password)) {
-                $data = ['message' => "Invalid password!"];
-            } else {
+        if (!empty($email) && !empty($password)) {
+            if ($this->app->getAuth()->login($email, $password)) {
                 return $this->redirect($this->url("shop.index"));
             }
         }
-        return $this->redirect($this->url("user.register"));
+        return $this->redirect($this->url("user.login"));
     }
 }

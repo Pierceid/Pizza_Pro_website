@@ -29,7 +29,7 @@
             </li>
         </ul>
 
-        <a href="<?= $link->url("user.register") ?>">
+        <a href="<?= $link->url("user.index") ?>">
             <img src="/public/images/others/logo.png" alt="" style="width: 40px; height: 40px">
         </a>
 
