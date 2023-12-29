@@ -7,7 +7,7 @@ class Pizza extends \App\Core\Model
     protected ?int $id = null;
     protected ?string $name;
     protected ?string $description;
-    protected ?int $cost;
+    protected float $cost;
     protected ?string $imagePath;
 
 
@@ -36,12 +36,12 @@ class Pizza extends \App\Core\Model
         $this->description = $description;
     }
 
-    public function getCost(): ?int
+    public function getCost(): ?float
     {
         return $this->cost;
     }
 
-    public function setCost(?int $cost): void
+    public function setCost(?float $cost): void
     {
         $this->cost = $cost;
     }

@@ -28,7 +28,7 @@ class PizzaController extends AControllerBase
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
-        $imagePath = "/public/images/pizzas/neapolitan.png";
+        $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
 
         if ($this->validateInputOnAdd($name, $description, $cost, $imagePath)) {
             $pizza = new Pizza();

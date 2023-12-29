@@ -77,7 +77,7 @@ $layout = '';
                 <h1 class="title">Welcome back!</h1>
                 <p>Enter your personal details to use all site features.</p>
                 <button class="btn-hidden" id="login">Sign in</button>
-                <img src="/public/images/others/pizza_sharing.png" alt="">
+                <img src="/public/images/others/pizza-sharing.png" alt="">
             </div>
 
             <div class="toggle-panel right-panel">

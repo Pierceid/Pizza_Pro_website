@@ -39,11 +39,11 @@ $layout = 'shop';
 
                     <?php for ($i = 0; $i < count($data); $i++) { ?>
                         <tr class="content">
-                            <td><?= $data[$i][0] ?></td>
-                            <td><?= $data[$i][1] ?></td>
-                            <td><?= $data[$i][2] ?></td>
-                            <td><?= $data[$i][3] ?></td>
-                            <td><?= (strlen($data[$i][4]) > 15) ? '.....' : $data[$i][4] ?></td>
+                            <td><?= $data[$i]['id'] ?></td>
+                            <td><?= $data[$i]['name'] ?></td>
+                            <td><?= $data[$i]['description'] ?></td>
+                            <td><?= $data[$i]['cost'] ?></td>
+                            <td><?= (strlen($data[$i]['image-path']) > 15) ? '.....' : $data[$i]['image-path'] ?></td>
                         </tr>
                     <?php } ?>
                 </table>

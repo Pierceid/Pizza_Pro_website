@@ -14,7 +14,8 @@ class ShopController extends AControllerBase
      */
     public function index(): Response
     {
-        return $this->html();
+        $data = $this->getPizzas();
+        return $this->html($data);
     }
 
     public function user(): Response
@@ -29,17 +30,7 @@ class ShopController extends AControllerBase
 
     public function database(): Response
     {
-        $pizzas = Pizza::getAll(orderBy: '`id` asc');
-        $data[] = [];
-
-        for ($i = 0; $i < count($pizzas); $i++) {
-            $data[$i][0] = $pizzas[$i]->getId();
-            $data[$i][1] = $pizzas[$i]->getName();
-            $data[$i][2] = $pizzas[$i]->getDescription();
-            $data[$i][3] = $pizzas[$i]->getCost();
-            $data[$i][4] = $pizzas[$i]->getImagePath();
-        }
-
+        $data = $this->getPizzas();
         return $this->html($data);
     }
 
@@ -61,5 +52,24 @@ class ShopController extends AControllerBase
     public function remove(): Response
     {
         return $this->html();
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function getPizzas(): array
+    {
+        $pizzas = Pizza::getAll(orderBy: '`id` asc');
+        $data[] = [];
+
+        for ($i = 0; $i < count($pizzas); $i++) {
+            $data[$i]['id'] = $pizzas[$i]->getId();
+            $data[$i]['name'] = $pizzas[$i]->getName();
+            $data[$i]['description'] = $pizzas[$i]->getDescription();
+            $data[$i]['cost'] = number_format($pizzas[$i]->getCost(), 2);
+            $data[$i]['image-path'] = $pizzas[$i]->getImagePath();
+        }
+        return $data;
     }
 }
