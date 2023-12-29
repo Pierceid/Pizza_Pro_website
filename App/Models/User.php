@@ -8,7 +8,7 @@ use App\Core\Model;
 class User extends Model
 {
     protected ?int $id = null;
-    protected ?string $name;
+    protected ?string $login;
     protected ?string $email;
     protected ?string $password;
 
@@ -17,14 +17,14 @@ class User extends Model
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getLogin(): ?string
     {
-        return $this->name;
+        return $this->login;
     }
 
-    public function setName(?string $name): void
+    public function setLogin(?string $login): void
     {
-        $this->name = $name;
+        $this->login = $login;
     }
 
     public function getEmail(): ?string

@@ -31,7 +31,7 @@ class UserController extends AControllerBase
         if (!empty($name) && !empty($email) && !empty($password)) {
             if ($this->app->getAuth()->register($name, $email)) {
                 $user = new User();
-                $user->setName($name);
+                $user->setLogin($name);
                 $user->setEmail($email);
                 $user->setPassword($password);
                 $user->save();

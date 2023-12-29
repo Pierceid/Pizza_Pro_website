@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Pizza;
-use http\Header\Parser;
 
 class PizzaController extends AControllerBase
 {
@@ -32,20 +31,15 @@ class PizzaController extends AControllerBase
         $imagePath = "/public/images/pizzas/neapolitan.png";
 
         if ($this->validateInputOnAdd($name, $description, $cost, $imagePath)) {
-            $data = [];
-            $data["message"] = "Item with successfully added!";
-
             $pizza = new Pizza();
             $pizza->setName($name);
             $pizza->setDescription($description);
             $pizza->setCost($cost);
             $pizza->setImagePath($imagePath);
             $pizza->save();
-        } else {
-            $data["message"] = "Invalid input values!";
         }
 
-        return $this->redirect($this->url("shop.add", ["data" => $data]));
+        return $this->redirect($this->url("shop.add"));
     }
 
     public function update(): Response
@@ -113,24 +107,24 @@ class PizzaController extends AControllerBase
 
     public function validateInputOnAdd($name, $description, $cost, $imagePath): bool
     {
-        return !empty($name) && strlen($name) < 50 &&
-            !empty($description) && strlen($description) < 300 &&
-            !empty($cost) && is_int((int)$cost) &&
-            !empty($imagePath) && strlen($imagePath) < 300;
+        return !empty($name) && strlen($name) < 200 &&
+            !empty($description) && strlen($description) < 200 &&
+            is_numeric($cost) && strlen((string)$cost) < 200 &&
+            !empty($imagePath) && strlen($imagePath) < 200;
     }
 
     public function validateInputOnUpdate($id, $name, $description, $cost, $imagePath): bool
     {
-        return !empty($id) && is_int((int)$id) &&
-            !empty($name) && strlen($name) < 50 &&
-            !empty($description) && strlen($description) < 300 &&
-            !empty($cost) && is_int((int)$cost) &&
-            !empty($imagePath) && strlen($imagePath) < 300;
+        return !empty($id) && is_numeric($id) &&
+            !empty($name) && strlen($name) < 200 &&
+            !empty($description) && strlen($description) < 200 &&
+            is_numeric($cost) && strlen((string)$cost) < 200 &&
+            !empty($imagePath) && strlen($imagePath) < 200;
     }
 
     public function validateInputOnRemove($id): bool
     {
-        return is_int((int)$id);
+        return is_numeric($id);
     }
 
     // button + a - na CRUD s pizza kartami
