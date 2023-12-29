@@ -1,7 +1,6 @@
 <?php
 
 /** @var string $contentHTML */
-/** @var \App\Core\IAuthenticator $auth */
 /** @var \App\Core\LinkGenerator $link */
 ?>
 <!DOCTYPE html>
@@ -31,7 +30,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" href="#">Profile</a></li>
-                <li class="nav-item"><a class="nav-link active" href="<?= $link->url('shop.database')?>">Database</a></li>
+                <li class="nav-item"><a class="nav-link active" href="<?= $link->url('shop.database') ?>">Database</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
@@ -39,22 +39,22 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?= $link->url('shop.feedback')?>">Feedback</a></li>
+                        <li><a class="dropdown-item" href="<?= $link->url('shop.feedback') ?>">Feedback</a></li>
                         <li><a class="dropdown-item" href="#">Q&A</a></li>
                         <li><a class="dropdown-item" href="#">History</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="<?= $link->url('user.index')?>">Log out</a></li>
+                        <li><a class="dropdown-item" href="<?= $link->url('user.index') ?>">Log out</a></li>
                     </ul>
                 </li>
             </ul>
 
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search your favorite pizza"
-                       aria-label="Search">
+                <input name="search-value" class="form-control me-2" type="search"
+                       placeholder="Search your favorite pizza" aria-label="Search">
 
-                <button class="btn btn-outline-light" type="submit">Search</button>
+                <button name="search-btn" class="btn btn-outline-light" type="submit">Search</button>
             </form>
         </div>
     </div>

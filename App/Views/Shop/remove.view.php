@@ -1,11 +1,11 @@
 <?php
-$layout = 'eshop';
+$layout = 'shop';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
  */
 ?>
-<link rel="stylesheet" href="/public/css/styl_CRUD.css">
+<link rel="stylesheet" href="/public/css/styl_message.css">
 
 <form class="form form-remove" method="post" action="<?= $link->url("pizza.removeItem") ?>">
     <h1>Remove pizza</h1>

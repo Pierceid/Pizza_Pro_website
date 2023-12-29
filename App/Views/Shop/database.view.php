@@ -1,5 +1,5 @@
 <?php
-$layout = 'eshop';
+$layout = 'shop';
 /** @var string $contentHTML */
 /** @var \App\Core\IAuthenticator $auth */
 /** @var \App\Core\LinkGenerator $link */
@@ -43,7 +43,7 @@ $layout = 'eshop';
                             <td><?= $data[$i][1] ?></td>
                             <td><?= $data[$i][2] ?></td>
                             <td><?= $data[$i][3] ?></td>
-                            <td><?= $data[$i][4] ?></td>
+                            <td><?= (strlen($data[$i][4]) > 15) ? '.....' : $data[$i][4] ?></td>
                         </tr>
                     <?php } ?>
                 </table>

@@ -21,14 +21,6 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function register(): Response
-    {
-        return $this->html();
-    }
-
     public function checkRegister() :Response
     {
         $formData = $this->app->getRequest();
@@ -46,11 +38,7 @@ class UserController extends AControllerBase
                 return $this->redirect($this->url("shop.index"));
             }
         }
-        return $this->redirect($this->url("user.index"));
-    }
-    public function login(): Response
-    {
-        return $this->html();
+        return $this->redirect($this->url("user.message"));
     }
 
     public function checkLogin() :Response
@@ -64,6 +52,11 @@ class UserController extends AControllerBase
                 return $this->redirect($this->url("shop.index"));
             }
         }
-        return $this->redirect($this->url("user.login"));
+        return $this->redirect($this->url("user.message"));
+    }
+
+    public function message(): Response
+    {
+        return $this->html();
     }
 }
