@@ -5,7 +5,6 @@ namespace App\Auth;
 use App\Core\IAuthenticator;
 use App\Models\User;
 
-
 /**
  * Class DummyAuthenticator
  * Basic implementation of user authentication
@@ -36,7 +35,9 @@ class DummyAuthenticator implements IAuthenticator
     {
         $users = User::getAll();
         foreach ($users as $user) {
-            if ($user->getEmail() == $email) return false;
+            if ($user->getEmail() == $email) {
+                return false;
+            }
         }
         $_SESSION['user'] = $login;
         return true;

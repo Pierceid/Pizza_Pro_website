@@ -1,4 +1,5 @@
 <?php
+
 $layout = 'shop';
 /**
  * @var \App\Core\LinkGenerator $link
@@ -53,7 +54,7 @@ $layout = 'shop';
 <div class="pizzas-container container-fluid row">
     <?php for ($i = 0; $i < count($data); $i++) { ?>
         <div class="card">
-            <img style="max-width: 100%; max-height: 160px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
+            <img style="max-height: 160px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
             <h3 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h3>
             <h5 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h5>
         </div>

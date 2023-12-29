@@ -9,7 +9,6 @@ namespace App\Core;
  */
 interface IAuthenticator
 {
-
     /**
      * Perform user registration
      * @param $login

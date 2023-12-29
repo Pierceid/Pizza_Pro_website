@@ -1,4 +1,5 @@
 <?php
+
 $layout = '';
 /**
  * @var \App\Core\LinkGenerator $link

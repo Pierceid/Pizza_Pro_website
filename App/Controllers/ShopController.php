@@ -8,7 +8,6 @@ use App\Models\Pizza;
 
 class ShopController extends AControllerBase
 {
-
     /**
      * @inheritDoc
      */

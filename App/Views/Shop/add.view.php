@@ -1,10 +1,12 @@
 <?php
+
 $layout = 'shop';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
  */
 ?>
+
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <form class="form form-add" method="post" action="<?= $link->url("pizza.addItem") ?>">

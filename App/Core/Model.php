@@ -17,7 +17,7 @@ abstract class Model implements \JsonSerializable
 {
     private static ?Connection $connection = null;
     private static ?array $dbColumns = null;
-    private mixed $_dbId = null;
+    private mixed $dbId = null;
 
     /**
      * Return an array of models from DB
@@ -143,7 +143,7 @@ abstract class Model implements \JsonSerializable
             foreach ($data as $key => &$item) {
                 $item = isset($this->$key) ? $this->$key : null;
             }
-            if ($this->_dbId == null) {
+            if ($this->dbId == null) {
                 $arrColumns = array_map(fn($item) => (':' . $item), array_keys($data));
                 $columns = '`' . implode('`,`', array_keys($data)) . "`";
                 $params = implode(',', $arrColumns);
@@ -152,7 +152,7 @@ abstract class Model implements \JsonSerializable
                 $stmt->execute($data);
                 if (!isset($this->{static::getPkColumnName()})) {
                     $this->{static::getPkColumnName()} = self::$connection->lastInsertId();
-                    $this->_dbId = $this->{static::getPkColumnName()};
+                    $this->dbId = $this->{static::getPkColumnName()};
                 }
             } else {
                 $arrColumns = array_map(fn($item) => ("`" . $item . '`=:' . $item), array_keys($data));
@@ -160,7 +160,7 @@ abstract class Model implements \JsonSerializable
                 $sql = "UPDATE `" . static::getTableName() . "` SET $columns WHERE `" . static::getPkColumnName() .
                     "`=:__pk";
                 $stmt = self::$connection->prepare($sql);
-                $data["__pk"] = $this->_dbId;
+                $data["__pk"] = $this->dbId;
                 $stmt->execute($data);
             }
         } catch (PDOException $e) {

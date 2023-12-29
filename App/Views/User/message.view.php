@@ -1,10 +1,12 @@
 <?php
+
 $layout = '';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
  */
 ?>
+
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <form class="form form-message" method="post" action="<?= $link->url("user.index") ?>">

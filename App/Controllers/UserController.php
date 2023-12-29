@@ -21,7 +21,7 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
-    public function checkRegister() :Response
+    public function checkRegister(): Response
     {
         $formData = $this->app->getRequest();
         $name = $formData->getValue("sign-up-name");
@@ -41,7 +41,7 @@ class UserController extends AControllerBase
         return $this->redirect($this->url("user.message"));
     }
 
-    public function checkLogin() :Response
+    public function checkLogin(): Response
     {
         $formData = $this->app->getRequest();
         $email = $formData->getValue("sign-in-email");

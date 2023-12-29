@@ -72,7 +72,9 @@ class App
                 if ($response instanceof Response) {
                     $response->send();
                 } else {
-                    throw new \Exception("Action {$this->router->getFullControllerName()}::{$this->router->getAction()} didn't return an instance of Response.");
+                    throw new \Exception("Action {
+                    $this->router->getFullControllerName()}::{$this->router->getAction()} 
+                    didn't return an instance of Response.");
                 }
             } else {
                 if ($this->auth->isLogged() || !defined('\\App\\Config\\Configuration::LOGIN_URL')) {
@@ -103,7 +105,7 @@ class App
                 foreach ($lines as $line) {
                     if (preg_match("/^Sent SQL: \[\d+\]/", $line)) {
                         $query = $line;
-                    } else if (preg_match("/^Params:  \d+/", $line)) {
+                    } elseif (preg_match("/^Params:  \d+/", $line)) {
                         break;
                     } else {
                         $query .= $line . "\n";
