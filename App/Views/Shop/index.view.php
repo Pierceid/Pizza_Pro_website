@@ -9,34 +9,47 @@ $layout = 'shop';
 
 <link rel="stylesheet" href="/public/css/styl_shop.css">
 
-<div id="carousel-container" class="carousel slide" style="margin: 10px; padding: 10px; background-color: #111">
-    <div class="carousel-inner" style="text-align: center">
-        <div class="carousel-item active">
-            <img src="/public/images/pizzas/neapolitan-pizza.png" alt="" style="width: 25%; height: 100%">
-            <img src="/public/images/pizzas/new-york-pizza.png" alt="" style="width: 25%">
-            <img src="/public/images/pizzas/california-pizza.png" alt="" style="width: 25%">
+<div class="carousel-container">
+    <div id="carousel-container" class="carousel slide" style="padding: 10px 0; background-color: #111">
+        <div class="carousel-inner" style="text-align: center">
+            <div class="carousel-item active">
+                <img src="/public/images/pizzas/neapolitan-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px">
+                <img src="/public/images/pizzas/new-york-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px; margin: 0 10px">
+                <img src="/public/images/pizzas/california-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px">
+            </div>
+            <div class="carousel-item">
+                <img src="/public/images/pizzas/greek-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px">
+                <img src="/public/images/pizzas/roman-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px; margin: 0 10px">
+                <img src="/public/images/pizzas/pepperoni-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px">
+            </div>
+            <div class="carousel-item">
+                <img src="/public/images/pizzas/chicken-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px">
+                <img src="/public/images/pizzas/veggie-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px; margin: 0 10px">
+                <img src="/public/images/pizzas/supreme-pizza.png" alt=""
+                     style="width: 25%; max-width: 250px; max-height: 200px">
+            </div>
         </div>
-        <div class="carousel-item">
-            <img src="/public/images/pizzas/greek-pizza.png" alt="" style="width: 25%">
-            <img src="/public/images/pizzas/roman-pizza.png" alt="" style="width: 25%">
-            <img src="/public/images/pizzas/pepperoni-pizza.png" alt="" style="width: 25%">
-        </div>
-        <div class="carousel-item">
-            <img src="/public/images/pizzas/chicken-pizza.png" alt="" style="width: 25%">
-            <img src="/public/images/pizzas/veggie-pizza.png" alt="" style="width: 25%">
-            <img src="/public/images/pizzas/supreme-pizza.png" alt="" style="width: 25%">
-        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-container" data-bs-slide="prev"
+                style="justify-content: left; padding-left: 5px">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-container" data-bs-slide="next"
+                style="justify-content: right; padding-right: 5px">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-container" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#carousel-container" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
 </div>
 
 <div class="action-buttons">

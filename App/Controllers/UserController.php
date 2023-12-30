@@ -35,11 +35,11 @@ class UserController extends AControllerBase
                 $user->setEmail($email);
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $user->save();
-                return $this->redirect($this->url("shop.index"));
+                return $this->redirect($this->url("user.success"));
             }
         }
 
-        return $this->redirect($this->url("user.message"));
+        return $this->redirect($this->url("user.fail"));
     }
 
     public function checkLogin(): Response
@@ -50,15 +50,22 @@ class UserController extends AControllerBase
 
         if (!empty($email) && !empty($password)) {
             if ($this->app->getAuth()->login($email, $password)) {
-                return $this->redirect($this->url("shop.index"));
+                return $this->redirect($this->url("user.success"));
             }
         }
 
-        return $this->redirect($this->url("user.message"));
+        return $this->redirect($this->url("user.fail"));
     }
 
-    public function message(): Response
+    public function success(): Response
     {
-        return $this->html();
+        $data = ["message" => "The task has been successfully completed!"];
+        return $this->html($data);
+    }
+
+    public function fail(): Response
+    {
+        $data = ["message" => "Failed to complete the requested action!"];
+        return $this->html($data);
     }
 }

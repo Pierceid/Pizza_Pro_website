@@ -14,11 +14,6 @@ h2, h3 {
     margin: 10px;
 }
 
-h2 {
-    color: red;
-    text-decoration: underline;
-}
-
 .form {
     position: relative;
     top: 25%;
