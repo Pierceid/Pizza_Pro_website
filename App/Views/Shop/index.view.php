@@ -52,7 +52,7 @@ $layout = 'pizza-pro';
     </div>
 </div>
 
-<div class="pizzas-container container-fluid row">
+<div class="pizzas-container row">
     <div class="card" style="width: 150px; height: 150px; margin: 75px 50px;
     border: 5px solid black; border-radius: 50%; background-color: darkorange">
         <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
