@@ -38,6 +38,11 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
+    public function cart(): Response
+    {
+        return $this->html();
+    }
+
     public function add(): Response
     {
         return $this->html();

@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'shop';
+$layout = 'pizza-pro';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data

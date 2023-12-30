@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'shop';
+$layout = 'pizza-pro';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
@@ -53,18 +53,29 @@ $layout = 'shop';
 </div>
 
 <div class="pizzas-container container-fluid row">
+    <div class="card" style="width: 150px; height: 150px; margin: 75px 50px;
+    border: 5px solid black; border-radius: 50%; background-color: darkorange">
+        <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
+    </div>
+
     <?php for ($i = 0; $i < count($data); $i++) { ?>
-        <div class="card" style="width: 240px; height: 300px">
-            <img style="max-height: 160px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
-            <h3 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h3>
-            <h5 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h5>
+        <div class="card" style="width: 230px; height: 280px">
+            <img style="max-height: 150px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
+            <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h4>
+            <h6 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h6>
+            <div class="action-buttons">
+                <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
+                    <a href="<?= $link->url("shop.update") ?>" style="text-decoration: none; color: white">O</a>
+                </button>
+                <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
+                    <a href="<?= $link->url("shop.cart") ?>" style="text-decoration: none; color: white">Add to cart</a>
+                </button>
+                <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
+                    <a href="<?= $link->url("shop.remove") ?>" style="text-decoration: none; color: white">X</a>
+                </button>
+            </div>
         </div>
     <?php } ?>
-    <div class="card" style="width: 140px; height: 140px; border-radius: 50%; margin: 80px 60px; background-color: darkorange">
-        <a href="<?= $link->url("shop.add") ?>">
-            <img src="/public/images/icons/plus.png" alt="">
-        </a>
-    </div>
 </div>
 
 <script src="/public/js/script_shop.js"></script>

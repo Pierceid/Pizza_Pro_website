@@ -14,32 +14,25 @@ body {
     background-attachment: fixed;
 }
 
-.navbar img {
-    width: 40px;
-    height: 40px;
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.navbar .navbar-brand {
-    font-size: xx-large;
-    font-weight: bold;
-    padding: 0 10px;
+.pizzas-container .add-button:hover {
+    background-color: orangered;
 }
 
 .pizzas-container .card {
     background-color: lightgrey;
     padding: 10px;
     text-align: center;
-    border: 5px solid black;
+    border: 2px solid black;
     border-radius: 10px;
 }
 
 .pizzas-container .card:hover {
     transform: scale(1.05);
     background-color: #d0a0f0;
-}
-
-.carousel-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

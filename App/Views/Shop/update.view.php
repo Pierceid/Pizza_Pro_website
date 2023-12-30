@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'shop';
+$layout = 'pizza-pro';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
@@ -11,8 +11,6 @@ $layout = 'shop';
 
 <form class="form form-update" method="post" action="<?= $link->url("pizza.updateItem") ?>">
     <h1>Update pizza</h1>
-
-    <label><input name="id" type="text" placeholder="Id"></label>
 
     <label><input name="name" type="text" placeholder="Name"></label>
 

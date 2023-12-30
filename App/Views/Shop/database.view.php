@@ -1,7 +1,7 @@
 <?php
-$layout = 'shop';
+
+$layout = 'pizza-pro';
 /** @var string $contentHTML */
-/** @var \App\Core\IAuthenticator $auth */
 /** @var \App\Core\LinkGenerator $link */
 /** @var $data */
 ?>
