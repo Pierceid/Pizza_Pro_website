@@ -52,26 +52,19 @@ $layout = 'shop';
     </div>
 </div>
 
-<div class="action-buttons">
-    <div class="btn btn-secondary" style="background-color: purple">
-        <a href="<?= $link->url("shop.add") ?>">Add</a>
-    </div>
-    <div class="btn btn-secondary" style="background-color: purple">
-        <a href="<?= $link->url("shop.update") ?>">Update</a>
-    </div>
-    <div class="btn btn-secondary" style="background-color: purple">
-        <a href="<?= $link->url("shop.remove") ?>">Remove</a>
-    </div>
-</div>
-
 <div class="pizzas-container container-fluid row">
     <?php for ($i = 0; $i < count($data); $i++) { ?>
-        <div class="card">
+        <div class="card" style="width: 240px; height: 300px">
             <img style="max-height: 160px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
             <h3 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h3>
             <h5 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h5>
         </div>
     <?php } ?>
+    <div class="card" style="width: 140px; height: 140px; border-radius: 50%; margin: 80px 60px; background-color: darkorange">
+        <a href="<?= $link->url("shop.add") ?>">
+            <img src="/public/images/icons/plus.png" alt="">
+        </a>
+    </div>
 </div>
 
 <script src="/public/js/script_shop.js"></script>
