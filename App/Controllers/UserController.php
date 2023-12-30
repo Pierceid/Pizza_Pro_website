@@ -33,11 +33,12 @@ class UserController extends AControllerBase
                 $user = new User();
                 $user->setLogin($name);
                 $user->setEmail($email);
-                $user->setPassword($password);
+                $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $user->save();
                 return $this->redirect($this->url("shop.index"));
             }
         }
+
         return $this->redirect($this->url("user.message"));
     }
 
@@ -52,6 +53,7 @@ class UserController extends AControllerBase
                 return $this->redirect($this->url("shop.index"));
             }
         }
+
         return $this->redirect($this->url("user.message"));
     }
 

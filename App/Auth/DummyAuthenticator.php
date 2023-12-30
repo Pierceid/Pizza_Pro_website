@@ -54,7 +54,7 @@ class DummyAuthenticator implements IAuthenticator
     {
         $users = User::getAll();
         foreach ($users as $user) {
-            if ($user->getEmail() == $email && $user->getPassword() == $password) {
+            if ($user->getEmail() == $email && password_verify($password, $user->getPassword())) {
                 $_SESSION['user'] = $user->getLogin();
                 return true;
             }
