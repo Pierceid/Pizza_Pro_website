@@ -29,16 +29,18 @@ class PizzaController extends AControllerBase
         $cost = $formData->getValue("cost");
         $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
 
-        if ($this->validateInputOnAdd($name, $description, $cost, $imagePath)) {
+        if ($this->validateInput($name, $description, $cost)) {
             $pizza = new Pizza();
             $pizza->setName($name);
             $pizza->setDescription($description);
             $pizza->setCost($cost);
             $pizza->setImagePath($imagePath);
             $pizza->save();
+
+            return $this->redirect($this->url("shop.success"));
         }
 
-        return $this->redirect($this->url("shop.add"));
+        return $this->redirect($this->url("shop.fail"));
     }
 
     public function update(): Response
@@ -46,36 +48,30 @@ class PizzaController extends AControllerBase
         return $this->html();
     }
 
-    /**
-     * @throws \Exception
-     */
     public function updateItem(): Response
     {
         $formData = $this->app->getRequest();
-        $id = $formData->getValue("id");
+        $id = $this->request()->getValue('id');
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
-        $imagePath = "/public/images/pizzas/neapolitan.png";
+        $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
 
-        if ($this->validateInputOnUpdate($id, $name, $description, $cost, $imagePath)) {
-            $data = [];
+        if ($this->validateInput($name, $description, $cost)) {
             $pizzaGetOne = Pizza::getOne($id);
 
-            if (is_null($pizzaGetOne)) {
-                $data["message"] = "Item with id (" . $id . ") doesnt exists!";
-            } else {
-                $data["message"] = "Item with id (" . $id . ") successfully updated!";
+            if (!is_null($pizzaGetOne)) {
                 $pizzaGetOne->setName($name);
                 $pizzaGetOne->setDescription($description);
                 $pizzaGetOne->setCost($cost);
+                $pizzaGetOne->setImagePath($imagePath);
                 $pizzaGetOne->save();
+
+                return $this->redirect($this->url("shop.success"));
             }
-        } else {
-            $data["message"] = "Invalid input values!";
         }
 
-        return $this->redirect($this->url("shop.update", ["data" => $data]));
+        return $this->redirect($this->url("shop.fail"));
     }
 
     public function remove(): Response
@@ -89,42 +85,31 @@ class PizzaController extends AControllerBase
         $id = $formData->getValue("id");
         $pizzaGetOne = Pizza::getOne($id);
 
-        if ($this->validateInputOnRemove($id)) {
-            $data = [];
-            if (is_null($pizzaGetOne)) {
-                $data["message"] = "Item with id (" . $id . ") doesnt exist!";
-            } else {
-                $data["message"] = "Item with id (" . $id . ") successfully removed!";
-                $pizzaGetOne->delete();
-            }
-        } else {
-            $data["message"] = "Invalid input values!";
+        if (!is_null($pizzaGetOne)) {
+            $pizzaGetOne->delete();
+
+            return $this->redirect($this->url("shop.success"));
         }
 
-        return $this->redirect($this->url("shop.remove", ["data" => $data]));
+        return $this->redirect($this->url("shop.fail"));
     }
 
-    public function validateInputOnAdd($name, $description, $cost, $imagePath): bool
+    public function validateInput($name, $description, $cost): bool
     {
         return !empty($name) && strlen($name) < 200 &&
             !empty($description) && strlen($description) < 200 &&
-            is_numeric($cost) && strlen((string)$cost) < 200 &&
-            !empty($imagePath) && strlen($imagePath) < 200;
+            is_numeric($cost) && strlen((string)$cost) < 200;
     }
 
-    public function validateInputOnUpdate($id, $name, $description, $cost, $imagePath): bool
+    public function fail(): Response
     {
-        return !empty($id) && is_numeric($id) &&
-            !empty($name) && strlen($name) < 200 &&
-            !empty($description) && strlen($description) < 200 &&
-            is_numeric($cost) && strlen((string)$cost) < 200 &&
-            !empty($imagePath) && strlen($imagePath) < 200;
+        $data["message"] = "Failed to complete the requested action!";
+        return $this->html($data);
     }
 
-    public function validateInputOnRemove($id): bool
+    public function success(): Response
     {
-        return is_numeric($id);
+        $data["message"] = "Action has been completed successfully!";
+        return $this->html($data);
     }
-
-    // button + a - na CRUD s pizza kartami
 }

@@ -60,18 +60,20 @@ $layout = 'pizza-pro';
 
     <?php for ($i = 0; $i < count($data); $i++) { ?>
         <div class="card" style="width: 230px; height: 280px">
+            <?= $id = $data[$i]['id']; ?>
+
             <img style="max-height: 150px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
             <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h4>
             <h6 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h6>
             <div class="action-buttons">
                 <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
-                    <a href="<?= $link->url("shop.update") ?>" style="text-decoration: none; color: white">O</a>
+                    <a href="<?= $link->url("shop.update", ["id" => $id]) ?>" style="text-decoration: none; color: white">Edit</a>
                 </button>
                 <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
-                    <a href="<?= $link->url("shop.cart") ?>" style="text-decoration: none; color: white">Add to cart</a>
+                    <a href="<?= $link->url("shop.cart", ["id" => $id]) ?>" style="text-decoration: none; color: white">Add</a>
                 </button>
                 <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
-                    <a href="<?= $link->url("shop.remove") ?>" style="text-decoration: none; color: white">X</a>
+                    <a href="<?= $link->url("shop.remove", ["id" => $id]) ?>" style="text-decoration: none; color: white">Delete</a>
                 </button>
             </div>
         </div>

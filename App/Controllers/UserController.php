@@ -21,6 +21,18 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
+    public function fail(): Response
+    {
+        $data["message"] = "Failed to complete the requested action!";
+        return $this->html($data);
+    }
+
+    public function success(): Response
+    {
+        $data["message"] = "Action has been completed successfully!";
+        return $this->html($data);
+    }
+
     public function checkRegister(): Response
     {
         $formData = $this->app->getRequest();
@@ -55,17 +67,5 @@ class UserController extends AControllerBase
         }
 
         return $this->redirect($this->url("user.fail"));
-    }
-
-    public function success(): Response
-    {
-        $data = ["message" => "The task has been successfully completed!"];
-        return $this->html($data);
-    }
-
-    public function fail(): Response
-    {
-        $data = ["message" => "Failed to complete the requested action!"];
-        return $this->html($data);
     }
 }
