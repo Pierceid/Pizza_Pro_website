@@ -28,6 +28,7 @@ class PizzaController extends AControllerBase
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
         $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
+        $message = "Failed to add an item!";
 
         if ($this->validateInput($name, $description, $cost)) {
             $pizza = new Pizza();
@@ -36,11 +37,10 @@ class PizzaController extends AControllerBase
             $pizza->setCost($cost);
             $pizza->setImagePath($imagePath);
             $pizza->save();
-
-            return $this->redirect($this->url("shop.success"));
+            $message = "Item has been successfully added!";
         }
 
-        return $this->redirect($this->url("shop.fail"));
+        return $this->redirect($this->url("shop.add", ["message" => $message]));
     }
 
     public function update(): Response
@@ -51,11 +51,12 @@ class PizzaController extends AControllerBase
     public function updateItem(): Response
     {
         $formData = $this->app->getRequest();
-        $id = $this->request()->getValue('id');
+        $id = $this->request()->getValue('update-id');
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
         $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
+        $message = "Failed to update the item!";
 
         if ($this->validateInput($name, $description, $cost)) {
             $pizzaGetOne = Pizza::getOne($id);
@@ -66,32 +67,25 @@ class PizzaController extends AControllerBase
                 $pizzaGetOne->setCost($cost);
                 $pizzaGetOne->setImagePath($imagePath);
                 $pizzaGetOne->save();
-
-                return $this->redirect($this->url("shop.success"));
+                $message = "Item has been successfully updated!";
             }
         }
 
-        return $this->redirect($this->url("shop.fail"));
-    }
-
-    public function remove(): Response
-    {
-        return $this->html();
+        return $this->redirect($this->url("shop.update", ["message" => $message]));
     }
 
     public function removeItem(): Response
     {
-        $formData = $this->app->getRequest();
-        $id = $formData->getValue("id");
+        $id = $this->request()->getValue('remove-id');
         $pizzaGetOne = Pizza::getOne($id);
+        $message = "Failed to remove the item!";
 
         if (!is_null($pizzaGetOne)) {
             $pizzaGetOne->delete();
-
-            return $this->redirect($this->url("shop.success"));
+            $message = "Item has been successfully removed!";
         }
 
-        return $this->redirect($this->url("shop.fail"));
+        return $this->redirect($this->url("shop.remove", ["message" => $message]));
     }
 
     public function validateInput($name, $description, $cost): bool
@@ -99,17 +93,5 @@ class PizzaController extends AControllerBase
         return !empty($name) && strlen($name) < 200 &&
             !empty($description) && strlen($description) < 200 &&
             is_numeric($cost) && strlen((string)$cost) < 200;
-    }
-
-    public function fail(): Response
-    {
-        $data["message"] = "Failed to complete the requested action!";
-        return $this->html($data);
-    }
-
-    public function success(): Response
-    {
-        $data["message"] = "Action has been completed successfully!";
-        return $this->html($data);
     }
 }

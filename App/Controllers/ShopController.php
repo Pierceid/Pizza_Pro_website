@@ -58,18 +58,6 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function fail(): Response
-    {
-        $data["message"] = "Failed to complete the requested action!";
-        return $this->html($data);
-    }
-
-    public function success(): Response
-    {
-        $data["message"] = "Action has been completed successfully!";
-        return $this->html($data);
-    }
-
     public function getPizzas(): array
     {
         $pizzas = Pizza::getAll(orderBy: '`id` asc');

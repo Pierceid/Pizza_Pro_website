@@ -10,7 +10,7 @@ $layout = 'pizza-pro';
 <link rel="stylesheet" href="/public/css/styl_shop.css">
 
 <div class="carousel-container">
-    <div id="carousel-container" class="carousel slide" style="padding: 10px 0; background-color: #111">
+    <div id="carousel-container" class="carousel slide" style="width: 100%; padding: 10px 0; background-color: #111">
         <div class="carousel-inner" style="text-align: center">
             <div class="carousel-item active">
                 <img src="/public/images/pizzas/neapolitan-pizza.png" alt=""
@@ -53,31 +53,33 @@ $layout = 'pizza-pro';
 </div>
 
 <div class="pizzas-container row">
-    <div class="card" style="width: 150px; height: 150px; margin: 75px 50px;
+    <div class="card" style="justify-content: center; width: 150px; height: 150px; margin: 85px 50px;
     border: 5px solid black; border-radius: 50%; background-color: darkorange">
         <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
     </div>
 
-    <?php for ($i = 0; $i < count($data); $i++) { ?>
-        <div class="card" style="width: 230px; height: 280px">
-            <?= $id = $data[$i]['id']; ?>
+    <?php if (count($data) > 0) : ?>
+        <?php for ($i = 0; $i < count($data); $i++) { ?>
+            <div class="card" style="width: 230px; height: 300px; margin: 10px">
+                <?= $id = $data[$i]['id']; ?>
 
-            <img style="max-height: 150px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
-            <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h4>
-            <h6 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h6>
-            <div class="action-buttons">
-                <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
-                    <a href="<?= $link->url("shop.update", ["id" => $id]) ?>" style="text-decoration: none; color: white">Edit</a>
-                </button>
-                <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
-                    <a href="<?= $link->url("shop.cart", ["id" => $id]) ?>" style="text-decoration: none; color: white">Add</a>
-                </button>
-                <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
-                    <a href="<?= $link->url("shop.remove", ["id" => $id]) ?>" style="text-decoration: none; color: white">Delete</a>
-                </button>
+                <img style="max-height: 150px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
+                <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h4>
+                <h6 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h6>
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
+                        <a href="<?= $link->url("shop.update", ["update-id" => $id]) ?>" style="text-decoration: none; color: white">Edit</a>
+                    </button>
+                    <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
+                        <a href="<?= $link->url("shop.cart", ["add-id" => $id]) ?>" style="text-decoration: none; color: white">Add</a>
+                    </button>
+                    <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
+                        <a href="<?= $link->url("shop.remove", ["remove-id" => $id]) ?>" style="text-decoration: none; color: white">Delete</a>
+                    </button>
+                </div>
             </div>
-        </div>
-    <?php } ?>
+        <?php } ?>
+    <?php endif ?>
 </div>
 
 <script src="/public/js/script_shop.js"></script>
