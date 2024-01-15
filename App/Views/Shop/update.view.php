@@ -18,7 +18,9 @@ $layout = 'pizza-pro';
 
     <label><input name="cost" type="text" placeholder="Cost"></label>
 
-    <button name="btn-update" class="btn-submit" type="submit">Update</button>
+    <input type ="hidden" name ="pizza_id" value ="<?= $_GET["update_id"] ?>" />
+
+    <button class="btn-submit" type="submit">Update</button>
 
     <h4 style="color: darkmagenta"><?php if (isset($_GET['message'])) echo $_GET['message']; ?></h4>
 </form>

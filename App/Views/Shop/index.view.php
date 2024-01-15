@@ -68,13 +68,13 @@ $layout = 'pizza-pro';
                 <h6 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h6>
                 <div class="action-buttons">
                     <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.update", ["update-id" => $id]) ?>" style="text-decoration: none; color: white">Edit</a>
+                        <a href="<?= $link->url("shop.update", ["update_id" => $id]) ?>" style="text-decoration: none; color: white">Edit</a>
                     </button>
                     <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.cart", ["add-id" => $id]) ?>" style="text-decoration: none; color: white">Add</a>
+                        <a href="<?= $link->url("shop.cart", ["add_id" => $id]) ?>" style="text-decoration: none; color: white">Add</a>
                     </button>
                     <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.remove", ["remove-id" => $id]) ?>" style="text-decoration: none; color: white">Delete</a>
+                        <a href="<?= $link->url("shop.remove", ["remove_id" => $id]) ?>" style="text-decoration: none; color: white">Delete</a>
                     </button>
                 </div>
             </div>

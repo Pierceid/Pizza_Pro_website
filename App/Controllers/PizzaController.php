@@ -51,7 +51,7 @@ class PizzaController extends AControllerBase
     public function updateItem(): Response
     {
         $formData = $this->app->getRequest();
-        $id = $this->request()->getValue('update-id');
+        $id = $formData->getValue('pizza_id');
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
@@ -71,7 +71,7 @@ class PizzaController extends AControllerBase
             }
         }
 
-        return $this->redirect($this->url("shop.update", ["message" => $message]));
+        return $this->redirect($this->url("shop.update", ["update_id" => $id, "message" => $message]));
     }
 
     public function removeItem(): Response
