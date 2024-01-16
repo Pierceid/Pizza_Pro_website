@@ -32,6 +32,10 @@ h2, h3 {
     background-color: lightgrey;
 }
 
+.form label {
+    width: 100%;
+}
+
 .form input {
     width: 100%;
     max-width: 400px;

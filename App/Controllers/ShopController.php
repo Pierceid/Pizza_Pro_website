@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Core\AControllerBase;
 use App\Core\Responses\Response;
 use App\Models\Pizza;
+use App\Models\User;
 
 class ShopController extends AControllerBase
 {
@@ -13,7 +14,9 @@ class ShopController extends AControllerBase
      */
     public function index(): Response
     {
-        $data = $this->getPizzas();
+        $data["admin"] = $this->getIsAdmin();
+        $data["pizzas"] = $this->getPizzas();
+
         return $this->html($data);
     }
 
@@ -68,8 +71,21 @@ class ShopController extends AControllerBase
             $data[$i]['name'] = $pizzas[$i]->getName();
             $data[$i]['description'] = $pizzas[$i]->getDescription();
             $data[$i]['cost'] = number_format($pizzas[$i]->getCost(), 2);
-            $data[$i]['image-path'] = $pizzas[$i]->getImagePath();
+            $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
         }
         return $data;
+    }
+
+    public function getIsAdmin(): int
+    {
+        $users = User::getAll();
+        $isAdmin = 0;
+        foreach ($users as $user) {
+            if ($user->getLogin() == $_SESSION["user"]) {
+                $isAdmin = $user->getIsAdmin();
+            }
+        }
+
+        return $isAdmin;
     }
 }

@@ -10,6 +10,8 @@ class User extends Model
     protected ?string $login;
     protected ?string $email;
     protected ?string $password;
+    protected ?int $isAdmin;
+
 
     public function getId(): ?int
     {
@@ -44,5 +46,15 @@ class User extends Model
     public function setPassword(?string $password): void
     {
         $this->password = $password;
+    }
+
+    public function getIsAdmin(): ?int
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(?int $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
     }
 }

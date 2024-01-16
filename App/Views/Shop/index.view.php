@@ -12,30 +12,18 @@ $layout = 'pizza-pro';
 <div class="carousel-container">
     <div id="carousel-container" class="carousel slide" style="width: 100%; padding: 10px 0; background-color: #111">
         <div class="carousel-inner" style="text-align: center">
-            <div class="carousel-item active">
-                <img src="/public/images/pizzas/neapolitan-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px">
-                <img src="/public/images/pizzas/new-york-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px; margin: 0 10px">
-                <img src="/public/images/pizzas/california-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px">
-            </div>
-            <div class="carousel-item">
-                <img src="/public/images/pizzas/greek-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px">
-                <img src="/public/images/pizzas/roman-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px; margin: 0 10px">
-                <img src="/public/images/pizzas/pepperoni-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px">
-            </div>
-            <div class="carousel-item">
-                <img src="/public/images/pizzas/chicken-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px">
-                <img src="/public/images/pizzas/veggie-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px; margin: 0 10px">
-                <img src="/public/images/pizzas/supreme-pizza.png" alt=""
-                     style="width: 25%; max-width: 250px; max-height: 200px">
-            </div>
+            <?php
+            shuffle($data['pizzas']);
+            $pizzaSets = array_chunk($data['pizzas'], 3);
+
+            foreach ($pizzaSets as $setIndex => $pizzaSet): ?>
+                <div class="carousel-item<?php echo $setIndex === 0 ? ' active' : ''; ?>">
+                    <?php foreach ($pizzaSet as $pizza): ?>
+                        <img src="<?= $pizza['image-path'] ?>" alt=""
+                             style="width: 25%; max-width: 250px; max-height: 200px; margin: 5px">
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
         </div>
 
         <button class="carousel-control-prev" type="button" data-bs-target="#carousel-container" data-bs-slide="prev"
@@ -53,33 +41,51 @@ $layout = 'pizza-pro';
 </div>
 
 <div class="pizzas-container row">
-    <div class="card" style="justify-content: center; width: 150px; height: 150px; margin: 85px 50px;
+    <div class="card" style="width: 145px; height: 145px; margin: 75px 50px;
     border: 5px solid black; border-radius: 50%; background-color: darkorange">
         <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
     </div>
 
-    <?php if (count($data) > 0) : ?>
-        <?php for ($i = 0; $i < count($data); $i++) { ?>
-            <div class="card" style="width: 230px; height: 300px; margin: 10px">
-                <?= $id = $data[$i]['id']; ?>
+    <?php if (!empty($data['pizzas'])) : ?>
+        <?php foreach ($data['pizzas'] as $pizza): ?>
+            <div class="card">
+                <?php
+                $id = $pizza['id'];
+                $name = $pizza['name'];
+                $description = $pizza['description'];
+                $cost = $pizza['cost'];
+                $imagePath = $pizza['image-path'];
+                ?>
 
-                <img style="max-height: 150px; padding-bottom: 10px" src="<?= $data[$i]['image-path'] ?>" alt="">
-                <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $data[$i]['name'] ?></h4>
-                <h6 style="color: black; font-weight: bold">Cost: <?= $data[$i]['cost'] ?> €</h6>
+                <img style="max-height: 150px; padding-bottom: 10px" src="<?= $imagePath ?>" alt="">
+                <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $name ?></h4>
+                <h6 style="color: black; font-weight: bold">Cost: <?= $cost ?> €</h6>
+
                 <div class="action-buttons">
-                    <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.update", ["update_id" => $id]) ?>" style="text-decoration: none; color: white">Edit</a>
-                    </button>
+                    <?php if ($data['admin']): ?>
+                        <button type="button" class="btn btn-primary"
+                                style="border: 2px solid black; font-weight: bold">
+                            <a href="<?= $link->url("shop.update", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
+                               style="text-decoration: none; color: white">Edit</a>
+                        </button>
+                    <?php endif; ?>
+
                     <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.cart", ["add_id" => $id]) ?>" style="text-decoration: none; color: white">Add</a>
+                        <a href="<?= $link->url("shop.cart", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
+                           style="text-decoration: none; color: white">Add</a>
                     </button>
-                    <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.remove", ["remove_id" => $id]) ?>" style="text-decoration: none; color: white">Delete</a>
-                    </button>
+
+                    <?php if ($data['admin']): ?>
+                        <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
+                            <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
+                               style="text-decoration: none; color: white">Delete</a>
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-        <?php } ?>
+        <?php endforeach; ?>
     <?php endif ?>
+
 </div>
 
 <script src="/public/js/script_shop.js"></script>

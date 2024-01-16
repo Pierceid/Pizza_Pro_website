@@ -46,6 +46,7 @@ class UserController extends AControllerBase
                 $user->setLogin($name);
                 $user->setEmail($email);
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+                $user->setIsAdmin(0);
                 $user->save();
                 return $this->redirect($this->url("user.success"));
             }

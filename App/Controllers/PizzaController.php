@@ -27,10 +27,10 @@ class PizzaController extends AControllerBase
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
-        $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
+        $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to add an item!";
 
-        if ($this->validateInput($name, $description, $cost)) {
+        if ($this->validateInput($name, $description, $cost, $imagePath)) {
             $pizza = new Pizza();
             $pizza->setName($name);
             $pizza->setDescription($description);
@@ -51,14 +51,14 @@ class PizzaController extends AControllerBase
     public function updateItem(): Response
     {
         $formData = $this->app->getRequest();
-        $id = $formData->getValue('pizza_id');
+        $id = $formData->getValue("pizza-id");
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
-        $imagePath = "/public/images/pizzas/" . str_replace(' ', '-', strtolower($name)) . ".png";
+        $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to update the item!";
 
-        if ($this->validateInput($name, $description, $cost)) {
+        if ($this->validateInput($name, $description, $cost, $imagePath)) {
             $pizzaGetOne = Pizza::getOne($id);
 
             if (!is_null($pizzaGetOne)) {
@@ -71,12 +71,12 @@ class PizzaController extends AControllerBase
             }
         }
 
-        return $this->redirect($this->url("shop.update", ["update_id" => $id, "message" => $message]));
+        return $this->redirect($this->url("shop.update", ["message" => $message]));
     }
 
     public function removeItem(): Response
     {
-        $id = $this->request()->getValue('remove-id');
+        $id = $this->app->getRequest()->getValue("pizza-id");
         $pizzaGetOne = Pizza::getOne($id);
         $message = "Failed to remove the item!";
 
@@ -88,10 +88,36 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.remove", ["message" => $message]));
     }
 
-    public function validateInput($name, $description, $cost): bool
+    public function validateInput($name, $description, $cost, $imagePath): bool
     {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_FILES["image-path"])) {
+                $fileName = $_FILES["image-path"]['name'];
+                $fileTmpName = $_FILES["image-path"]['tmp_name'];
+                $fileError = $_FILES["image-path"]['error'];
+
+                $fileSeparated = explode('.', $fileName);
+                $fileExt = strtolower(end($fileSeparated));
+                $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+                if (in_array($fileExt, $allowed)) {
+                    if ($fileError === 0) {
+                        $fileDestination = 'public/images/pizzas/' . $fileName;
+                        move_uploaded_file($fileTmpName, $fileDestination);
+                    } else {
+                        echo "There was an error while uploading your file!";
+                        return false;
+                    }
+                } else {
+                    echo "Not supported type of file!";
+                    return false;
+                }
+            }
+        }
+
         return !empty($name) && strlen($name) < 200 &&
             !empty($description) && strlen($description) < 200 &&
-            is_numeric($cost) && strlen((string)$cost) < 200;
+            is_numeric($cost) && strlen((string)$cost) < 200 &&
+            !empty($imagePath);
     }
 }

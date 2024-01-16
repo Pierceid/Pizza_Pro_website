@@ -9,16 +9,18 @@ $layout = 'pizza-pro';
 
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
-<form class="form form-update" method="post" action="<?= $link->url("pizza.updateItem") ?>">
+<form class="form form-update" method="post" action="<?= $link->url("pizza.updateItem") ?>" enctype="multipart/form-data">
+    <input type ="hidden" name ="pizza-id" value ="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>" />
+
     <h1 style="color: blue; font-weight: bold">Update pizza</h1>
 
-    <label><input name="name" type="text" placeholder="Name"></label>
+    <label><input name="name" type="text" placeholder="Name" value="<?php if (isset($_GET['name'])) echo $_GET['name']; ?>"></label>
 
-    <label><input name="description" type="text" placeholder="Description"></label>
+    <label><input name="description" type="text" placeholder="Description" value="<?php if (isset($_GET['description'])) echo $_GET['description']; ?>"></label>
 
-    <label><input name="cost" type="text" placeholder="Cost"></label>
+    <label><input name="cost" type="text" placeholder="Cost" value="<?php if (isset($_GET['cost'])) echo $_GET['cost']; ?>"></label>
 
-    <input type ="hidden" name ="pizza_id" value ="<?= $_GET["update_id"] ?>" />
+    <label><input name="image-path" type="file" placeholder="Image path"></label>
 
     <button class="btn-submit" type="submit">Update</button>
 
