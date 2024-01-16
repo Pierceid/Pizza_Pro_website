@@ -20,7 +20,7 @@ $layout = '';
 
 <div class="container-fluid">
     <a href="<?= $link->url("shop.index") ?>"><img src="/public/images/others/logo.png" alt=""></a>
-    <h1 style="font-size: x-large; font-weight: bold">Give us your feedback</h1>
+    <h1 style="font-size: x-large; font-weight: bold">Give us feedback</h1>
     <a href="<?= $link->url("shop.index") ?>"><img src="/public/images/others/logo.png" alt=""></a>
 </div>
 

@@ -27,7 +27,14 @@ class ShopController extends AControllerBase
 
     public function profile(): Response
     {
-        return $this->html();
+        $user = $this->findUser();
+        $data = [
+            "login" => $user->getLogin(),
+            "email" => $user->getEmail(),
+            "password" => $user->getPassword(),
+            "isAdmin" => $user->getIsAdmin()
+        ];
+        return $this->html($data);
     }
 
     public function database(): Response
@@ -76,16 +83,20 @@ class ShopController extends AControllerBase
         return $data;
     }
 
-    public function getIsAdmin(): int
+    private function findUser(): ?User
     {
         $users = User::getAll();
-        $isAdmin = 0;
         foreach ($users as $user) {
             if ($user->getLogin() == $_SESSION["user"]) {
-                $isAdmin = $user->getIsAdmin();
+                return $user;
             }
         }
+        return null;
+    }
 
-        return $isAdmin;
+    public function getIsAdmin(): int
+    {
+        $user = $this->findUser();
+        return $user ? $user->getIsAdmin() : 0;
     }
 }
