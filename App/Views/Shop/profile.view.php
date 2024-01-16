@@ -12,6 +12,7 @@ $layout = '';
 <meta charset="UTF-8">
 <title>Pizza profile</title>
 <link rel="stylesheet" href="/public/css/styl_feedback.css">
+<link rel="stylesheet" href="/public/css/styl_message.css">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -31,7 +32,7 @@ $layout = '';
     <img style="max-height: 150px; padding-bottom: 10px" src="<?= $data['login'] ?>" alt="">
     <div class="field">
         <h3>Login: <?= $data['login'] ?></h3>
-        <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
+        <button type="button" class="btn btn-primary action-buttons">
             <a href="<?= $link->url("shop.update", ["login" => $data['login'], "email" => $data['email']]) ?>"
             >Change</a>
         </button>
@@ -39,7 +40,7 @@ $layout = '';
 
     <div class="field">
         <h3>Email: <?= $data['email'] ?></h3>
-        <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
+        <button type="button" class="btn btn-primary action-buttons">
             <a href="<?= $link->url("shop.update", ["login" => $data['login'], "email" => $data['email']]) ?>"
             >Change</a>
         </button>
@@ -47,7 +48,7 @@ $layout = '';
 
     <div class="field">
         <h3>Password: <?= $data['password'] ?></h3>
-        <button type="button" class="btn btn-primary" style="border: 2px solid black; font-weight: bold">
+        <button type="button" class="btn btn-primary action-buttons">
             <a href="<?= $link->url("shop.update", ["login" => $data['login'], "email" => $data['email']]) ?>"
             >Change</a>
         </button>

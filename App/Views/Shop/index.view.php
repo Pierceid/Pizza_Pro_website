@@ -64,19 +64,18 @@ $layout = 'pizza-pro';
 
                 <div class="action-buttons">
                     <?php if ($data['admin']): ?>
-                        <button type="button" class="btn btn-primary"
-                                style="border: 2px solid black; font-weight: bold">
+                        <button type="button" class="btn btn-primary">
                             <a href="<?= $link->url("shop.update", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
                             >Edit</a>
                         </button>
                     <?php endif; ?>
 
-                    <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
+                    <button type="button" class="btn btn-success">
                         <a href="<?= $link->url("shop.cart", ["id" => $id]) ?>">Add</a>
                     </button>
 
                     <?php if ($data['admin']): ?>
-                        <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
+                        <button type="button" class="btn btn-dark">
                             <a href="<?= $link->url("shop.remove", ["id" => $id]) ?>">Delete</a>
                         </button>
                     <?php endif; ?>
