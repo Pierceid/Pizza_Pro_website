@@ -14,11 +14,34 @@ body {
     background-attachment: fixed;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
+h4 {
+    text-decoration: underline;
+    font-weight: bold;
+    color: red;
+}
+
+h6 {
+    font-weight: bold;
+    color: black;
+}
+
 .carousel-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.carousel-container .carousel {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #111;
+    text-align: center;
 }
 
 .pizzas-container .add-button:hover {
@@ -40,4 +63,40 @@ body {
 .pizzas-container .card:hover {
     transform: scale(1.05);
     background-color: #d0a0f0;
+}
+
+@keyframes next1 {
+    from {
+        left: 0;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes next2 {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0;
+    }
+}
+
+@keyframes prev1 {
+    from {
+        left: 0;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes prev2 {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0;
+    }
 }

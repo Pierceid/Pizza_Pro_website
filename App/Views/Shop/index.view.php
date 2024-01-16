@@ -10,8 +10,8 @@ $layout = 'pizza-pro';
 <link rel="stylesheet" href="/public/css/styl_shop.css">
 
 <div class="carousel-container">
-    <div id="carousel-container" class="carousel slide" style="width: 100%; padding: 10px 0; background-color: #111">
-        <div class="carousel-inner" style="text-align: center">
+    <div id="carousel-container" class="carousel slide">
+        <div class="carousel-inner">
             <?php
             shuffle($data['pizzas']);
             $pizzaSets = array_chunk($data['pizzas'], 3);
@@ -58,34 +58,31 @@ $layout = 'pizza-pro';
                 ?>
 
                 <img style="max-height: 150px; padding-bottom: 10px" src="<?= $imagePath ?>" alt="">
-                <h4 style="color: red; font-weight: bold; text-decoration: underline"><?= $name ?></h4>
-                <h6 style="color: black; font-weight: bold">Cost: <?= $cost ?> €</h6>
+                <h4><?= $name ?></h4>
+                <h6>Cost: <?= $cost ?> €</h6>
 
                 <div class="action-buttons">
                     <?php if ($data['admin']): ?>
                         <button type="button" class="btn btn-primary"
                                 style="border: 2px solid black; font-weight: bold">
                             <a href="<?= $link->url("shop.update", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
-                               style="text-decoration: none; color: white">Edit</a>
+                            >Edit</a>
                         </button>
                     <?php endif; ?>
 
                     <button type="button" class="btn btn-success" style="border: 2px solid black; font-weight: bold">
-                        <a href="<?= $link->url("shop.cart", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
-                           style="text-decoration: none; color: white">Add</a>
+                        <a href="<?= $link->url("shop.cart", ["id" => $id]) ?>">Add</a>
                     </button>
 
                     <?php if ($data['admin']): ?>
                         <button type="button" class="btn btn-dark" style="border: 2px solid black; font-weight: bold">
-                            <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
-                               style="text-decoration: none; color: white">Delete</a>
+                            <a href="<?= $link->url("shop.remove", ["id" => $id]) ?>">Delete</a>
                         </button>
                     <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php endif ?>
-
 </div>
 
 <script src="/public/js/script_shop.js"></script>

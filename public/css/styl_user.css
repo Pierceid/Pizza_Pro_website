@@ -128,17 +128,6 @@ body {
     animation: move 1s;
 }
 
-@keyframes move {
-    0%, 49% {
-        opacity: 0;
-        z-index: 1;
-    }
-    50%, 100% {
-        opacity: 1;
-        z-index: 3;
-    }
-}
-
 .toggle-container {
     position: absolute;
     top: 0;
@@ -205,4 +194,15 @@ body {
 
 .container.register-mode .toggle-container .right-panel {
     transform: translateX(200%);
+}
+
+@keyframes move {
+    0%, 49% {
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100% {
+        opacity: 1;
+        z-index: 3;
+    }
 }
