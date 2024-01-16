@@ -13,8 +13,9 @@ $layout = 'pizza-pro';
     <div id="carousel-container" class="carousel slide">
         <div class="carousel-inner">
             <?php
-            shuffle($data['pizzas']);
-            $pizzaSets = array_chunk($data['pizzas'], 3);
+            $pizzas = $data['pizzas'];
+            shuffle($pizzas);
+            $pizzaSets = array_chunk($pizzas, 3);
 
             foreach ($pizzaSets as $setIndex => $pizzaSet): ?>
                 <div class="carousel-item<?php echo $setIndex === 0 ? ' active' : ''; ?>">
@@ -46,8 +47,8 @@ $layout = 'pizza-pro';
         <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
     </div>
 
-    <?php if (!empty($data['pizzas'])) : ?>
-        <?php foreach ($data['pizzas'] as $pizza): ?>
+    <?php if (!empty($pizzas)) : ?>
+        <?php foreach ($pizzas as $pizza): ?>
             <div class="card">
                 <?php
                 $id = $pizza['id'];
