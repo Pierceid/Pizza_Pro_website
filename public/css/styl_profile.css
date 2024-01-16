@@ -1,0 +1,73 @@
+body {
+    background-image: url("../images/backgrounds/blue-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    color: purple;
+    font-size: x-large;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    background-color: darkblue;
+    padding: 15px;
+}
+
+.container-fluid img {
+    width: 50px;
+    height: 40px;
+}
+
+.field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    padding: 7px;
+    margin: 7px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+.card img {
+    align-self: center;
+    border: 3px solid black;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+}
+
+.field h3 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    align-self: center;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 45px;
+    font-size: x-large;
+}
+
+.btn a {
+    color: white;
+    text-decoration: none;
+}
