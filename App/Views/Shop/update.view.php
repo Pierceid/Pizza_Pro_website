@@ -12,7 +12,7 @@ $layout = 'pizza-pro';
 <form class="form form-update" method="post" action="<?= $link->url("pizza.updateItem") ?>" enctype="multipart/form-data">
     <input type ="hidden" name ="pizza-id" value ="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>" />
 
-    <h1 style="color: blue; font-weight: bold">Update pizza</h1>
+    <h2 style="color: blue; font-weight: bold">Update pizza</h2>
 
     <label><input name="name" type="text" placeholder="Name" value="<?php if (isset($_GET['name'])) echo $_GET['name']; ?>"></label>
 

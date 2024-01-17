@@ -16,7 +16,6 @@ class ShopController extends AControllerBase
     {
         $data["admin"] = $this->getIsAdmin();
         $data["pizzas"] = $this->getPizzas();
-
         return $this->html($data);
     }
 
@@ -29,10 +28,11 @@ class ShopController extends AControllerBase
     {
         $user = $this->findUser();
         $data = [
-            "login" => $user->getLogin(),
+            "name" => $user->getLogin(),
             "email" => $user->getEmail(),
             "password" => $user->getPassword(),
-            "isAdmin" => $user->getIsAdmin()
+            "isAdmin" => $user->getIsAdmin(),
+            "imagePath" => $user->getProfileImage()
         ];
         return $this->html($data);
     }
@@ -87,7 +87,7 @@ class ShopController extends AControllerBase
     {
         $users = User::getAll();
         foreach ($users as $user) {
-            if ($user->getLogin() == $_SESSION["user"]) {
+            if ($user->getLogin() == $this->app->getAuth()->getLoggedUserName()) {
                 return $user;
             }
         }

@@ -27,31 +27,46 @@ $layout = '';
     <a href="<?= $link->url("shop.index") ?>"><img src="/public/images/others/logo.png" alt=""></a>
 </div>
 
-<div class="card">
-    <img style="" src="/public/images/others/Toxic.png" alt="">
-    <div class="field">
-        <h3>Login: <?= $data['login'] ?></h3>
+<div class="card"
+     style="max-width: 600px; position: relative; left: calc(50% - 20px); transform: translate(-50%);
+     margin: 20px; padding: 10px; background-color: lightgrey; border: 2px solid black">
+    <div class="field" style="flex-direction: column; align-items: center">
+        <img src="/public/images/profiles/<?= $data['imagePath'] ?>" alt="">
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("shop.update", ["login" => $data['login'], "email" => $data['email']]) ?>"
+            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 0]) ?>"
             >Change</a>
         </button>
     </div>
 
     <div class="field">
-        <h3>Email: <?= $data['email'] ?></h3>
+        <h4>Login: <?= $data['name'] ?></h4>
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("shop.update", ["login" => $data['login'], "email" => $data['email']]) ?>"
+            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 1]) ?>"
             >Change</a>
         </button>
     </div>
 
     <div class="field">
-        <h3>Password: ************</h3>
+        <h4>Email: <?= $data['email'] ?></h4>
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("shop.update", ["login" => $data['login'], "email" => $data['email']]) ?>"
+            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 2]) ?>"
             >Change</a>
         </button>
     </div>
+
+    <div class="field">
+        <h4>Password: ************</h4>
+        <button type="button" class="btn btn-primary">
+            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 3]) ?>"
+            >Change</a>
+        </button>
+    </div>
+
+    <?php if (isset($_GET['message'])) : ?>
+        <h4 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; text-align: center">
+            <?= $_GET['message'] ?>
+        </h4>
+    <?php endif ?>
 </div>
 
 </body>

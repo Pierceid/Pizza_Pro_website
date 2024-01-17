@@ -11,7 +11,7 @@ class User extends Model
     protected ?string $email;
     protected ?string $password;
     protected ?int $isAdmin;
-
+    protected ?string $profileImage;
 
     public function getId(): ?int
     {
@@ -56,5 +56,15 @@ class User extends Model
     public function setIsAdmin(?int $isAdmin): void
     {
         $this->isAdmin = $isAdmin;
+    }
+
+    public function getProfileImage(): ?string
+    {
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(?string $profileImage): void
+    {
+        $this->profileImage = $profileImage;
     }
 }

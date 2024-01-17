@@ -10,7 +10,7 @@ $layout = 'pizza-pro';
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <form class="form form-add" method="post" action="<?= $link->url("pizza.addItem") ?>" enctype="multipart/form-data">
-    <h1 style="color: blue; font-weight: bold">Add pizza</h1>
+    <h2 style="color: blue; font-weight: bold">Add pizza</h2>
 
     <label><input name="name" type="text" placeholder="Name"></label>
 

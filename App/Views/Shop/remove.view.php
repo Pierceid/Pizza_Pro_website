@@ -12,7 +12,7 @@ $layout = 'pizza-pro';
 <form class="form form-remove" method="post" action="<?= $link->url("pizza.removeItem") ?>">
     <input type ="hidden" name ="pizza-id" value ="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>" />
 
-    <h1 style="color: blue; font-weight: bold">Remove pizza</h1>
+    <h2 style="color: blue; font-weight: bold">Remove pizza</h2>
 
     <h3>Are you sure you want to delete the pizza?</h3>
 

@@ -38,8 +38,8 @@ header {
     padding: 7px;
     margin: 7px;
     border: 2px solid black;
-    border-radius: 10px;
-    background-color: lightgray;
+    border-radius: 7px;
+    background-color: darkgray;
 }
 
 .card img {
@@ -51,7 +51,7 @@ header {
     margin: 10px;
 }
 
-.field h3 {
+.field h4 {
     margin: 0;
     padding: 0;
     text-align: center;
@@ -63,7 +63,7 @@ header {
     align-items: center;
     justify-content: center;
     width: 80px;
-    height: 45px;
+    height: 40px;
     font-size: x-large;
 }
 
