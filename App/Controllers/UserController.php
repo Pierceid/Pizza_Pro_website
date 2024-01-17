@@ -26,16 +26,9 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
-    public function fail(): Response
+    public function message(): Response
     {
-        $data["message"] = "Failed to complete the requested action!";
-        return $this->html($data);
-    }
-
-    public function success(): Response
-    {
-        $data["message"] = "Action has been completed successfully!";
-        return $this->html($data);
+        return $this->html();
     }
 
     public function checkRegister(): Response
@@ -44,6 +37,8 @@ class UserController extends AControllerBase
         $name = $formData->getValue("sign-up-name");
         $email = $formData->getValue("sign-up-email");
         $password = $formData->getValue("sign-up-password");
+        $message = "Failed to register!";
+        $destination = -1;
 
         if (!empty($name) && !empty($email) && !empty($password)) {
             if ($this->app->getAuth()->register($name, $email)) {
@@ -54,11 +49,11 @@ class UserController extends AControllerBase
                 $user->setIsAdmin(0);
                 $user->setProfileImage("default_profile.png");
                 $user->save();
-                return $this->redirect($this->url("user.success"));
+                $message = "Successfully registered!";
+                $destination = 1;
             }
         }
-
-        return $this->redirect($this->url("user.fail"));
+        return $this->redirect($this->url("user.message", ["message" => $message, "destination" => $destination]));
     }
 
     public function checkLogin(): Response
@@ -66,14 +61,17 @@ class UserController extends AControllerBase
         $formData = $this->app->getRequest();
         $email = $formData->getValue("sign-in-email");
         $password = $formData->getValue("sign-in-password");
+        $message = "Failed to login!";
+        $destination = -1;
 
         if (!empty($email) && !empty($password)) {
             if ($this->app->getAuth()->login($email, $password)) {
-                return $this->redirect($this->url("user.success"));
+                $message = "Successfully logged in!";
+                $destination = 1;
             }
         }
 
-        return $this->redirect($this->url("user.fail"));
+        return $this->redirect($this->url("user.message", ["message" => $message, "destination" => $destination]));
     }
 
     public function changeProfile(): Response

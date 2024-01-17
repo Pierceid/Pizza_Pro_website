@@ -24,4 +24,5 @@ $layout = 'pizza-pro';
         <h4 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; text-align: center">
             <?= $_GET['message'] ?>
         </h4>
-    <?php endif ?></form>
+    <?php endif ?>
+</form>

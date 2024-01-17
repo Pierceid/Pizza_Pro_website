@@ -23,27 +23,23 @@ $layout = 'pizza-pro';
         <div class="col">
             <div class="card mt-5">
                 <div class="card-header" style="background-color: purple">
-                    <h2 style="text-align: center; font-weight: bold; color: white">
-                        Pizzas table
-                    </h2>
+                    <h2 style="text-align: center; font-weight: bold; color: white">Table - users</h2>
                 </div>
 
                 <table class="table table-bordered text-center">
                     <tr class="columns">
                         <td>ID</td>
                         <td>Name</td>
-                        <td>Description</td>
-                        <td>Cost</td>
-                        <td>Image path</td>
+                        <td>Email</td>
+                        <td>isAdmin</td>
                     </tr>
 
-                    <?php for ($i = 0; $i < count($data); $i++) { ?>
+                    <?php for ($i = 0; $i < count($data[0]); $i++) { ?>
                         <tr class="content">
                             <td><?= $data[$i]['id'] ?></td>
                             <td><?= $data[$i]['name'] ?></td>
-                            <td><?= $data[$i]['description'] ?></td>
-                            <td><?= $data[$i]['cost'] ?></td>
-                            <td><?= (strlen($data[$i]['image-path']) > 15) ? '.....' : $data[$i]['image-path'] ?></td>
+                            <td><?= $data[$i]['email'] ?></td>
+                            <td><?= $data[$i]['isAdmin'] ?></td>
                         </tr>
                     <?php } ?>
                 </table>
