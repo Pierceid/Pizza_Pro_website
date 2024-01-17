@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'pizza-pro';
+$layout = 'secondary';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data

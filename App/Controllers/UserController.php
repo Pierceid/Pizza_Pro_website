@@ -141,7 +141,7 @@ class UserController extends AControllerBase
             return $user !== $currentUser && $user->getEmail() == $emailNew;
         });
 
-        if (!empty($existingUser) || empty($emailNew) || strlen($emailNew) > 200) {
+        if (empty($existingUser) || empty($emailNew) || strlen($emailNew) > 200) {
             return "Failed to update your email!";
         }
 

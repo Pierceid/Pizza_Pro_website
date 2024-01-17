@@ -1,33 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+}
+
 body {
-    background-image: url("../images/backgrounds/blue-background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    height: 100vh;
-    width: 100%;
+    background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
-header {
-    text-align: center;
+h4 {
     color: purple;
-    font-size: x-large;
     font-weight: bold;
-    text-decoration: underline;
-}
-
-.container-fluid {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    background-color: darkblue;
-    padding: 15px;
-}
-
-.container-fluid img {
-    width: 50px;
-    height: 40px;
 }
 
 .question {
@@ -35,36 +19,37 @@ header {
     left: 50%;
     transform: translateX(-50%);
     justify-content: center;
+    text-align: center;
     max-width: 700px;
     background-color: whitesmoke;
     border: 5px solid black;
-    margin: 10px;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px 0;
 }
 
 .question .satisfaction-options {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: large;
     font-weight: bold;
     margin: 10px 0;
 }
 
-.question .satisfaction-options label {
+.question .satisfaction-options .option {
     display: block;
     text-align: center;
 }
 
-.question .satisfaction-options label .radio-button {
+.question .satisfaction-options .radio-button {
     transform: scale(1.5);
     margin: 0 5px;
 }
 
-.question .satisfaction-options label img {
-    display: block;
-    max-width: 70px;
-    max-height: 70px;
+.question .satisfaction-options img {
+    display: flex;
+    max-width: 50px;
+    max-height: 50px;
     margin: 10px 10px 0 10px;
 }
 
@@ -88,7 +73,7 @@ header {
     justify-content: center;
     font-size: x-large;
     font-weight: bold;
-    margin: 20px 10px 10px 10px;
+    margin: 10px 0;
 }
 
 .question .switch {
@@ -137,27 +122,8 @@ header {
     border-radius: 50%;
 }
 
-.action-buttons {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 700px;
-    margin: 30px 10px 10px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .action-buttons .btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 110px;
-    height: 55px;
-    font-size: x-large;
-}
-
-.action-buttons .btn a {
-    color: white;
-    text-decoration: none;
+    width: 90px;
+    height: 45px;
+    font-size: large;
 }

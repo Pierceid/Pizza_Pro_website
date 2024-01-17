@@ -39,7 +39,8 @@ class ShopController extends AControllerBase
 
     public function database(): Response
     {
-        $data = $this->getPizzas();
+        $data["admin"] = $this->getIsAdmin();
+        $data["users"] = $this->getUsers();
         return $this->html($data);
     }
 
@@ -68,7 +69,7 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function getPizzas(): array
+    private function getPizzas(): array
     {
         $pizzas = Pizza::getAll(orderBy: '`id` asc');
         $data[] = [];
@@ -79,6 +80,20 @@ class ShopController extends AControllerBase
             $data[$i]['description'] = $pizzas[$i]->getDescription();
             $data[$i]['cost'] = number_format($pizzas[$i]->getCost(), 2);
             $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
+        }
+        return $data;
+    }
+
+    private function getUsers(): array
+    {
+        $users = User::getAll(orderBy: '`id` asc');
+        $data[] = [];
+
+        for ($i = 0; $i < count($users); $i++) {
+            $data[$i]['id'] = $users[$i]->getId();
+            $data[$i]['name'] = $users[$i]->getLogin();
+            $data[$i]['email'] = $users[$i]->getEmail();
+            $data[$i]['isAdmin'] = $users[$i]->getIsAdmin();
         }
         return $data;
     }
@@ -94,7 +109,7 @@ class ShopController extends AControllerBase
         return null;
     }
 
-    public function getIsAdmin(): int
+    private function getIsAdmin(): int
     {
         $user = $this->findUser();
         return $user ? $user->getIsAdmin() : 0;

@@ -1,12 +1,13 @@
 <?php
 
-$layout = 'pizza-pro';
+$layout = 'primary';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
  */
 ?>
 
+<link rel="stylesheet" href="/public/css/styl_buttons.css">
 <link rel="stylesheet" href="/public/css/styl_shop.css">
 
 <div class="carousel-container">
@@ -15,13 +16,12 @@ $layout = 'pizza-pro';
             <?php
             $pizzas = $data['pizzas'];
             shuffle($pizzas);
-            $pizzaSets = array_chunk($pizzas, 3);
+            $pizzaSets = array_chunk($pizzas, 4);
 
             foreach ($pizzaSets as $setIndex => $pizzaSet): ?>
                 <div class="carousel-item<?php echo $setIndex === 0 ? ' active' : ''; ?>">
                     <?php foreach ($pizzaSet as $pizza): ?>
-                        <img src="<?= $pizza['image-path'] ?>" alt=""
-                             style="width: 25%; max-width: 250px; max-height: 200px; margin: 5px">
+                        <img src="<?= $pizza['image-path'] ?>" alt="">
                     <?php endforeach; ?>
                 </div>
             <?php endforeach; ?>
@@ -42,8 +42,7 @@ $layout = 'pizza-pro';
 </div>
 
 <div class="pizzas-container row">
-    <div class="card" style="width: 145px; height: 145px; margin: 75px 50px;
-    border: 5px solid black; border-radius: 50%; background-color: darkorange">
+    <div class="card add-card" style="background-color: darkorange">
         <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
     </div>
 
@@ -58,8 +57,8 @@ $layout = 'pizza-pro';
                 $imagePath = $pizza['image-path'];
                 ?>
 
-                <img style="max-height: 150px; padding-bottom: 10px" src="<?= $imagePath ?>" alt="">
-                <h4><?= $name ?></h4>
+                <img src="<?= $imagePath ?>" alt="">
+                <h5><?= $name ?></h5>
                 <h6>Cost: <?= $cost ?> €</h6>
 
                 <div class="action-buttons">
@@ -75,7 +74,7 @@ $layout = 'pizza-pro';
                     </button>
 
                     <?php if ($data['admin']): ?>
-                        <button type="button" class="btn btn-dark">
+                        <button type="button" class="btn btn-danger">
                             <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name]) ?>">Delete</a>
                         </button>
                     <?php endif; ?>

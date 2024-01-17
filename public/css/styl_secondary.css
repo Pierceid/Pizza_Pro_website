@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+    color: black;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 10px;
+    background-color: #006;
+}
+
+.navbar-container a {
+    font-size: xx-large;
+    font-weight: bold;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.navbar-container a img {
+    width: 40px;
+    height: 35px;
+}

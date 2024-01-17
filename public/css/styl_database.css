@@ -1,10 +1,12 @@
-.container {
-    justify-content: center;
-    width: 100%;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
 }
 
-.card {
-    margin-top: 5rem;
+body {
+    background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
 .card-header {

@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'pizza-pro';
+$layout = 'primary';
 /** @var string $contentHTML */
 /** @var \App\Core\LinkGenerator $link */
 /** @var $data */
@@ -18,6 +18,7 @@ $layout = 'pizza-pro';
     <link rel="stylesheet" href="/public/css/styl_database.css">
 </head>
 
+<body>
 <div class="container">
     <div class="row mt-5">
         <div class="col">
@@ -32,20 +33,33 @@ $layout = 'pizza-pro';
                         <td>Name</td>
                         <td>Email</td>
                         <td>isAdmin</td>
+                        <td>-</td>
                     </tr>
-
-                    <?php for ($i = 0; $i < count($data[0]); $i++) { ?>
-                        <tr class="content">
-                            <td><?= $data[$i]['id'] ?></td>
-                            <td><?= $data[$i]['name'] ?></td>
-                            <td><?= $data[$i]['email'] ?></td>
-                            <td><?= $data[$i]['isAdmin'] ?></td>
-                        </tr>
-                    <?php } ?>
+                    <?php
+                    /*
+                     <?php if (isset($data['users']) && count($data['users']) > 0) : ?>
+                        <?php foreach ($data['users'] as $user) : ?>
+                            <tr class="content">
+                                <td><?= $user['id'] ?></td>
+                                <td><?= $user['name'] ?></td>
+                                <td><?= $user['email'] ?></td>
+                                <td><?= $user['isAdmin'] ? 'Yes' : 'No' ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">
+                                        <a href="<?= $link->url("user.change", ["name" => $user['name'], "email" => $user['email'], "option" => 4]) ?>"
+                                        >Change</a>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                     <?php endif; ?>
+                     */
+                    ?>
                 </table>
             </div>
         </div>
     </div>
 </div>
+</body>
 
 </html>

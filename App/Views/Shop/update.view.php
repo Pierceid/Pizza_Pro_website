@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'pizza-pro';
+$layout = 'secondary';
 /**
  * @var \App\Core\LinkGenerator $link
  * @var Array $data
@@ -13,7 +13,7 @@ $layout = 'pizza-pro';
       enctype="multipart/form-data">
     <input type="hidden" name="pizza-id" value="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>"/>
 
-    <h2 style="color: blue; font-weight: bold">Update pizza</h2>
+    <h2>Update pizza</h2>
 
     <label><input name="name" type="text" placeholder="Name"
                   value="<?php if (isset($_GET['name'])) echo $_GET['name']; ?>"></label>
@@ -29,8 +29,8 @@ $layout = 'pizza-pro';
     <button class="btn-submit" type="submit">Update</button>
 
     <?php if (isset($_GET['message'])) : ?>
-        <h4 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; text-align: center">
+        <h5 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>">
             <?= $_GET['message'] ?>
-        </h4>
+        </h5>
     <?php endif ?>
 </form>
