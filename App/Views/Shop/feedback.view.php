@@ -63,9 +63,13 @@ $layout = 'secondary';
 </div>
 
 <div class="action-buttons">
-    <div class="btn btn-danger">Discard</div>
+    <div class="btn btn-danger">
+        <a href="<?= $link->url("shop.feedback") ?>">Discard</a>
+    </div>
     <div class="btn btn-dark">
         <a href="<?= $link->url("shop.index") ?>">Cancel</a>
     </div>
-    <div class="btn btn-success">Send</div>
+    <div class="btn btn-success">
+        <a href="<?= $link->url("shop.index") ?>">Send</a>
+    </div>
 </div>
