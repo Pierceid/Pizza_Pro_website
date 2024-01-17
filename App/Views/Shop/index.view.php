@@ -76,7 +76,7 @@ $layout = 'pizza-pro';
 
                     <?php if ($data['admin']): ?>
                         <button type="button" class="btn btn-dark">
-                            <a href="<?= $link->url("shop.remove", ["id" => $id]) ?>">Delete</a>
+                            <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name]) ?>">Delete</a>
                         </button>
                     <?php endif; ?>
                 </div>

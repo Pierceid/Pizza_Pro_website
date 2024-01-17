@@ -39,8 +39,8 @@ class PizzaController extends AControllerBase
             $pizza->save();
             $message = "Item has been successfully added!";
         }
-
-        return $this->redirect($this->url("shop.add", ["message" => $message]));
+        $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
+        return $this->redirect($this->url("shop.add", $data));
     }
 
     public function update(): Response
@@ -70,8 +70,8 @@ class PizzaController extends AControllerBase
                 $message = "Item has been successfully updated!";
             }
         }
-
-        return $this->redirect($this->url("shop.update", ["message" => $message]));
+        $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
+        return $this->redirect($this->url("shop.update", $data));
     }
 
     public function removeItem(): Response

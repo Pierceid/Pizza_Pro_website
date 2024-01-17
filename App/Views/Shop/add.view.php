@@ -22,5 +22,9 @@ $layout = 'pizza-pro';
 
     <button class="btn-submit" type="submit">Add</button>
 
-    <h4 style="color: darkmagenta"><?php if (isset($_GET['message'])) echo $_GET['message']; ?></h4>
+    <?php if (isset($_GET['message'])) : ?>
+        <h4 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; text-align: center">
+            <?= $_GET['message'] ?>
+        </h4>
+    <?php endif ?>
 </form>
