@@ -70,7 +70,6 @@ class UserController extends AControllerBase
                 $destination = 1;
             }
         }
-
         return $this->redirect($this->url("user.message", ["message" => $message, "destination" => $destination]));
     }
 
@@ -80,14 +79,15 @@ class UserController extends AControllerBase
         $option = $formData->getValue("option-id");
         $nameNew = $formData->getValue("name");
         $emailNew = $formData->getValue("email");
+        $passwordOld = $formData->getValue("password-old");
         $passwordNew = $formData->getValue("password-new");
-        $imagePath = $_FILES["image-path"]['name'];
+        $imagePathNew = $_FILES["image-path"]['name'];
 
         $message = match ($option) {
-            "0" => $this->handleInput(imagePathNew: $imagePath),
+            "0" => $this->handleInput(imagePathNew: $imagePathNew),
             "1" => $this->handleInput(nameNew: $nameNew),
             "2" => $this->handleInput(emailNew: $emailNew),
-            "3" => $this->handleInput(passwordNew: $passwordNew),
+            "3" => $this->handleInput(passwordOld: $passwordOld, passwordNew: $passwordNew),
             default => "Invalid option!",
         };
 
@@ -108,7 +108,7 @@ class UserController extends AControllerBase
                 $currentUser = $user;
             }
         }
-
+        $currentPassword = $currentUser->getPassword();
         if (!is_null($imagePathNew)) {
             return $this->validateImagePath($currentUser);
         } elseif (!is_null($nameNew)) {
@@ -157,7 +157,7 @@ class UserController extends AControllerBase
             return "Failed to update your password!";
         }
 
-        $currentUser->setPassword($passwordNew);
+        $currentUser->setPassword(password_hash($passwordNew, PASSWORD_DEFAULT));
         $currentUser->save();
         return "Your password has been successfully updated!";
     }

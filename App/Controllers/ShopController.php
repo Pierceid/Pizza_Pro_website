@@ -14,7 +14,7 @@ class ShopController extends AControllerBase
      */
     public function index(): Response
     {
-        $data["admin"] = $this->getIsAdmin();
+        $data["isAdmin"] = $this->getIsAdmin();
         $data["pizzas"] = $this->getPizzas();
         return $this->html($data);
     }

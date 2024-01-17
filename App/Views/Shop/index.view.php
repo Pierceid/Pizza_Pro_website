@@ -42,9 +42,11 @@ $layout = 'primary';
 </div>
 
 <div class="pizzas-container row">
-    <div class="card add-card" style="background-color: darkorange">
-        <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
-    </div>
+    <?php if ($data['isAdmin'] > 0) : ?>
+        <div class="card add-card" style="background-color: darkorange">
+            <a href="<?= $link->url("shop.add") ?>"><img src="/public/images/icons/plus.png" alt=""></a>
+        </div>
+    <?php endif ?>
 
     <?php if (!empty($pizzas)) : ?>
         <?php foreach ($pizzas as $pizza): ?>
@@ -62,20 +64,20 @@ $layout = 'primary';
                 <h6>Cost: <?= $cost ?> €</h6>
 
                 <div class="action-buttons">
-                    <?php if ($data['admin']): ?>
+                    <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-primary">
                             <a href="<?= $link->url("shop.update", ["id" => $id, "name" => $name, "description" => $description, "cost" => $cost, "image-path" => $imagePath]) ?>"
-                            >Edit</a>
+                            >o</a>
                         </button>
                     <?php endif; ?>
 
                     <button type="button" class="btn btn-success">
-                        <a href="<?= $link->url("shop.cart", ["id" => $id]) ?>">Add</a>
+                        <a href="<?= $link->url("shop.cart", ["id" => $id]) ?>">ADD</a>
                     </button>
 
-                    <?php if ($data['admin']): ?>
+                    <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name]) ?>">Delete</a>
+                            <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name]) ?>">x</a>
                         </button>
                     <?php endif; ?>
                 </div>
