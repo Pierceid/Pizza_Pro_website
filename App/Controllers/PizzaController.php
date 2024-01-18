@@ -53,17 +53,6 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.cart"));
     }
 
-    public function discardItems(): Response
-    {
-        $pizzas = Pizza::getAll();
-        foreach ($pizzas as $pizza) {
-            $pizza->setAmount(0);
-            $pizza->save();
-        }
-
-        return $this->redirect($this->url("shop.cart"));
-    }
-
     public function insertItem(): Response
     {
         $formData = $this->app->getRequest();

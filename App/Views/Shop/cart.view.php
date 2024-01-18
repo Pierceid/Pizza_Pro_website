@@ -13,14 +13,10 @@ $layout = 'primary';
 <?php
 $items = 0;
 $tax = 0.2;
-
+$total = 0.0;
 ?>
 
 <div class="pizzas-container row">
-    <div class="card" style="margin-bottom: 15px">
-        <h1>Your cart</h1>
-    </div>
-
     <?php if (!empty($data[0])) : ?>
         <?php for ($i = 0; $i < count($data); $i++) { ?>
             <div class="card">
@@ -31,8 +27,7 @@ $tax = 0.2;
                 $cost = $data[$i]['cost'] ?? '';
                 $imagePath = $data[$i]['image-path'] ?? '';
                 $amount = $data[$i]['amount'] ?? '';
-                $items += $data[$i]['cost'] ?? 0;
-
+                $items += $cost * $amount;
                 ?>
 
                 <img src="<?= $imagePath ?>" alt="">
@@ -42,7 +37,8 @@ $tax = 0.2;
                     <h5>Cost: <?= $cost ?> €</h5>
                     <div class="action-buttons">
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "adjust", "id" => $id, "name" => $name, "cost" => $cost, "amount" => $amount]) ?>">+ / -</a>
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "adjust", "id" => $id, "name" => $name, "cost" => $cost, "amount" => $amount]) ?>">+
+                                / -</a>
                         </button>
 
                         <div class="card amount"><?= $amount ?></div>
@@ -56,26 +52,23 @@ $tax = 0.2;
         <?php } ?>
     <?php endif ?>
 
-    <div class="card">
+    <div class="card" style="background-color: darkgrey">
         <div class="check">
-            <div class="items-cost">Items:
-                <div class="items">
-
-                </div>
+            <div class="check-row">
+                <h2 class="check-text">Items:</h2>
+                <h2 class="check-value"><?= number_format($items, 2) ?> €</h2>
             </div>
 
-            <div class="tax-cost">Tax:
-                <div class="tax">
-
-                </div>
+            <div class="check-row">
+                <h2 class="check-text">Tax:</h2>
+                <h2 class="check-value"><?= number_format($items * $tax, 2) ?> €</h2>
             </div>
 
-            <div class=""></div>
+            <div class="divider" style="border: 1px solid black; margin: 5px 0"></div>
 
-            <div class="total-cost">Total:
-                <div class="total">
-
-                </div>
+            <div class="check-row">
+                <h1 class="check-text">Total cost:</h1>
+                <h1 class="check-value"><?= $total = number_format($items + ($items * $tax), 2) ?> €</h1>
             </div>
         </div>
     </div>
@@ -83,11 +76,11 @@ $tax = 0.2;
     <div class="operation">
         <div class="action-buttons">
             <button type="button" class="btn btn-dark">
-                <a href="<?= $link->url("shop.cartManagement", ["operation" => "discard"]) ?>">Discard</a>
+                <a href="<?= $link->url("shop.cartManagement", ["operation" => "discard", "purchase" => $total]) ?>">Discard</a>
             </button>
 
             <button type="button" class="btn btn-dark">
-                <a href="<?= $link->url("shop.cartManagement", ["operation" => "order"]) ?>">Order</a>
+                <a href="<?= $link->url("shop.cartManagement", ["operation" => "order", "purchase" => $total]) ?>">Order</a>
             </button>
         </div>
     </div>

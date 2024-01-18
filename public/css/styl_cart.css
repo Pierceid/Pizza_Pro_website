@@ -16,7 +16,6 @@ a {
 
 h1 {
     color: purple;
-    text-decoration: underline;
 }
 
 h4 {
@@ -29,7 +28,7 @@ h5 {
     margin: 22px 0;
 }
 
-h1, h4, h5 {
+h1, h2, h4, h5 {
     font-weight: bold;
 }
 
@@ -99,4 +98,27 @@ h1, h4, h5 {
     width: 110px;
     height: 55px;
     font-size: x-large;
+}
+
+.pizzas-container .card .check {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.pizzas-container .card .check .check-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pizzas-container .card .check .check-row .check-text {
+    font-weight: bold;
+    color: black;
+}
+
+.pizzas-container .card .check .check-row .check-value {
+    font-weight: bold;
+    color: purple;
 }

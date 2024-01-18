@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Pizza extends \App\Core\Model
+use App\Core\Model;
+
+class Pizza extends Model
 {
     protected ?int $id = null;
     protected ?string $name;
