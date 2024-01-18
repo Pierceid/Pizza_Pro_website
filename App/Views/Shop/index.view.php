@@ -72,7 +72,7 @@ $layout = 'primary';
                     <?php endif; ?>
 
                     <button type="button" class="btn btn-success">
-                        <a href="<?= $link->url("shop.add", ["id" => $id]) ?>">ADD</a>
+                        <a href="<?= $link->url("shop.add", ["id" => $id, "name" => $name, "cost" => $cost]) ?>">ADD</a>
                     </button>
 
                     <?php if ($data['isAdmin']): ?>

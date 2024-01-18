@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\DB\Connection;
 use App\Core\Responses\Response;
 use App\Models\Pizza;
 use App\Models\User;
+use PDO;
 
 class ShopController extends AControllerBase
 {
@@ -51,6 +53,12 @@ class ShopController extends AControllerBase
 
     public function cart(): Response
     {
+        $data = $this->getOrderedPizzas();
+        return $this->html($data);
+    }
+
+    public function add(): Response
+    {
         return $this->html();
     }
 
@@ -80,6 +88,30 @@ class ShopController extends AControllerBase
             $data[$i]['description'] = $pizzas[$i]->getDescription();
             $data[$i]['cost'] = number_format($pizzas[$i]->getCost(), 2);
             $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
+        }
+        return $data;
+    }
+
+    private function getOrderedPizzas(): array
+    {
+        $con = Connection::connect();
+        $sql = "SELECT * FROM vaiicko_db.pizzas WHERE amount > 0";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $orderedPizzas = [];
+        $data[] = [];
+
+        while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $orderedPizzas[] = $result;
+        }
+
+        for ($i = 0; $i < count($orderedPizzas); $i++) {
+            $data[$i]['id'] = $orderedPizzas[$i]['id'];
+            $data[$i]['name'] = $orderedPizzas[$i]['name'];
+            $data[$i]['description'] = $orderedPizzas[$i]['description'];
+            $data[$i]['cost'] = number_format($orderedPizzas[$i]['cost'], 2);
+            $data[$i]['image-path'] = "public/images/pizzas/" . $orderedPizzas[$i]['imagePath'];
+            $data[$i]['amount'] = $orderedPizzas[$i]['amount'];
         }
         return $data;
     }

@@ -48,7 +48,9 @@ class UserController extends AControllerBase
                 $destination = 1;
             }
         }
-        return $this->redirect($this->url("user.message", ["message" => $message, "destination" => $destination]));
+
+        $data = ["message" => $message, "destination" => $destination];
+        return $this->redirect($this->url("user.message", $data));
     }
 
     public function checkLogin(): Response
@@ -65,7 +67,9 @@ class UserController extends AControllerBase
                 $destination = 1;
             }
         }
-        return $this->redirect($this->url("user.message", ["message" => $message, "destination" => $destination]));
+
+        $data = ["message" => $message, "destination" => $destination];
+        return $this->redirect($this->url("user.message", $data));
     }
 
     public function editProfile(): Response
@@ -86,7 +90,8 @@ class UserController extends AControllerBase
             default => "Invalid option!",
         };
 
-        return $this->redirect($this->url("shop.profile", ["message" => $message]));
+        $data = ["message" => $message];
+        return $this->redirect($this->url("shop.profile", $data));
     }
 
     public function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null): string

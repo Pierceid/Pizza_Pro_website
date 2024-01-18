@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
+use App\Core\DB\Connection;
 use App\Core\Responses\Response;
 use App\Models\Pizza;
+use PDO;
 
 class PizzaController extends AControllerBase
 {
@@ -16,6 +18,18 @@ class PizzaController extends AControllerBase
         return $this->html();
     }
 
+    public function addItem(): Response
+    {
+        $formData = $this->app->getRequest();
+        $id = $formData->getValue("pizza-id");
+        $amount = $formData->getValue("pizza-amount");
+        $pizza = Pizza::getOne($id);
+        $pizza->setAmount((int)$amount);
+        $pizza->save();
+
+        return $this->redirect($this->url("shop.cart"));
+    }
+
     public function insertItem(): Response
     {
         $formData = $this->app->getRequest();
@@ -23,7 +37,7 @@ class PizzaController extends AControllerBase
         $description = $formData->getValue("description");
         $cost = $formData->getValue("cost");
         $imagePath = $_FILES["image-path"]["name"];
-        $message = "Failed to add an item!";
+        $message = "Failed to insert an item!";
 
         if ($this->validateInput($name, $description, $cost, $imagePath)) {
             $pizza = new Pizza();
@@ -32,8 +46,9 @@ class PizzaController extends AControllerBase
             $pizza->setCost($cost);
             $pizza->setImagePath($imagePath);
             $pizza->save();
-            $message = "Item has been successfully added!";
+            $message = "Item has been successfully inserted!";
         }
+
         $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
         return $this->redirect($this->url("shop.insert", $data));
     }
@@ -60,6 +75,7 @@ class PizzaController extends AControllerBase
                 $message = "Item has been successfully updated!";
             }
         }
+
         $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
         return $this->redirect($this->url("shop.update", $data));
     }
@@ -68,14 +84,15 @@ class PizzaController extends AControllerBase
     {
         $id = $this->app->getRequest()->getValue("pizza-id");
         $pizzaGetOne = Pizza::getOne($id);
-        $message = "Failed to remove the item!";
+        $message = "Failed to delete the item!";
 
         if (!is_null($pizzaGetOne)) {
             $pizzaGetOne->delete();
-            $message = "Item has been successfully removed!";
+            $message = "Item has been successfully deleted!";
         }
 
-        return $this->redirect($this->url("shop.delete", ["message" => $message]));
+        $data = ["message" => $message];
+        return $this->redirect($this->url("shop.delete", $data));
     }
 
     public function validateInput($name, $description, $cost, $imagePath): bool

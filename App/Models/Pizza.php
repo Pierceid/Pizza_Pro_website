@@ -9,7 +9,7 @@ class Pizza extends \App\Core\Model
     protected ?string $description;
     protected float $cost;
     protected ?string $imagePath;
-
+    protected ?int $amount = 0;
 
     public function getId(): ?int
     {
@@ -54,5 +54,15 @@ class Pizza extends \App\Core\Model
     public function setImagePath(?string $imagePath): void
     {
         $this->imagePath = $imagePath;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?int $amount): void
+    {
+        $this->amount = $amount;
     }
 }
