@@ -39,6 +39,12 @@ class ShopController extends AControllerBase
         return $this->html($data);
     }
 
+    public function cart(): Response
+    {
+        $data = $this->getOrderedPizzas();
+        return $this->html($data);
+    }
+
     public function database(): Response
     {
         $data["admin"] = $this->getIsAdmin();
@@ -51,13 +57,12 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function cart(): Response
+    public function add(): Response
     {
-        $data = $this->getOrderedPizzas();
-        return $this->html($data);
+        return $this->html();
     }
 
-    public function add(): Response
+    public function remove(): Response
     {
         return $this->html();
     }

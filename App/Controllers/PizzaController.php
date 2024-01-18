@@ -30,6 +30,16 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.cart"));
     }
 
+    public function removeItem(): Response
+    {
+        $id = $this->app->getRequest()->getValue("pizza-id");
+        $pizza = Pizza::getOne($id);
+        $pizza->setAmount(0);
+        $pizza->save();
+
+        return $this->redirect($this->url("shop.cart"));
+    }
+
     public function insertItem(): Response
     {
         $formData = $this->app->getRequest();

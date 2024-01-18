@@ -22,12 +22,11 @@ h1 {
 h4 {
     text-decoration: underline;
     color: red;
-    margin-left: 10px;
 }
 
 h5 {
     color: black;
-    margin: 25px 0 25px 10px;
+    margin: 22px 0;
 }
 
 h1, h4, h5 {
@@ -54,7 +53,7 @@ h1, h4, h5 {
     max-width: 700px;
     height: fit-content;
     background-color: lightgrey;
-    padding: 5px;
+    padding: 5px 10px;
     margin: 5px;
     text-align: center;
     border: 2px solid black;
@@ -81,6 +80,12 @@ h1, h4, h5 {
 .pizzas-container .card .content .action-buttons .btn {
     width: 60px;
     height: 40px;
-    margin-left: 10px;
 }
 
+.pizzas-container .card .content .action-buttons .amount {
+    width: 60px;
+    height: 40px;
+    background-color: whitesmoke;
+    font-weight: bold;
+    font-size: large;
+}

@@ -33,11 +33,13 @@ $layout = 'primary';
                     <h5>Cost: <?= $cost ?> €</h5>
                     <div class="action-buttons">
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.add", ["id" => $id, "name" => $name, "cost" => $cost]) ?>">+ / -</a>
+                            <a href="<?= $link->url("shop.add", ["id" => $id, "name" => $name, "cost" => $cost, "amount" => $amount]) ?>">+ / -</a>
                         </button>
 
+                        <div class="card amount"><?= $amount ?></div>
+
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.delete", ["id" => $id, "name" => $name]) ?>">x</a>
+                            <a href="<?= $link->url("shop.remove", ["id" => $id, "name" => $name]) ?>">x</a>
                         </button>
                     </div>
                 </div>

@@ -17,11 +17,13 @@ $layout = 'secondary';
     <?php
     $name = $_GET['name'] ?? '';
     $cost = $_GET['cost'] ?? '';
+    $amount = $_GET['amount'] ?? '';
     ?>
+
     <h5 style="color: red"><?= $name ?></h5>
     <h5 style="color: black">Cost: <?= $cost ?> €</h5>
 
-    <label><input type="number" name="pizza-amount" placeholder="Amount" min="0" max="100"/></label>
+    <label><input type="number" name="pizza-amount" placeholder="Amount" min="0" max="100" value="<?= $amount ?>"/></label>
 
     <button class="btn-submit" type="submit">Add to cart</button>
 
