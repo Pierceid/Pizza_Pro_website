@@ -23,7 +23,7 @@ h2, h5 {
     position: relative;
     left: 50%;
     width: 50%;
-    max-width: 500px;
+    max-width: 400px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -44,7 +44,7 @@ h2, h5 {
 
 .form input {
     width: 100%;
-    max-width: 400px;
+    max-width: 350px;
     padding: 10px;
     outline: none;
     border: 1px solid black;

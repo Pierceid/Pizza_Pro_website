@@ -3,10 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\AControllerBase;
-use App\Core\DB\Connection;
 use App\Core\Responses\Response;
 use App\Models\Pizza;
-use PDO;
 
 class PizzaController extends AControllerBase
 {
@@ -19,6 +17,21 @@ class PizzaController extends AControllerBase
     }
 
     public function addItem(): Response
+    {
+        $formData = $this->app->getRequest();
+        $id = $formData->getValue("pizza-id");
+        $amount = $formData->getValue("pizza-amount");
+        if ($amount <= 0) {
+            return $this->redirect($this->url("shop.index"));
+        }
+        $pizza = Pizza::getOne($id);
+        $pizza->setAmount($pizza->getAmount() + (int)$amount);
+        $pizza->save();
+
+        return $this->redirect($this->url("shop.cart"));
+    }
+
+    public function adjustItem(): Response
     {
         $formData = $this->app->getRequest();
         $id = $formData->getValue("pizza-id");
@@ -36,6 +49,17 @@ class PizzaController extends AControllerBase
         $pizza = Pizza::getOne($id);
         $pizza->setAmount(0);
         $pizza->save();
+
+        return $this->redirect($this->url("shop.cart"));
+    }
+
+    public function discardItems(): Response
+    {
+        $pizzas = Pizza::getAll();
+        foreach ($pizzas as $pizza) {
+            $pizza->setAmount(0);
+            $pizza->save();
+        }
 
         return $this->redirect($this->url("shop.cart"));
     }
@@ -59,8 +83,8 @@ class PizzaController extends AControllerBase
             $message = "Item has been successfully inserted!";
         }
 
-        $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
-        return $this->redirect($this->url("shop.insert", $data));
+        $data = ["operation" => "insert", "message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
+        return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
     public function updateItem(): Response
@@ -86,8 +110,8 @@ class PizzaController extends AControllerBase
             }
         }
 
-        $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
-        return $this->redirect($this->url("shop.update", $data));
+        $data = ["operation" => "update", "message" => $message, "id" => $id, "name" => $name, "description" => $description, "cost" => $cost];
+        return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
     public function deleteItem(): Response
@@ -101,8 +125,8 @@ class PizzaController extends AControllerBase
             $message = "Item has been successfully deleted!";
         }
 
-        $data = ["message" => $message];
-        return $this->redirect($this->url("shop.delete", $data));
+        $data = ["operation" => "delete", "message" => $message];
+        return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
     public function validateInput($name, $description, $cost, $imagePath): bool
@@ -122,11 +146,9 @@ class PizzaController extends AControllerBase
                         $fileDestination = 'public/images/pizzas/' . $fileName;
                         move_uploaded_file($fileTmpName, $fileDestination);
                     } else {
-                        echo "There was an error while uploading your file!";
                         return false;
                     }
                 } else {
-                    echo "Not supported type of file!";
                     return false;
                 }
             }

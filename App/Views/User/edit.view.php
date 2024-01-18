@@ -9,16 +9,20 @@ $layout = 'secondary';
 
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
-<form class="form form-edit" method="post" action="<?= $link->url("user.editProfile") ?>"
-      enctype="multipart/form-data">
+<?php
+$option = $_GET['option'] ?? '';
+$name = $_GET['name'] ?? '';
+$email = $_GET['email'] ?? '';
+$header = $option == 0 ? 'profile image' : ($option == 1 ? 'name' :
+    ($option == 2 ? 'email' : ($option == 3 ? 'password' : '')));
+?>
 
-    <input type="hidden" name="option-id" value="<?= $option = $_GET['option'] ?? -1; ?>"/>
-    <input type="hidden" name="user-name" value="<?= $name = $_GET['name'] ?? ''; ?>"/>
-    <input type="hidden" name="user-email" value="<?= $email = $_GET['email'] ?? ''; ?>"/>
+<form class="form" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="option-id" value="<?= $option ?>"/>
+    <input type="hidden" name="user-name" value="<?= $name ?>"/>
+    <input type="hidden" name="user-email" value="<?= $email ?>"/>
 
-    <h2>
-        Edit your <?= ($option == 0) ? 'profile image' : (($option == 1) ? 'name' : (($option == 2) ? 'email' : 'password')) ?>
-    </h2>
+    <h2>Edit your <?= $header ?></h2>
 
     <label>
         <input name="image-path" type="<?= ($option == 0) ? 'file' : 'hidden' ?>" placeholder="Image path">
@@ -28,5 +32,8 @@ $layout = 'secondary';
         <input name="password-new" type="<?= ($option == 3) ? 'password' : 'hidden' ?>" placeholder="New password">
     </label>
 
-    <button class="btn-submit" type="submit">Edit</button>
+    <div class="action-buttons">
+        <button class="btn-submit" type="submit" formaction="<?= $link->url('shop.profile') ?>">Cancel</button>
+        <button class="btn-submit" type="submit" formaction="<?= $link->url("user.editProfile") ?>">Edit</button>
+    </div>
 </form>

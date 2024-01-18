@@ -67,17 +67,22 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function insert(): Response
+    public function discard(): Response
     {
         return $this->html();
     }
 
-    public function update(): Response
+    public function order(): Response
     {
         return $this->html();
     }
 
-    public function delete(): Response
+    public function crudManagement(): Response
+    {
+        return $this->html();
+    }
+
+    public function cartManagement(): Response
     {
         return $this->html();
     }
