@@ -13,32 +13,32 @@ $layout = 'primary';
     <div class="field" style="flex-direction: column; align-items: center">
         <img src="/public/images/profiles/<?= $data['imagePath'] ?>" alt="">
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 0]) ?>"
-            >Change</a>
+            <a href="<?= $link->url("user.edit", ["name" => $data['name'], "email" => $data['email'], "option" => 0]) ?>"
+            >Edit</a>
         </button>
     </div>
 
     <div class="field">
         <h4>Name: <?= $data['name'] ?></h4>
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 1]) ?>"
-            >Change</a>
+            <a href="<?= $link->url("user.edit", ["name" => $data['name'], "email" => $data['email'], "option" => 1]) ?>"
+            >Edit</a>
         </button>
     </div>
 
     <div class="field">
         <h4>Email: <?= $data['email'] ?></h4>
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 2]) ?>"
-            >Change</a>
+            <a href="<?= $link->url("user.edit", ["name" => $data['name'], "email" => $data['email'], "option" => 2]) ?>"
+            >Edit</a>
         </button>
     </div>
 
     <div class="field">
         <h4>Password: **********</h4>
         <button type="button" class="btn btn-primary">
-            <a href="<?= $link->url("user.change", ["name" => $data['name'], "email" => $data['email'], "option" => 3]) ?>"
-            >Change</a>
+            <a href="<?= $link->url("user.edit", ["name" => $data['name'], "email" => $data['email'], "option" => 3]) ?>"
+            >Edit</a>
         </button>
     </div>
 

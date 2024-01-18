@@ -9,8 +9,8 @@ $layout = 'secondary';
 
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
-<form class="form form-add" method="post" action="<?= $link->url("pizza.addItem") ?>" enctype="multipart/form-data">
-    <h2>Add pizza</h2>
+<form class="form form-insert" method="post" action="<?= $link->url("pizza.insertItem") ?>" enctype="multipart/form-data">
+    <h2>Insert pizza</h2>
 
     <label><input name="name" type="text" placeholder="Name"></label>
 
@@ -20,7 +20,7 @@ $layout = 'secondary';
 
     <label><input name="image-path" type="file" placeholder="Image path"></label>
 
-    <button class="btn-submit" type="submit">Add</button>
+    <button class="btn-submit" type="submit">Insert</button>
 
     <?php if (isset($_GET['message'])) : ?>
         <h5 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>">

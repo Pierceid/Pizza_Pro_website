@@ -54,7 +54,7 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function add(): Response
+    public function insert(): Response
     {
         return $this->html();
     }
@@ -64,7 +64,7 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
-    public function remove(): Response
+    public function delete(): Response
     {
         return $this->html();
     }

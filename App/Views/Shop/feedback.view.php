@@ -8,7 +8,7 @@ $layout = 'secondary';
 <link rel="stylesheet" href="/public/css/styl_feedback.css">
 
 <div class="question">
-    <h4>What do you think of the website?</h4>
+    <h5>What do you think of the website?</h5>
 
     <div class="satisfaction-options">
         <div class="option">
@@ -43,7 +43,7 @@ $layout = 'secondary';
 </div>
 
 <div class="question">
-    <h4>Do you have any thoughts you'd like to sare?</h4>
+    <h5>Do you have any thoughts you'd like to sare?</h5>
     <div class="text-input input-group mb-3">
         <textarea class="feedback-input form-control" placeholder="Share your thoughts"
                   aria-label="Thoughts"></textarea>
@@ -51,7 +51,7 @@ $layout = 'secondary';
 </div>
 
 <div class="question">
-    <h4>May we follow you up on your feedback?</h4>
+    <h5>May we follow you up on your feedback?</h5>
     <div class="switch-option">
         Yes
         <label class="switch">

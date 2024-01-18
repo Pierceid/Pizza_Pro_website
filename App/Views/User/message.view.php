@@ -15,7 +15,7 @@ $destination = ($_GET['destination'] < 0) ? 'user.index' : 'shop.index';
 $button = ($_GET['destination'] < 0) ? 'Return' : 'Continue';
 ?>
 
-<form class="form form-message" method="post" action="<?= $link->url($destination) ?>">
+<form class="form form-message" method="post" action="<?= $link->url($destination) ?>" style="top: 10%">
     <?php if (isset($_GET['message'])) : ?>
         <h2 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; text-align: center">
             <?= $_GET['message'] ?>

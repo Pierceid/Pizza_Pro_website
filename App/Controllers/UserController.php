@@ -16,12 +16,7 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
-    public function shop(): Response
-    {
-        return $this->html();
-    }
-
-    public function change(): Response
+    public function edit(): Response
     {
         return $this->html();
     }
@@ -73,7 +68,7 @@ class UserController extends AControllerBase
         return $this->redirect($this->url("user.message", ["message" => $message, "destination" => $destination]));
     }
 
-    public function changeProfile(): Response
+    public function editProfile(): Response
     {
         $formData = $this->app->getRequest();
         $option = $formData->getValue("option-id");

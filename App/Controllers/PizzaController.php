@@ -16,12 +16,7 @@ class PizzaController extends AControllerBase
         return $this->html();
     }
 
-    public function add(): Response
-    {
-        return $this->html();
-    }
-
-    public function addItem(): Response
+    public function insertItem(): Response
     {
         $formData = $this->app->getRequest();
         $name = $formData->getValue("name");
@@ -40,12 +35,7 @@ class PizzaController extends AControllerBase
             $message = "Item has been successfully added!";
         }
         $data = ["message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
-        return $this->redirect($this->url("shop.add", $data));
-    }
-
-    public function update(): Response
-    {
-        return $this->html();
+        return $this->redirect($this->url("shop.insert", $data));
     }
 
     public function updateItem(): Response
@@ -74,7 +64,7 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.update", $data));
     }
 
-    public function removeItem(): Response
+    public function deleteItem(): Response
     {
         $id = $this->app->getRequest()->getValue("pizza-id");
         $pizzaGetOne = Pizza::getOne($id);
@@ -85,7 +75,7 @@ class PizzaController extends AControllerBase
             $message = "Item has been successfully removed!";
         }
 
-        return $this->redirect($this->url("shop.remove", ["message" => $message]));
+        return $this->redirect($this->url("shop.delete", ["message" => $message]));
     }
 
     public function validateInput($name, $description, $cost, $imagePath): bool
