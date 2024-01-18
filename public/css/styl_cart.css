@@ -37,11 +37,14 @@ h1, h4, h5 {
 .pizzas-container {
     position: absolute;
     left: 50%;
-    min-width: 400px;
-    max-width: 800px;
-    transform: translate(-50%);
     text-align: center;
     justify-content: center;
+    min-width: 400px;
+    max-width: 800px;
+    margin: 0;
+    padding: 0;
+    transform: translate(-50%);
+
 }
 
 .pizzas-container .card {
