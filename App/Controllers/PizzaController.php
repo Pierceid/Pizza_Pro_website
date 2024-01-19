@@ -21,9 +21,7 @@ class PizzaController extends AControllerBase
         $formData = $this->app->getRequest();
         $id = $formData->getValue("pizza-id");
         $amount = $formData->getValue("pizza-amount");
-        if ($amount <= 0) {
-            return $this->redirect($this->url("shop.index"));
-        }
+
         $pizza = Pizza::getOne($id);
         $pizza->setAmount($pizza->getAmount() + (int)$amount);
         $pizza->save();
@@ -36,6 +34,7 @@ class PizzaController extends AControllerBase
         $formData = $this->app->getRequest();
         $id = $formData->getValue("pizza-id");
         $amount = $formData->getValue("pizza-amount");
+
         $pizza = Pizza::getOne($id);
         $pizza->setAmount((int)$amount);
         $pizza->save();
@@ -46,6 +45,7 @@ class PizzaController extends AControllerBase
     public function removeItem(): Response
     {
         $id = $this->app->getRequest()->getValue("pizza-id");
+
         $pizza = Pizza::getOne($id);
         $pizza->setAmount(0);
         $pizza->save();
@@ -72,7 +72,7 @@ class PizzaController extends AControllerBase
             $message = "Item has been successfully inserted!";
         }
 
-        $data = ["operation" => "insert", "message" => $message, "name" => $name, "description" => $description, "cost" => $cost];
+        $data = ["operation" => "insert", "name" => $name, "description" => $description, "cost" => $cost, "message" => $message];
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
@@ -99,7 +99,7 @@ class PizzaController extends AControllerBase
             }
         }
 
-        $data = ["operation" => "update", "message" => $message, "id" => $id, "name" => $name, "description" => $description, "cost" => $cost];
+        $data = ["operation" => "update", "pizzaId" => $id, "message" => $message];
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 

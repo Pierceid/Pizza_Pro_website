@@ -10,9 +10,9 @@ $layout = '';
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <?php
-$message = $_GET['message'];
+$message = $_GET['message'] ?? '';
 $destination = ($_GET['destination'] < 0) ? 'user.index' : 'shop.index';
-$button = ($_GET['destination'] < 0) ? 'Return' : 'Continue';
+$button = ($_GET['destination'] < 0) ? 'Back' : 'Next';
 ?>
 
 <form class="form form-message" method="post" action="<?= $link->url($destination) ?>" style="top: 10%">

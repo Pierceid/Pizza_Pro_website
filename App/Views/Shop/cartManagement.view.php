@@ -3,33 +3,40 @@
 $layout = 'secondary';
 /**
  * @var \App\Core\LinkGenerator $link
- * @var Array $data
  */
 ?>
 
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <?php
-$id = $_GET['id'] ?? '';
-$name = $_GET['name'] ?? '';
-$cost = $_GET['cost'] ?? '';
-$amount = $_GET['amount'] ?? '';
-$street = $_GET['street'] ?? '';
-$city = $_GET['city'] ?? '';
-$zip = $_GET['zip'] ?? '';
+$pizzaId = $_GET['pizzaId'] ?? '';
+$locationId = $_GET['locationId'] ?? '';
 $purchase = $_GET['purchase'] ?? '';
 $operation = $_GET['operation'] ?? '';
+
+$pizza = \App\Models\Pizza::getOne($pizzaId) ?? null;
+$name = (!is_null($pizza)) ? $pizza->getName() : '';
+$cost = (!is_null($pizza)) ? number_format($pizza->getCost(), 2) : '';
+$amount = (!is_null($pizza)) ? $pizza->getAmount() : '';
+
+$location = \App\Models\Location::getOne($locationId) ?? null;
+$street = (!is_null($location)) ? $location->getStreet() : '';
+$city = (!is_null($location)) ? $location->getCity() : '';
+$zip = (!is_null($location)) ? $location->getZip() : '';
+
 $destination = $operation == 'add' ? 'pizza.addItem' : ($operation == 'adjust' ? 'pizza.adjustItem' :
     ($operation == 'remove' ? 'pizza.removeItem' : ($operation == 'discard' ? 'order.discardOrder' :
         ($operation == 'choose' ? 'order.createLocation' : ''))));
+
 $header = $operation == 'add' ? 'Add pizza' : ($operation == 'adjust' ? 'Adjust pizza' :
     ($operation == 'remove' ? 'Remove pizza' : ($operation == 'discard' ? 'Discard order' :
         ($operation == 'choose' ? 'Choose location' : ''))));
 $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
 ?>
 
-<form class="form" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="pizza-id" value="<?= $id ?>"/>
+<form class="form" method="post">
+    <input type="hidden" name="pizza-id" value="<?= $pizzaId ?>"/>
+    <input type="hidden" name="location-id" value="<?= $locationId ?>"/>
     <input type="hidden" name="order-cost" value="<?= $purchase ?>"/>
 
     <h2><?= $header ?></h2>
@@ -37,11 +44,11 @@ $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
     <?php if ($operation == 'add' || $operation == 'adjust') : ?>
         <h5 style="color: red"><?= $name ?></h5>
         <h5 style="color: black">Cost: <?= $cost ?> €</h5>
-        <label><input class="counter" type="number" name="pizza-amount" placeholder="Amount" min="0" max="100"
-                       value="<?= $amount ?>"/></label>
+        <label><input class="counter" type="number" name="pizza-amount" placeholder="Amount"
+                      min="0" max="100" value="<?= $amount ?>"/></label>
     <?php elseif ($operation == 'remove') : ?>
         <h5>Are you sure you want to remove the pizza from your cart?</h5>
-        <h5 style="color: red">(<?= $name ?? 'not selected' ?>)</h5>
+        <h5 style="color: red">(<?= ($name) ?? 'not selected' ?> <?= ($amount) ?? '' ?>x)</h5>
     <?php elseif ($operation == 'discard') : ?>
         <h5>Are you sure you want to discard your order?</h5>
         <h5 style="color: red">(<?= $purchase ?? '0.00' ?> €)</h5>

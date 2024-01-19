@@ -49,13 +49,23 @@ h6 {
 
 .carousel-container .carousel .carousel-inner .carousel-item img {
     width: 18%;
-    max-width: 250px;
-    max-height: 200px;
+    max-width: 225px;
+    max-height: 180px;
     margin: 5px;
 }
 
+.d-flex {
+    margin: 10px 5px 5px;
+}
+
+.d-flex .form-control {
+
+}
+
 .pizzas-container {
-    padding: 10px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
 .pizzas-container .add-button:hover {

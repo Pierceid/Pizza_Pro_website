@@ -52,17 +52,23 @@ class OrderController extends AControllerBase
         $id = $formData->getValue("location-id");
         $purchase = $formData->getValue("order-cost");
         $user = $this->findUser();
-        $message = "Order has been placed successfully!";
+        $operation = "order";
+        $message = "Failed to place your order!";
 
-        $order = new Order();
-        $order->setName($user->getLogin());
-        $order->setEmail($user->getEmail());
-        $order->setTime(date("d.m.Y [h:i A]"));
-        $order->setPlace($id);
-        $order->setPurchase($purchase);
-        $order->save();
+        if ($purchase > 0) {
+            $order = new Order();
+            $order->setName($user->getLogin());
+            $order->setEmail($user->getEmail());
+            $order->setTime(date("d.m.Y [h:i A]"));
+            $order->setPlace($id);
+            $order->setPurchase($purchase);
+            $order->save();
 
-        $data = ["operation" => "ok", "message" => $message];
+            $operation = "ok";
+            $message = "Order has been placed successfully!";
+        }
+
+        $data = ["operation" => $operation, "message" => $message];
         return $this->redirect($this->url("shop.order", $data));
     }
 

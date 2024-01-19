@@ -48,7 +48,7 @@ class ShopController extends AControllerBase
     public function database(): Response
     {
         $data["admin"] = $this->getIsAdmin();
-        $data["users"] = $this->getUsers();
+        $data["users"] = $this->getFilteredUsers();
         return $this->html($data);
     }
 
@@ -74,14 +74,14 @@ class ShopController extends AControllerBase
 
     private function getPizzas(): array
     {
-        $pizzas = Pizza::getAll(orderBy: '`id` asc');
+        $pizzas = Pizza::getAll(orderBy: `id ASC`);
         $data[] = [];
 
         for ($i = 0; $i < count($pizzas); $i++) {
             $data[$i]['id'] = $pizzas[$i]->getId();
             $data[$i]['name'] = $pizzas[$i]->getName();
             $data[$i]['description'] = $pizzas[$i]->getDescription();
-            $data[$i]['cost'] = number_format($pizzas[$i]->getCost(), 2);
+            $data[$i]['cost'] = $pizzas[$i]->getCost();
             $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
         }
         return $data;
@@ -104,7 +104,7 @@ class ShopController extends AControllerBase
             $data[$i]['id'] = $orderedPizzas[$i]['id'];
             $data[$i]['name'] = $orderedPizzas[$i]['name'];
             $data[$i]['description'] = $orderedPizzas[$i]['description'];
-            $data[$i]['cost'] = number_format($orderedPizzas[$i]['cost'], 2);
+            $data[$i]['cost'] = $orderedPizzas[$i]['cost'];
             $data[$i]['image-path'] = "public/images/pizzas/" . $orderedPizzas[$i]['imagePath'];
             $data[$i]['amount'] = $orderedPizzas[$i]['amount'];
         }
@@ -113,7 +113,7 @@ class ShopController extends AControllerBase
 
     private function getUsers(): array
     {
-        $users = User::getAll(orderBy: '`id` asc');
+        $users = User::getAll(orderBy: `id ASC`);
         $data[] = [];
 
         for ($i = 0; $i < count($users); $i++) {
@@ -122,6 +122,46 @@ class ShopController extends AControllerBase
             $data[$i]['email'] = $users[$i]->getEmail();
             $data[$i]['isAdmin'] = $users[$i]->getIsAdmin();
         }
+        return $data;
+    }
+
+    private function getFilteredUsers(): array
+    {
+        $regex = $this->app->getRequest()->getValue('search-field') ?? '';
+        /*
+        $con = Connection::connect();
+        $sql = "SELECT id, login, email, isAdmin FROM vaiicko_db.users WHERE login LIKE ? ORDER BY id";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+
+        $users = [];
+        while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $users[] = $result;
+        }
+        */
+
+        $users = User::getAll(whereClause: `login LIKE %$regex%`);
+        $filteredUsers = [];
+        foreach ($users as $user) {
+            if (str_contains($user->getLogin(), $regex)) {
+                $filteredUsers[] = $user;
+            }
+        }
+
+        $data = [];
+        if (count($filteredUsers) > 0) {
+            for ($i = 0; $i < count($filteredUsers); $i++) {
+                $data[] = "<tr>
+                            <td>" . $filteredUsers[$i]->getId() . "</td>
+                            <td>" . $filteredUsers[$i]->getLogin() . "</td>
+                            <td>" . $filteredUsers[$i]->getEmail() . "</td>
+                            <td>" . $filteredUsers[$i]->getIsAdmin() . "</td>
+                          </tr>";
+            }
+        } else {
+            $data[] = "<tr><td>0 results found</td></tr>";
+        }
+
         return $data;
     }
 

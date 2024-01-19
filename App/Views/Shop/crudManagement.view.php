@@ -3,28 +3,32 @@
 $layout = 'secondary';
 /**
  * @var \App\Core\LinkGenerator $link
- * @var Array $data
  */
 ?>
 
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <?php
-$id = $_GET['id'] ?? '';
-$name = $_GET['name'] ?? '';
-$description = $_GET['description'] ?? '';
-$cost = $_GET['cost'] ?? '';
+$pizzaId = $_GET['pizzaId'] ?? '';
 $operation = $_GET['operation'] ?? '';
+
+$pizza = \App\Models\Pizza::getOne($pizzaId) ?? null;
+$name = !is_null($pizza) ? $pizza->getName() : ($_GET['name'] ?? '');
+$description = !is_null($pizza) ? $pizza->getDescription() : ($_GET['description'] ?? '');
+$cost = $cost = !is_null($pizza) ? number_format($pizza->getCost(), 2) : (isset($_GET['cost']) ? number_format($_GET['cost'], 2) : '');
+$amount = !is_null($pizza) ? $pizza->getAmount() : '';
+
 $destination = $operation == 'insert' ? 'pizza.insertItem' :
     ($operation == 'update' ? 'pizza.updateItem' :
         (($operation == 'delete' ? 'pizza.deleteItem' : '')));
+
 $header = $operation == 'insert' ? 'Insert pizza' :
     ($operation == 'update' ? 'Update pizza' :
         (($operation == 'delete' ? 'Delete pizza' : '')));
 ?>
 
 <form class="form" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="pizza-id" value="<?= $id ?>"/>
+    <input type="hidden" name="pizza-id" value="<?= $pizzaId ?>"/>
 
     <h2><?= $header ?></h2>
 
@@ -35,7 +39,7 @@ $header = $operation == 'insert' ? 'Insert pizza' :
         <label><input name="image-path" type="file" placeholder="Image path"></label>
     <?php elseif ($operation == 'delete') : ?>
         <h5>Are you sure you want to delete the item?</h5>
-        <?php if (isset($_GET['name'])) : ?>
+        <?php if (!empty($name)) : ?>
             <h5 style="color: red">(<?= $name ?>)</h5>
         <?php endif ?>
     <?php endif ?>

@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection ALL */
+
+use App\Core\DB\Connection;
 
 $layout = 'primary';
 /** @var string $contentHTML */
@@ -6,60 +8,55 @@ $layout = 'primary';
 /** @var $data */
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title><?= \App\Config\Configuration::APP_NAME ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/public/css/styl_database.css">
-</head>
 
-<body>
+<?php
+$isAdmin = $data['isAdmin'] ?? 0;
+$users = $data['users'] ?? [];
+?>
 <div class="container">
-    <div class="row mt-5">
-        <div class="col">
-            <div class="card mt-5">
-                <div class="card-header" style="background-color: purple">
-                    <h2 style="text-align: center; font-weight: bold; color: white">Table - users</h2>
-                </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <form class="form" method="post" action="<?= $link->url("shop.database") ?>">
+                <input id="search-field" name="search-field" type="search" placeholder="Search login"
+                       aria-label="Search">
+                <button id="search-btn" class="btn btn-dark" type="submit">Search</button>
 
-                <table class="table table-bordered text-center">
-                    <tr class="columns">
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>isAdmin</td>
-                        <td>-</td>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Login</th>
+                        <th>Email</th>
+                        <th>Is admin</th>
                     </tr>
-                    <?php
-                    /*
-                     <?php if (isset($data['users']) && count($data['users']) > 0) : ?>
-                        <?php foreach ($data['users'] as $user) : ?>
-                            <tr class="content">
-                                <td><?= $user['id'] ?></td>
-                                <td><?= $user['name'] ?></td>
-                                <td><?= $user['email'] ?></td>
-                                <td><?= $user['isAdmin'] ? 'Yes' : 'No' ?></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary">
-                                        <a href="<?= $link->url("user.change", ["name" => $user['name'], "email" => $user['email'], "option" => 4]) ?>"
-                                        >Change</a>
-                                    </button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                     <?php endif; ?>
-                     */
-                    ?>
+                    </thead>
+
+                    <tbody id="output">
+                    <?php if (!empty($users)) : ?>
+                        <?php foreach ($users as $user): ?>
+                            <?php echo $user ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                    </tbody>
                 </table>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-</body>
 
-</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#search-btn").keypress(function () {
+            $.ajax({
+                type: 'POST',
+                url: 'App/Helpers/search.php',
+                data: {
+                    regex: $("#search-field").val(),
+                },
+                success: function (data) {
+                    $("#output").html(data);
+                }
+            });
+        });
+    });
+</script>

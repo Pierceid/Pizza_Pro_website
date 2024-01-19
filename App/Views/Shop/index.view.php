@@ -44,7 +44,9 @@ $layout = 'primary';
 <div class="pizzas-container row">
     <?php if ($data['isAdmin'] > 0) : ?>
         <div class="card add-card" style="background-color: darkorange">
-            <a href="<?= $link->url("shop.crudManagement", ["operation" => "insert"]) ?>"><img src="/public/images/icons/plus.png" alt=""></a>
+            <a href="<?= $link->url("shop.crudManagement", ["operation" => "insert"]) ?>">
+                <img src="/public/images/icons/plus.png" alt="">
+            </a>
         </div>
     <?php endif ?>
 
@@ -55,7 +57,7 @@ $layout = 'primary';
                 $id = $pizza['id'];
                 $name = $pizza['name'];
                 $description = $pizza['description'];
-                $cost = $pizza['cost'];
+                $cost = number_format($pizza['cost'], 2);
                 $imagePath = $pizza['image-path'];
                 ?>
 
@@ -66,18 +68,18 @@ $layout = 'primary';
                 <div class="action-buttons">
                     <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-primary">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "id" => $id, "name" => $name, "description" => $description, "cost" => $cost]) ?>"
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $id]) ?>"
                             >o</a>
                         </button>
                     <?php endif; ?>
 
                     <button type="button" class="btn btn-success">
-                        <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "id" => $id, "name" => $name, "cost" => $cost]) ?>">ADD</a>
+                        <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
                     </button>
 
                     <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "id" => $id, "name" => $name]) ?>">x</a>
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $id]) ?>">x</a>
                         </button>
                     <?php endif; ?>
                 </div>

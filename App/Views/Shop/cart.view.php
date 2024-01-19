@@ -24,7 +24,7 @@ $total = 0.0;
                 $id = $data[$i]['id'] ?? '';
                 $name = $data[$i]['name'] ?? '';
                 $description = $data[$i]['description'] ?? '';
-                $cost = $data[$i]['cost'] ?? '';
+                $cost = number_format($data[$i]['cost'], 2) ?? '';
                 $imagePath = $data[$i]['image-path'] ?? '';
                 $amount = $data[$i]['amount'] ?? '';
                 $items += $cost * $amount;
@@ -37,14 +37,14 @@ $total = 0.0;
                     <h5>Cost: <?= $cost ?> €</h5>
                     <div class="action-buttons">
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "adjust", "id" => $id, "name" => $name, "cost" => $cost, "amount" => $amount]) ?>">+
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "adjust", "pizzaId" => $id]) ?>">+
                                 / -</a>
                         </button>
 
                         <div class="card amount"><?= $amount ?></div>
 
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "remove", "id" => $id, "name" => $name]) ?>">x</a>
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "remove", "pizzaId" => $id]) ?>">x</a>
                         </button>
                     </div>
                 </div>
@@ -56,19 +56,19 @@ $total = 0.0;
         <div class="check">
             <div class="check-row">
                 <h2 class="check-text">Items:</h2>
-                <h2 class="check-value"><?= number_format($items, 2) ?> €</h2>
+                <h2 class="check-value"><?= $items ?> €</h2>
             </div>
 
             <div class="check-row">
                 <h2 class="check-text">Tax:</h2>
-                <h2 class="check-value"><?= number_format($items * $tax, 2) ?> €</h2>
+                <h2 class="check-value"><?= $items * $tax ?> €</h2>
             </div>
 
             <div class="divider" style="border: 1px solid black; margin: 5px 0"></div>
 
             <div class="check-row">
                 <h1 class="check-text">Total cost:</h1>
-                <h1 class="check-value"><?= $total = number_format($items + ($items * $tax), 2) ?> €</h1>
+                <h1 class="check-value"><?= $total = $items + ($items * $tax) ?> €</h1>
             </div>
         </div>
     </div>

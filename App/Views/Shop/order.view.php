@@ -10,18 +10,20 @@ $layout = 'secondary';
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <?php
-$id = $_GET['id'] ?? '';
+$locationId = $_GET['locationId'] ?? '';
 $purchase = $_GET['purchase'] ?? '';
-$location = \App\Models\Location::getOne($id) ?? '';
-$address = !empty($location) ? $location->getStreet() . ', ' . $location->getCity() . ', ' . $location->getZip() : 'not selected';
 $operation = $_GET['operation'] ?? '';
+
+$location = \App\Models\Location::getOne($locationId) ?? null;
+$address = !is_null($location) ? $location->getStreet() . ', ' . $location->getCity() . ', ' . $location->getZip() : 'not selected';
+
 $destination = $operation == 'order' ? 'order.createOrder' : 'order.discardPizzas';
 $header = $operation == 'order' ? 'Place order' : 'Confirm order';
 $text = $operation == 'order' ? 'Are you sure you want to place your order?' : 'Your order has been placed!';
 ?>
 
 <form class="form" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="location-id" value="<?= $id ?>"/>
+    <input type="hidden" name="location-id" value="<?= $locationId ?>"/>
     <input type="hidden" name="order-cost" value="<?= $purchase ?>"/>
 
     <h2><?= $header ?></h2>
