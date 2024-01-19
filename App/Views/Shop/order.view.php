@@ -11,7 +11,7 @@ $layout = 'secondary';
 
 <?php
 $locationId = $_GET['locationId'] ?? '';
-$purchase = $_GET['purchase'] ?? '0.00';
+$purchase = $_GET['purchase'] ?? '0';
 $operation = $_GET['operation'] ?? '';
 
 $location = \App\Models\Location::getOne($locationId) ?? null;
