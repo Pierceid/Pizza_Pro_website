@@ -38,11 +38,11 @@ class OrderController extends AControllerBase
             $place->save();
 
             $message = "Location has been successfully chosen!";
-            $data = ["operation" => "order", "message" => $message, "id" => $place->getId(), "purchase" => $purchase];
+            $data = ["operation" => "order", "locationId" => $place->getId(), "purchase" => $purchase, "message" => $message];
             return $this->redirect($this->url("shop.order", $data));
         }
 
-        $data = ["operation" => "choose", "message" => $message, "street" => $street, "city" => $city, "zip" => $zip, "purchase" => $purchase];
+        $data = ["operation" => "choose", "street" => $street, "city" => $city, "zip" => $zip, "purchase" => $purchase, "message" => $message,];
         return $this->redirect($this->url("shop.cartManagement", $data));
     }
 

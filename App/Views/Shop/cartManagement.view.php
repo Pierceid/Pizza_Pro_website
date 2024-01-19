@@ -48,12 +48,12 @@ $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
                       min="0" max="100" value="<?= $amount ?>"/></label>
     <?php elseif ($operation == 'remove') : ?>
         <h5>Are you sure you want to remove the pizza from your cart?</h5>
-        <h5 style="color: red">(<?= ($name) ?? 'not selected' ?> <?= ($amount) ?? '' ?>x)</h5>
+        <h5 style="color: red"><?= ($amount) ?? '' ?>x <?= ($name) ?? 'not selected' ?></h5>
     <?php elseif ($operation == 'discard') : ?>
         <h5>Are you sure you want to discard your order?</h5>
-        <h5 style="color: red">(<?= $purchase ?? '0.00' ?> €)</h5>
+        <h5 style="color: saddlebrown">Purchase: <?= $purchase ?? '0.00' ?> €</h5>
     <?php elseif ($operation == 'choose') : ?>
-        <h5 style="color: red">(<?= $purchase ?? '0.00' ?> €)</h5>
+        <h5 style="color: saddlebrown">Purchase: <?= $purchase ?? '0.00' ?> €</h5>
         <label><input name="street" type="text" placeholder="Street" value="<?= $street ?>"></label>
         <label><input name="city" type="text" placeholder="City" value="<?= $city ?>"></label>
         <label><input name="zip" type="text" placeholder="Zip" value="<?= $zip ?>"></label>
