@@ -11,7 +11,7 @@ $layout = 'secondary';
 
 <?php
 $locationId = $_GET['locationId'] ?? '';
-$purchase = $_GET['purchase'] ?? '';
+$purchase = $_GET['purchase'] ?? '0.00';
 $operation = $_GET['operation'] ?? '';
 
 $location = \App\Models\Location::getOne($locationId) ?? null;
@@ -31,7 +31,7 @@ $text = $operation == 'order' ? 'Are you sure you want to place your order?' : '
 
     <?php if ($operation == 'order'): ?>
         <h5 style="color: darkblue">Address: <?= $address ?></h5>
-        <h5 style="color: darkred">Purchase: <?= $purchase ?? '0.00' ?> €</h5>
+        <h5 style="color: darkred">Purchase: <?= $purchase ?> €</h5>
     <?php endif ?>
 
     <div class="action-buttons">

@@ -83,7 +83,7 @@ class OrderController extends AControllerBase
             $message = "Order has been successfully discarded!";
         }
 
-        $data = ["message" => $message, "purchase" => $purchase];
+        $data = ["purchase" => $purchase, "message" => $message];
         return $this->redirect($this->url("shop.cart", $data));
     }
 

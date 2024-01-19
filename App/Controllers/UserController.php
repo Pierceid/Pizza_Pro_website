@@ -49,7 +49,7 @@ class UserController extends AControllerBase
             }
         }
 
-        $data = ["message" => $message, "destination" => $destination];
+        $data = ["destination" => $destination, "message" => $message];
         return $this->redirect($this->url("user.message", $data));
     }
 
@@ -68,7 +68,7 @@ class UserController extends AControllerBase
             }
         }
 
-        $data = ["message" => $message, "destination" => $destination];
+        $data = ["destination" => $destination, "message" => $message];
         return $this->redirect($this->url("user.message", $data));
     }
 
