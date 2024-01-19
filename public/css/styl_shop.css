@@ -91,6 +91,10 @@ h6 {
     background-color: #d0a0f0;
 }
 
+.pizzas-container .card .action-buttons {
+    display: block;
+}
+
 @keyframes next1 {
     from {
         left: 0;

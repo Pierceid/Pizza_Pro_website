@@ -21,10 +21,10 @@ $purchase = $_GET['purchase'] ?? '';
 $operation = $_GET['operation'] ?? '';
 $destination = $operation == 'add' ? 'pizza.addItem' : ($operation == 'adjust' ? 'pizza.adjustItem' :
     ($operation == 'remove' ? 'pizza.removeItem' : ($operation == 'discard' ? 'order.discardOrder' :
-        ($operation == 'order' ? 'order.createOrder' : ''))));
+        ($operation == 'choose' ? 'order.createLocation' : ''))));
 $header = $operation == 'add' ? 'Add pizza' : ($operation == 'adjust' ? 'Adjust pizza' :
     ($operation == 'remove' ? 'Remove pizza' : ($operation == 'discard' ? 'Discard order' :
-        ($operation == 'order' ? 'Place order' : ''))));
+        ($operation == 'choose' ? 'Choose location' : ''))));
 $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
 ?>
 
@@ -45,7 +45,7 @@ $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
     <?php elseif ($operation == 'discard') : ?>
         <h5>Are you sure you want to discard your order?</h5>
         <h5 style="color: red">(<?= $purchase ?? '0.00' ?> €)</h5>
-    <?php elseif ($operation == 'order') : ?>
+    <?php elseif ($operation == 'choose') : ?>
         <h5 style="color: red">(<?= $purchase ?? '0.00' ?> €)</h5>
         <label><input name="street" type="text" placeholder="Street" value="<?= $street ?>"></label>
         <label><input name="city" type="text" placeholder="City" value="<?= $city ?>"></label>

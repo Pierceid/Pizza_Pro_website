@@ -80,7 +80,7 @@ $total = 0.0;
             </button>
 
             <button type="button" class="btn btn-dark">
-                <a href="<?= $link->url("shop.cartManagement", ["operation" => "order", "purchase" => $total]) ?>">Order</a>
+                <a href="<?= $link->url("shop.cartManagement", ["operation" => "choose", "purchase" => $total]) ?>">Order</a>
             </button>
         </div>
     </div>

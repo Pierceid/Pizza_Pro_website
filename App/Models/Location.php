@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Core\Model;
 
-class Place extends Model
+class Location extends Model
 {
     protected ?int $id = null;
     protected ?string $street;

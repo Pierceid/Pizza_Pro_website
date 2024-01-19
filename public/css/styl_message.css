@@ -60,20 +60,28 @@ h2, h5 {
     justify-content: space-between;
 }
 
-.btn-submit, .action-buttons .btn {
+.btn-submit, .action-buttons .btn, .btn-submit, .action-buttons .btn-submit {
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
-    margin: 10px;
     padding: 5px;
-    font-size: large;
+    margin: 10px;
     font-weight: bold;
     text-transform: uppercase;
     border: 3px solid black;
     border-radius: 10px;
     color: whitesmoke;
     background-color: black;
+}
+
+.btn-submit, .action-buttons .btn {
+    font-size: large;
+}
+
+.btn-submit, .action-buttons .btn-submit {
+    width: 90px;
+    height: 40px;
 }
 
 .action-buttons .btn a {
