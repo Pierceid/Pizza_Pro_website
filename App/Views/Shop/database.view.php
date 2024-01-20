@@ -47,7 +47,7 @@ $users = $data['users'] ?? [];
                                     <td><?= $user['id'] ?></td>
                                     <td><?= $user['name'] ?></td>
                                     <td><?= $user['email'] ?></td>
-                                    <td><?= $user['isAdmin'] ?></td>
+                                    <td><?= $user['isAdmin'] ? 'Yes' : 'No' ?></td>
 
                                     <?php if ($isAdmin) : ?>
                                         <td>
