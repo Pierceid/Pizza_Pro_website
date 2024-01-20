@@ -20,9 +20,9 @@ $users = $data['users'] ?? [];
                 <h1>Users table</h1>
                 <form class="form" method="post">
                     <div class="search">
-                        <input name="search-field" type="search" placeholder="Search login"
-                               aria-label="Search" style="width: 100%; padding: 5px; margin-right: 10px">
-                        <button class="btn btn-dark" type="submit" formaction="<?= $link->url("shop.database") ?>">
+                        <input class="search-field" name="search-field" type="search" placeholder="Search login"
+                               aria-label="Search">
+                        <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.database") ?>">
                             Search
                         </button>
                     </div>
@@ -33,9 +33,9 @@ $users = $data['users'] ?? [];
                             <th>ID</th>
                             <th>Login</th>
                             <th>Email</th>
-                            <th>Is admin</th>
+                            <th>Admin</th>
                             <?php if ($isAdmin) : ?>
-                                <th>Edit privilege</th>
+                                <th>Privilege</th>
                             <? endif ?>
                         </tr>
                         </thead>

@@ -15,6 +15,7 @@ body {
 
 h1 {
     text-decoration: underline;
+    color: whitesmoke;
 }
 
 h1, h5 {
@@ -28,8 +29,8 @@ h1, h5 {
     width: fit-content;
     height: fit-content;
     padding: 10px;
-    border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
+    background-color: #111111;
 }
 
 .form {
@@ -42,15 +43,29 @@ h1, h5 {
     display: flex;
     flex-direction: row;
     padding: 15px 0 25px;
+    background-color: #111111;
+}
+
+.search-field {
+    width: 100%;
+    padding: 5px;
+    margin-right: 30px;
+    background-color: whitesmoke;
+    outline: none;
+    border-radius: 5px;
+}
+
+.btn {
+    padding: 5px;
+    font-size: large;
+    font-weight: bold;
 }
 
 .table tr, .table th, .table td {
-    min-width: fit-content;
-    min-height: fit-content;
     border: 1px solid black;
-    text-align: center;
     font-weight: bold;
     font-size: large;
+    width: fit-content;
 }
 
 .table th {

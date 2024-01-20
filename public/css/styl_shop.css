@@ -46,10 +46,13 @@ h6 {
 
 .carousel-container .carousel {
     width: 100%;
-    height: 100%;
     padding: 10px 0;
     background-color: #111;
     text-align: center;
+}
+
+.web-content {
+    width: 100%;
 }
 
 .carousel-container .carousel .carousel-inner .carousel-item img {
