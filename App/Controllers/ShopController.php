@@ -104,33 +104,13 @@ class ShopController extends AControllerBase
     {
         $regex = $this->app->getRequest()->getValue('search-field') ?? '';
         $pizzas = Pizza::getAll("`name` LIKE ?", ["%$regex%"]);
-        $data = [];
-        if (count($pizzas) > 0) {
-            for ($i = 0; $i < count($pizzas); $i++) {
-                $data[$i]['id'] = $pizzas[$i]->getId();
-                $data[$i]['name'] = $pizzas[$i]->getName();
-                $data[$i]['description'] = $pizzas[$i]->getDescription();
-                $data[$i]['cost'] = $pizzas[$i]->getCost();
-                $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
-                $data[$i]['amount'] = $pizzas[$i]->getAmount();
-            }
-        }
-        return $data;
+        return $this->getPizzaData($pizzas);
     }
 
     private function getOrderedPizzas(): array
     {
         $pizzas = Pizza::getAll("`amount` > ?", ["0"]);
-        $data[] = [];
-        for ($i = 0; $i < count($pizzas); $i++) {
-            $data[$i]['id'] = $pizzas[$i]->getId();
-            $data[$i]['name'] = $pizzas[$i]->getName();
-            $data[$i]['description'] = $pizzas[$i]->getDescription();
-            $data[$i]['cost'] = $pizzas[$i]->getCost();
-            $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
-            $data[$i]['amount'] = $pizzas[$i]->getAmount();
-        }
-        return $data;
+        return $this->getPizzaData($pizzas);
     }
 
     private function getFilteredUsers(): array
@@ -163,5 +143,21 @@ class ShopController extends AControllerBase
     public function getIsAdmin($user): int
     {
         return $user ? $user->getIsAdmin() : 0;
+    }
+
+    private function getPizzaData($pizzas): array
+    {
+        $data = [];
+        if (count($pizzas) > 0) {
+            for ($i = 0; $i < count($pizzas); $i++) {
+                $data[$i]['id'] = $pizzas[$i]->getId();
+                $data[$i]['name'] = $pizzas[$i]->getName();
+                $data[$i]['description'] = $pizzas[$i]->getDescription();
+                $data[$i]['cost'] = $pizzas[$i]->getCost();
+                $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
+                $data[$i]['amount'] = $pizzas[$i]->getAmount();
+            }
+        }
+        return $data;
     }
 }
