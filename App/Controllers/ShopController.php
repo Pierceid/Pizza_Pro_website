@@ -94,7 +94,7 @@ class ShopController extends AControllerBase
 
     private function getPizzas(): array
     {
-        $pizzas = Pizza::getAll(orderBy: `id ASC`);
+        $pizzas = Pizza::getAll();
         $data[] = [];
 
         for ($i = 0; $i < count($pizzas); $i++) {
@@ -134,7 +134,7 @@ class ShopController extends AControllerBase
 
     private function getUsers(): array
     {
-        $users = User::getAll(orderBy: `id ASC`);
+        $users = User::getAll();
         $data[] = [];
 
         for ($i = 0; $i < count($users); $i++) {
