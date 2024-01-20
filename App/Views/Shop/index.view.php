@@ -15,9 +15,10 @@ $layout = 'primary';
     <div id="carousel-container" class="carousel slide">
         <div class="carousel-inner">
             <?php
-            $pizzas = $data['pizzas'];
-            shuffle($pizzas);
-            $pizzaSets = array_chunk($pizzas, 4);
+            $allPizzas = $data['all-pizzas'];
+            $filteredPizzas = $data['filtered-pizzas'];
+            shuffle($allPizzas);
+            $pizzaSets = array_chunk($allPizzas, 4);
 
             foreach ($pizzaSets as $setIndex => $pizzaSet): ?>
                 <div class="carousel-item<?php echo $setIndex === 0 ? ' active' : ''; ?>">
@@ -42,6 +43,16 @@ $layout = 'primary';
     </div>
 </div>
 
+<form class="form" method="post">
+    <div class="search">
+        <input class="search-field" name="search-field" type="search" placeholder="Search your favorite pizza"
+               aria-label="Search">
+        <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.index") ?>">
+            Search
+        </button>
+    </div>
+</form>
+
 <div class="pizzas-container row">
     <?php if ($data['isAdmin'] > 0) : ?>
         <div class="card add-card" style="background-color: darkorange">
@@ -51,8 +62,8 @@ $layout = 'primary';
         </div>
     <?php endif ?>
 
-    <?php if (!empty($pizzas)) : ?>
-        <?php foreach ($pizzas as $pizza): ?>
+    <?php if (!empty($filteredPizzas)) : ?>
+        <?php foreach ($filteredPizzas as $pizza): ?>
             <div class="card">
                 <?php
                 $id = $pizza['id'];

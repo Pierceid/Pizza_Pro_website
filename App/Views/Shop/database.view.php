@@ -17,52 +17,56 @@ $users = $data['users'] ?? [];
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
-                <h2>Users table</h2>
-                <form class="form" method="post" action="<?= $link->url("shop.database") ?>">
-                    <input name="search-field" type="search" placeholder="Search login"
-                           aria-label="Search" style="width: 100%; padding: 5px; margin-right: 10px">
-                    <button class="btn btn-dark" type="submit">Search</button>
-                </form>
+                <h1>Users table</h1>
+                <form class="form" method="post">
+                    <div class="search">
+                        <input name="search-field" type="search" placeholder="Search login"
+                               aria-label="Search" style="width: 100%; padding: 5px; margin-right: 10px">
+                        <button class="btn btn-dark" type="submit" formaction="<?= $link->url("shop.database") ?>">
+                            Search
+                        </button>
+                    </div>
 
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Login</th>
-                        <th>Email</th>
-                        <th>Is admin</th>
-                        <?php if ($isAdmin) : ?>
-                            <th>Edit privilege</th>
-                        <? endif ?>
-                    </tr>
-                    </thead>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Login</th>
+                            <th>Email</th>
+                            <th>Is admin</th>
+                            <?php if ($isAdmin) : ?>
+                                <th>Edit privilege</th>
+                            <? endif ?>
+                        </tr>
+                        </thead>
 
-                    <tbody>
-                    <?php if (!empty($users)) : ?>
-                        <?php foreach ($users as $user): ?>
-                            <tr>
-                                <td><?= $user['id'] ?></td>
-                                <td><?= $user['name'] ?></td>
-                                <td><?= $user['email'] ?></td>
-                                <td><?= $user['isAdmin'] ?></td>
+                        <tbody>
+                        <?php if (!empty($users)) : ?>
+                            <?php foreach ($users as $user): ?>
+                                <tr>
+                                    <td><?= $user['id'] ?></td>
+                                    <td><?= $user['name'] ?></td>
+                                    <td><?= $user['email'] ?></td>
+                                    <td><?= $user['isAdmin'] ?></td>
 
-                                <?php if ($isAdmin) : ?>
-                                    <td>
-                                        <button type="button" class="btn btn-primary">
-                                            <a href="<?= $link->url("user.edit", ["name" => $user['name'], "editId" => $user['id'], "option" => 4]) ?>"
-                                            >Edit</a>
-                                        </button>
-                                    </td>
-                                <? endif ?>
-                            </tr>
-                        <?php endforeach ?>
+                                    <?php if ($isAdmin) : ?>
+                                        <td>
+                                            <button type="button" class="btn btn-primary">
+                                                <a href="<?= $link->url("user.edit", ["name" => $user['name'], "editId" => $user['id'], "option" => 4]) ?>">
+                                                    Edit
+                                                </a>
+                                            </button>
+                                        </td>
+                                    <? endif ?>
+                                </tr>
+                            <?php endforeach ?>
+                        <?php endif ?>
+                        </tbody>
+                    </table>
+                    <?php if (empty($users)) : ?>
+                        <h5 style="color: red">0 results found</h5>
                     <?php endif ?>
-                    </tbody>
-                </table>
-
-                <?php if (empty($users)) : ?>
-                    <h5 style="color: red">0 results found</h5>
-                <?php endif ?>
+                </form>
             </div>
         </div>
     </div>

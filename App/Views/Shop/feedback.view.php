@@ -73,3 +73,5 @@ $layout = 'secondary';
         <a href="<?= $link->url("shop.index") ?>">Send</a>
     </div>
 </div>
+
+<script src="/public/js/script_feedback.js"></script>
