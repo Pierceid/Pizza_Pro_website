@@ -14,9 +14,10 @@ class ShopController extends AControllerBase
     /**
      * @inheritDoc
      */
+
     public function index(): Response
     {
-        $data["isAdmin"] = $this->getIsAdmin();
+        $data["isAdmin"] = $this->getIsAdmin($this->findUser());
         $data["pizzas"] = $this->getPizzas();
         return $this->html($data);
     }
@@ -28,7 +29,7 @@ class ShopController extends AControllerBase
 
     public function profile(): Response
     {
-        $user = $this->findUser();
+        $user = User::getOne($this->findUser()->getId());
         $data = [
             "name" => $user->getLogin(),
             "email" => $user->getEmail(),
@@ -47,7 +48,7 @@ class ShopController extends AControllerBase
 
     public function database(): Response
     {
-        $data["admin"] = $this->getIsAdmin();
+        $data["isAdmin"] = $this->getIsAdmin($this->findUser());
         $data["users"] = $this->getFilteredUsers();
         return $this->html($data);
     }
@@ -72,6 +73,25 @@ class ShopController extends AControllerBase
         return $this->html();
     }
 
+    public function initPizzas(): Response
+    {
+        $con = Connection::connect();
+        $sql = "SELECT id FROM vaiicko_db.pizzas WHERE amount > 0";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $discardedPizzas = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        $pizzas = Pizza::getAll();
+        foreach ($pizzas as $pizza) {
+            if (in_array($pizza->getId(), $discardedPizzas)) {
+                $pizza->setAmount(0);
+                $pizza->save();
+            }
+        }
+
+        return $this->redirect($this->url("shop.index", ["userId" => $_GET['userId']]));
+    }
+
     private function getPizzas(): array
     {
         $pizzas = Pizza::getAll(orderBy: `id ASC`);
@@ -83,6 +103,7 @@ class ShopController extends AControllerBase
             $data[$i]['description'] = $pizzas[$i]->getDescription();
             $data[$i]['cost'] = $pizzas[$i]->getCost();
             $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
+            $data[$i]['amount'] = $pizzas[$i]->getAmount();
         }
         return $data;
     }
@@ -128,19 +149,8 @@ class ShopController extends AControllerBase
     private function getFilteredUsers(): array
     {
         $regex = $this->app->getRequest()->getValue('search-field') ?? '';
-        /*
-        $con = Connection::connect();
-        $sql = "SELECT id, login, email, isAdmin FROM vaiicko_db.users WHERE login LIKE ? ORDER BY id";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
 
-        $users = [];
-        while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = $result;
-        }
-        */
-
-        $users = User::getAll(whereClause: `login LIKE %$regex%`);
+        $users = User::getAll();
         $filteredUsers = [];
         foreach ($users as $user) {
             if (str_contains($user->getLogin(), $regex)) {
@@ -151,21 +161,17 @@ class ShopController extends AControllerBase
         $data = [];
         if (count($filteredUsers) > 0) {
             for ($i = 0; $i < count($filteredUsers); $i++) {
-                $data[] = "<tr>
-                            <td>" . $filteredUsers[$i]->getId() . "</td>
-                            <td>" . $filteredUsers[$i]->getLogin() . "</td>
-                            <td>" . $filteredUsers[$i]->getEmail() . "</td>
-                            <td>" . $filteredUsers[$i]->getIsAdmin() . "</td>
-                          </tr>";
+                $data[$i]['id'] = $users[$i]->getId();
+                $data[$i]['name'] = $users[$i]->getLogin();
+                $data[$i]['email'] = $users[$i]->getEmail();
+                $data[$i]['isAdmin'] = $users[$i]->getIsAdmin();
             }
-        } else {
-            $data[] = "<tr><td>0 results found</td></tr>";
         }
 
         return $data;
     }
 
-    private function findUser(): ?User
+    public function findUser(): ?User
     {
         $users = User::getAll();
         foreach ($users as $user) {
@@ -176,9 +182,8 @@ class ShopController extends AControllerBase
         return null;
     }
 
-    private function getIsAdmin(): int
+    public function getIsAdmin($user): int
     {
-        $user = $this->findUser();
         return $user ? $user->getIsAdmin() : 0;
     }
 }

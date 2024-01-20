@@ -58,7 +58,7 @@ class PizzaController extends AControllerBase
         $formData = $this->app->getRequest();
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
-        $cost = $formData->getValue("cost");
+        $cost = str_replace(',', '.', $formData->getValue("cost"));
         $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to insert an item!";
 
@@ -82,7 +82,7 @@ class PizzaController extends AControllerBase
         $id = $formData->getValue("pizza-id");
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
-        $cost = $formData->getValue("cost");
+        $cost = str_replace(',', '.', $formData->getValue("cost"));
         $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to update the item!";
 

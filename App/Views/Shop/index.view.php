@@ -9,6 +9,7 @@ $layout = 'primary';
 
 <link rel="stylesheet" href="/public/css/styl_buttons.css">
 <link rel="stylesheet" href="/public/css/styl_shop.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <div class="carousel-container">
     <div id="carousel-container" class="carousel slide">
@@ -59,7 +60,10 @@ $layout = 'primary';
                 $description = $pizza['description'];
                 $cost = number_format($pizza['cost'], 2);
                 $imagePath = $pizza['image-path'];
+                $amount = $pizza['amount'];
                 ?>
+
+                <input id="pizza-id" type="hidden" value="<?= $id ?>">
 
                 <img src="<?= $imagePath ?>" alt="">
                 <h5><?= $name ?></h5>
@@ -71,16 +75,20 @@ $layout = 'primary';
                             <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $id]) ?>"
                             >o</a>
                         </button>
-                    <?php endif; ?>
 
-                    <button type="button" class="btn btn-success">
-                        <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
-                    </button>
+                        <button type="button" class="btn btn-success">
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
+                        </button>
 
-                    <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-danger">
                             <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $id]) ?>">x</a>
                         </button>
+                    <?php else: ?>
+                        <button id="plus-btn" type="button" class="btn btn-success">+</button>
+
+                        <button id="amount-btn" type="button" class="btn btn-light"><?= $amount ?></button>
+
+                        <button id="minus-btn" type="button" class="btn btn-danger">-</button>
                     <?php endif; ?>
                 </div>
             </div>
@@ -89,3 +97,13 @@ $layout = 'primary';
 </div>
 
 <script src="/public/js/script_shop.js"></script>
+<script>
+    $(document).ready(function () {
+        increaseAmount();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        reduceAmount();
+    });
+</script>

@@ -11,7 +11,7 @@ $layout = 'secondary';
 <?php
 $pizzaId = $_GET['pizzaId'] ?? '';
 $locationId = $_GET['locationId'] ?? '';
-$purchase = $_GET['purchase'] ?? '';
+$purchase = isset($_GET['purchase']) ? number_format($_GET['purchase'], 2) : '0';
 $operation = $_GET['operation'] ?? '';
 
 $pizza = \App\Models\Pizza::getOne($pizzaId) ?? null;
@@ -48,7 +48,7 @@ $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
                       min="0" max="100" value="<?= $amount ?>"/></label>
     <?php elseif ($operation == 'remove') : ?>
         <h5>Are you sure you want to remove the pizza from your cart?</h5>
-        <h5 style="color: red"><?= ($amount) ?? '' ?>x <?= ($name) ?? 'not selected' ?></h5>
+        <h5 style="color: red"><?= $amount ?? '' ?>x <?= $name ?? 'not selected' ?></h5>
     <?php elseif ($operation == 'discard') : ?>
         <h5>Are you sure you want to discard your order?</h5>
         <h5 style="color: saddlebrown">Purchase: <?= $purchase ?? '0.00' ?> €</h5>

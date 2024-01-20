@@ -43,3 +43,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
     container.addEventListener('mouseout', autoSliding);
 });
+
+function increaseAmount() {
+    $('#plus-btn').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: 'App/Helpers/adjuster.php',
+            data: {
+                amount: $("#amount-btn").val(),
+                id: $("#pizza-id").val(),
+                operation: "plus"
+            },
+            success: function (data) {
+                $("#amount-btn").html(data);
+            }
+        });
+    });
+}
+
+function reduceAmount() {
+    $('#minus-btn').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: 'App/Helpers/adjuster.php',
+            data: {
+                amount: $("#amount-btn").val(),
+                id: $("#pizza-id").val(),
+                operation: "minus"
+            },
+            success: function (data) {
+                $("#amount-btn").html(data);
+            }
+        });
+    });
+}
+
+

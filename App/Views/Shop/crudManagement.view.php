@@ -15,7 +15,7 @@ $operation = $_GET['operation'] ?? '';
 $pizza = \App\Models\Pizza::getOne($pizzaId) ?? null;
 $name = !is_null($pizza) ? $pizza->getName() : ($_GET['name'] ?? '');
 $description = !is_null($pizza) ? $pizza->getDescription() : ($_GET['description'] ?? '');
-$cost = $cost = !is_null($pizza) ? number_format($pizza->getCost(), 2) : (isset($_GET['cost']) ? number_format($_GET['cost'], 2) : '');
+$cost = $cost = !is_null($pizza) ? number_format($pizza->getCost(), 2) : (!empty($_GET['cost']) ? number_format($_GET['cost'], 2) : '');
 $amount = !is_null($pizza) ? $pizza->getAmount() : '';
 
 $destination = $operation == 'insert' ? 'pizza.insertItem' :
