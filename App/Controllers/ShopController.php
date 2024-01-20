@@ -86,18 +86,7 @@ class ShopController extends AControllerBase
     private function getAllPizzas(): array
     {
         $pizzas = Pizza::getAll();
-        $data = [];
-        if (count($pizzas) > 0) {
-            for ($i = 0; $i < count($pizzas); $i++) {
-                $data[$i]['id'] = $pizzas[$i]->getId();
-                $data[$i]['name'] = $pizzas[$i]->getName();
-                $data[$i]['description'] = $pizzas[$i]->getDescription();
-                $data[$i]['cost'] = $pizzas[$i]->getCost();
-                $data[$i]['image-path'] = "public/images/pizzas/" . $pizzas[$i]->getImagePath();
-                $data[$i]['amount'] = $pizzas[$i]->getAmount();
-            }
-        }
-        return $data;
+        return $this->getPizzaData($pizzas);
     }
 
     private function getFilteredPizzas(): array
