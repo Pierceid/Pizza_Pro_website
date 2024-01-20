@@ -149,9 +149,10 @@ class ShopController extends AControllerBase
     private function getFilteredUsers(): array
     {
         $regex = $this->app->getRequest()->getValue('search-field') ?? '';
+        //$users = User::getAll("login LIKE '%'?'%'", [$regex]);
+        $filteredUsers = [];
 
         $users = User::getAll();
-        $filteredUsers = [];
         foreach ($users as $user) {
             if (str_contains($user->getLogin(), $regex)) {
                 $filteredUsers[] = $user;
@@ -161,10 +162,10 @@ class ShopController extends AControllerBase
         $data = [];
         if (count($filteredUsers) > 0) {
             for ($i = 0; $i < count($filteredUsers); $i++) {
-                $data[$i]['id'] = $users[$i]->getId();
-                $data[$i]['name'] = $users[$i]->getLogin();
-                $data[$i]['email'] = $users[$i]->getEmail();
-                $data[$i]['isAdmin'] = $users[$i]->getIsAdmin();
+                $data[$i]['id'] = $filteredUsers[$i]->getId();
+                $data[$i]['name'] = $filteredUsers[$i]->getLogin();
+                $data[$i]['email'] = $filteredUsers[$i]->getEmail();
+                $data[$i]['isAdmin'] = $filteredUsers[$i]->getIsAdmin();
             }
         }
 

@@ -43,7 +43,7 @@ $layout = 'secondary';
 </div>
 
 <div class="question">
-    <h5>Do you have any thoughts you'd like to sare?</h5>
+    <h5>Do you have any thoughts you'd like to share?</h5>
     <div class="text-input input-group mb-3">
         <textarea class="feedback-input form-control" placeholder="Share your thoughts"
                   aria-label="Thoughts"></textarea>
