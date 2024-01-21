@@ -1,6 +1,6 @@
 <?php
 
-$layout = 'secondary';
+$layout = 'primary';
 /* @var \App\Core\LinkGenerator $link
  * @var Array $data
  */
@@ -83,9 +83,9 @@ $imagePath = $data['imagePath'] ?? '';
         <div class="container">
             <div class="action-buttons">
                 <button @click="discardData" id="btn-discard" class="btn btn-danger">Discard</button>
-                <div class="btn btn-dark">
-                    <a href="<?= $link->url("shop.index") ?>">Cancel</a>
-                </div>
+                <button type="button" class="btn btn-dark">
+                    <a href="<?= $link->url("shop.index") ?>">Back</a>
+                </button>
                 <button @click="sendData" id="btn-send" class="btn btn-success">Send</button>
             </div>
         </div>

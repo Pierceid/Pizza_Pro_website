@@ -24,6 +24,7 @@ h6 {
 
 .container-fluid {
     margin: 0;
+    display: flex;
 }
 
 .content {
@@ -34,11 +35,8 @@ h6 {
 .container {
     justify-content: center;
     max-width: 800px;
-    position: relative;
-    left: 50%;
     margin: 0;
     padding: 0;
-    transform: translate(-50%);
 }
 
 .card, .post {

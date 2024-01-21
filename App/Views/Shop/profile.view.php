@@ -53,4 +53,8 @@ $name = $data['name'] ?? '';
             <?= $_GET['message'] ?>
         </h4>
     <?php endif ?>
+
+    <button type="button" class="btn btn-dark btn-submit">
+        <a href="<?= $link->url("shop.index") ?>">Back</a>
+    </button>
 </div>

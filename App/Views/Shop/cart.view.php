@@ -73,12 +73,14 @@ $total = 0.0;
         </div>
     </div>
 
-    <div class="operation">
+    <div class="container">
         <div class="action-buttons">
             <button type="button" class="btn btn-dark">
                 <a href="<?= $link->url("shop.cartManagement", ["operation" => "discard", "purchase" => $total]) ?>">Discard</a>
             </button>
-
+            <button type="button" class="btn btn-dark">
+                <a href="<?= $link->url("shop.index") ?>">Back</a>
+            </button>
             <button type="button" class="btn btn-dark">
                 <a href="<?= $link->url("shop.cartManagement", ["operation" => "choose", "purchase" => $total]) ?>">Order</a>
             </button>
