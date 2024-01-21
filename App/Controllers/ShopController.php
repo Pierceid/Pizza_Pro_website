@@ -114,7 +114,15 @@ class ShopController extends AControllerBase
         $login = $formData->getValue('login-field') ?? '';
         $email = $formData->getValue('email-field') ?? '';
         $isAdmin = $formData->getValue('is-admin-field') ?? '';
-        $users = User::getAll("`login` LIKE ? AND `email` LIKE ? AND `isAdmin` = ?", ["%$login%", "%$email", "$isAdmin"]);
+
+        $sql = "`login` LIKE ? AND `email` LIKE ?";
+        $parameters = ["%$login%", "%$email"];
+        if (in_array($isAdmin, [0, 1])) {
+            $sql .= " AND `isAdmin` = ?";
+            $parameters[] = "$isAdmin";
+        }
+
+        $users = User::getAll($sql, $parameters);
         $data = [];
         if (count($users) > 0) {
             for ($i = 0; $i < count($users); $i++) {
