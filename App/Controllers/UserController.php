@@ -102,6 +102,15 @@ class UserController extends AControllerBase
         return $this->redirect($this->url($destination, $data));
     }
 
+    public function removeUser(): Response
+    {
+        $formData = $this->app->getRequest();
+        $editedUserId = $formData->getValue("edit-id");
+        $user = User::getOne($editedUserId);
+        $user->delete();
+        return $this->redirect($this->url("user.edit"));
+    }
+
     private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
     {
         $users = User::getAll();
