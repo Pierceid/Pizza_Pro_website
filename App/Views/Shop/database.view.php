@@ -1,6 +1,4 @@
-<?php /** @noinspection ALL */
-
-use App\Core\DB\Connection;
+<?php
 
 $layout = 'primary';
 /** @var string $contentHTML */
@@ -8,18 +6,32 @@ $layout = 'primary';
 /** @var $data */
 ?>
 
+<link rel="stylesheet" href="/public/css/styl_database.css">
 
 <?php
-$isAdmin = $data['isAdmin'] ?? 0;
+$isAdmin = (int)$data['isAdmin'] ?? 0;
 $users = $data['users'] ?? [];
 ?>
-<div class="container">
+
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-6">
-            <form class="form" method="post" action="<?= $link->url("shop.database") ?>">
-                <input id="search-field" name="search-field" type="search" placeholder="Search login"
-                       aria-label="Search">
-                <button id="search-btn" class="btn btn-dark" type="submit">Search</button>
+        <div class="card">
+            <h1>Users table</h1>
+            <form class="form" method="post">
+                <div class="search">
+                    <input class="search-field" name="login-field" type="search" placeholder="Login"
+                           aria-label="Search">
+                    <input class="search-field" name="email-field" type="search" placeholder="Email"
+                           aria-label="Search">
+                    <select class="search-field" name="is-admin-field">
+                        <option value="">All users</option>
+                        <option value="0">Not an admin</option>
+                        <option value="1">Is an admin</option>
+                    </select>
+                    <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.database") ?>">
+                        Search
+                    </button>
+                </div>
 
                 <table class="table table-hover">
                     <thead>
@@ -27,36 +39,40 @@ $users = $data['users'] ?? [];
                         <th>ID</th>
                         <th>Login</th>
                         <th>Email</th>
-                        <th>Is admin</th>
+                        <th>Admin</th>
+                        <?php if ($isAdmin) : ?>
+                            <th>Privilege</th>
+                        <?php endif ?>
                     </tr>
                     </thead>
 
-                    <tbody id="output">
+                    <tbody>
                     <?php if (!empty($users)) : ?>
                         <?php foreach ($users as $user): ?>
-                            <?php echo $user ?>
+                            <tr>
+                                <td><?= $user['id'] ?></td>
+                                <td><?= $user['name'] ?></td>
+                                <td><?= $user['email'] ?></td>
+                                <td><?= $user['isAdmin'] ? 'Yes' : 'No' ?></td>
+
+                                <?php if ($isAdmin) : ?>
+                                    <td>
+                                        <button type="button" class="btn btn-primary">
+                                            <a href="<?= $link->url("user.edit", ["name" => $user['name'], "editId" => $user['id'], "option" => 4]) ?>">
+                                                Edit
+                                            </a>
+                                        </button>
+                                    </td>
+                                <?php endif ?>
+                            </tr>
                         <?php endforeach ?>
                     <?php endif ?>
                     </tbody>
                 </table>
+                <?php if (empty($users)) : ?>
+                    <h5 style="color: red">0 results found</h5>
+                <?php endif ?>
             </form>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#search-btn").keypress(function () {
-            $.ajax({
-                type: 'POST',
-                url: 'App/Helpers/search.php',
-                data: {
-                    regex: $("#search-field").val(),
-                },
-                success: function (data) {
-                    $("#output").html(data);
-                }
-            });
-        });
-    });
-</script>

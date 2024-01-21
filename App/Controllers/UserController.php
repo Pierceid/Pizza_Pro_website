@@ -11,6 +11,7 @@ class UserController extends AControllerBase
     /**
      * @inheritDoc
      */
+
     public function index(): Response
     {
         return $this->html();
@@ -18,12 +19,14 @@ class UserController extends AControllerBase
 
     public function edit(): Response
     {
-        return $this->html();
+        $data = ["name" => $this->findUser()->getLogin(), "editId" => $this->app->getRequest()->getValue('edit-id')];
+        return $this->html($data);
     }
 
     public function message(): Response
     {
-        return $this->html();
+        $data = ["isAdmin" => $this->getIsAdmin($this->findUser())];
+        return $this->html($data);
     }
 
     public function checkRegister(): Response
@@ -76,39 +79,35 @@ class UserController extends AControllerBase
     {
         $formData = $this->app->getRequest();
         $option = $formData->getValue("option-id");
+        $name = $formData->getValue("user-name");
         $nameNew = $formData->getValue("name");
         $emailNew = $formData->getValue("email");
         $passwordOld = $formData->getValue("password-old");
         $passwordNew = $formData->getValue("password-new");
         $imagePathNew = $_FILES["image-path"]['name'];
+        $isAdminNew = $formData->getValue("is-admin");
+        $editedUserId = $formData->getValue("edit-id");
+        $destination = $option != "4" ? "shop.profile" : "shop.database";
 
         $message = match ($option) {
             "0" => $this->handleInput(imagePathNew: $imagePathNew),
             "1" => $this->handleInput(nameNew: $nameNew),
             "2" => $this->handleInput(emailNew: $emailNew),
             "3" => $this->handleInput(passwordOld: $passwordOld, passwordNew: $passwordNew),
+            "4" => $this->handleInput(isAdminNew: $isAdminNew, editedUserId: $editedUserId),
             default => "Invalid option!",
         };
 
-        $data = ["message" => $message];
-        return $this->redirect($this->url("shop.profile", $data));
+        $data = ["name" => $name, "message" => $message];
+        return $this->redirect($this->url($destination, $data));
     }
 
-    public function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null): string
+    private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
     {
-        $formData = $this->app->getRequest();
-        $currentName = $this->app->getAuth()->getLoggedUserName();
-        $currentEmail = $formData->getValue("user-email");
-
         $users = User::getAll();
-        $currentUser = null;
+        $currentUser = $this->findUser();
+        $editedUser = User::getOne($editedUserId);
 
-        foreach ($users as $user) {
-            if ($user->getEmail() == $currentEmail && $user->getLogin() == $currentName) {
-                $currentUser = $user;
-            }
-        }
-        $currentPassword = $currentUser->getPassword();
         if (!is_null($imagePathNew)) {
             return $this->validateImagePath($currentUser);
         } elseif (!is_null($nameNew)) {
@@ -117,12 +116,14 @@ class UserController extends AControllerBase
             return $this->validateEmail($users, $currentUser, $emailNew);
         } elseif (!is_null($passwordOld) && !is_null($passwordNew)) {
             return $this->validatePassword($currentUser, $passwordOld, $passwordNew);
+        } elseif (!is_null($editedUser) && !is_null($isAdminNew)) {
+            return $this->validateIsAdmin($editedUser, $isAdminNew);
         } else {
             return "";
         }
     }
 
-    public function validateName($currentUser, $nameNew): string
+    private function validateName($currentUser, $nameNew): string
     {
         if ($nameNew == $currentUser->getLogin() || empty($nameNew) || strlen($nameNew) > 200) {
             return "Failed to update your name!";
@@ -134,8 +135,7 @@ class UserController extends AControllerBase
         return "Your name has been successfully updated!";
     }
 
-
-    public function validateEmail($users, $currentUser, $emailNew): string
+    private function validateEmail($users, $currentUser, $emailNew): string
     {
         $existingUser = array_filter($users, function ($user) use ($currentUser, $emailNew) {
             return $user !== $currentUser && $user->getEmail() == $emailNew;
@@ -150,7 +150,7 @@ class UserController extends AControllerBase
         return "Your email has been successfully updated!";
     }
 
-    public function validatePassword($currentUser, $passwordOld, $passwordNew): string
+    private function validatePassword($currentUser, $passwordOld, $passwordNew): string
     {
         if (empty($passwordOld) || !password_verify($passwordOld, $currentUser->getPassword()) ||
             empty($passwordNew) || strlen($passwordNew) > 200 || $passwordNew == $passwordOld) {
@@ -162,7 +162,7 @@ class UserController extends AControllerBase
         return "Your password has been successfully updated!";
     }
 
-    public function validateImagePath($currentUser): string
+    private function validateImagePath($currentUser): string
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_FILES["image-path"])) {
@@ -186,5 +186,32 @@ class UserController extends AControllerBase
             }
         }
         return "Failed to update your profile picture!";
+    }
+
+    private function validateIsAdmin($currentUser, $isAdminNew): string
+    {
+        if ($currentUser->getIsAdmin() == $isAdminNew) {
+            return "Failed to update admin privilege!";
+        }
+
+        $currentUser->setIsAdmin($isAdminNew);
+        $currentUser->save();
+        return "Admin privilege has been successfully updated!";
+    }
+
+    public function findUser(): ?User
+    {
+        $users = User::getAll();
+        foreach ($users as $user) {
+            if ($user->getLogin() == $this->app->getAuth()->getLoggedUserName()) {
+                return $user;
+            }
+        }
+        return null;
+    }
+
+    public function getIsAdmin($user): int
+    {
+        return $user ? $user->getIsAdmin() : 0;
     }
 }

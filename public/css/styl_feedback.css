@@ -15,57 +15,129 @@ h5 {
     font-weight: bold;
 }
 
-.question {
+h6 {
+    text-align: start;
+    text-decoration: none;
+    font-weight: normal;
+    color: black;
+}
+
+.container-fluid {
+    margin: 0;
+}
+
+.content {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    justify-content: center;
+    max-width: 800px;
     position: relative;
     left: 50%;
-    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+    transform: translate(-50%);
+}
+
+.card, .post {
+    background-color: whitesmoke;
+    padding: 3px;
+    margin: 3px 0;
+}
+
+.card {
     justify-content: center;
     text-align: center;
-    max-width: 700px;
-    background-color: whitesmoke;
     border: 5px solid black;
     border-radius: 10px;
     padding: 5px;
-    margin: 5px 0;
 }
 
-.question .satisfaction-options {
+.post {
     display: flex;
+    flex-direction: column;
+    text-align: start;
+    border: 2px solid black;
+    padding: 0;
+    margin: 10px 0 0 0;
+    background-color: lightgrey;
+}
+
+.post .header {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: start;
+    padding: 5px 5px 0;
+}
+
+.post .header .user-info .user-name {
+    font-weight: bold;
+    color: darkblue;
+}
+
+.post .header .user-info .user-email {
+    font-weight: bold;
+    color: darkred;
+}
+
+.post .header .user-info h6 {
+    text-align: start;
+    flex-wrap: wrap;
+}
+
+.post .header img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+}
+
+.post .divider {
+    padding: 0;
+    margin: 0;
+    border: 1px solid black;
+}
+
+.post .body {
+    padding: 5px 5px 0;
+}
+
+.card .satisfaction-options {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
     font-weight: bold;
-    margin: 10px 0;
 }
 
-.question .satisfaction-options .option {
-    display: block;
+.card .satisfaction-options .radio-group, .card .satisfaction-options .icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     text-align: center;
 }
 
-.question .satisfaction-options .radio-button {
-    transform: scale(1.5);
-    margin: 0 5px;
-}
-
-.question .satisfaction-options img {
+.card .satisfaction-options img {
     display: flex;
     max-width: 50px;
     max-height: 50px;
-    margin: 10px 10px 0 10px;
+    margin: 0 10px 10px 10px;
 }
 
-.question .text-input .feedback-input {
+.card .text-input {
     resize: none;
-    width: 100%;
-    height: max-content;
-    min-height: 150px;
+    min-height: 100px;
     font-size: large;
     padding: 5px;
-    margin: 10px 10px 0 10px;
     border: 2px solid black;
 }
 
-.question .switch-option {
+.card .switch-option {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -77,26 +149,26 @@ h5 {
     margin: 10px 0;
 }
 
-.question .switch {
+.card .switch {
     position: relative;
     width: 60px;
     height: 30px;
     margin: 0 10px;
 }
 
-.question .switch input {
+.card .switch input {
     display: none;
 }
 
-.question .switch input:checked + .slider {
+.card .switch input:checked + .slider {
     background-color: teal;
 }
 
-.question .switch input:checked + .slider:before {
+.card .switch input:checked + .slider:before {
     transform: translateX(30px);
 }
 
-.question .switch .slider {
+.card .switch .slider {
     transform: scaleX(-1);
     position: absolute;
     cursor: pointer;
@@ -110,10 +182,10 @@ h5 {
     border-radius: 30px;
 }
 
-.question .switch .slider:before {
+.card .switch .slider:before {
     position: absolute;
-    left: 3px;
-    top: 3px;
+    left: 2px;
+    top: 2px;
     height: 24px;
     width: 24px;
     content: "";
@@ -123,9 +195,25 @@ h5 {
     border-radius: 50%;
 }
 
+.action-buttons {
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .action-buttons .btn {
-    width: 90px;
-    height: 45px;
+    width: 80px;
+    height: 40px;
     font-size: large;
-    padding: 7px;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.action-buttons .btn-log {
+    width: 110px;
+    font-weight: bold;
+    font-size: large;
+}
+
+.action-buttons .hidden {
+    display: none;
 }

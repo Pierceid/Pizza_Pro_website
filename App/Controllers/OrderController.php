@@ -68,7 +68,7 @@ class OrderController extends AControllerBase
             $message = "Order has been placed successfully!";
         }
 
-        $data = ["operation" => $operation, "message" => $message];
+        $data = ["operation" => $operation, "locationId" => $id, "message" => $message];
         return $this->redirect($this->url("shop.order", $data));
     }
 

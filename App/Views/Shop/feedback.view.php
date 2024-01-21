@@ -1,75 +1,115 @@
 <?php
 
 $layout = 'secondary';
-/* @var \App\Core\LinkGenerator $link */
+/* @var \App\Core\LinkGenerator $link
+ * @var Array $data
+ */
 ?>
 
 <link rel="stylesheet" href="/public/css/styl_buttons.css">
 <link rel="stylesheet" href="/public/css/styl_feedback.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 
-<div class="question">
-    <h5>What do you think of the website?</h5>
+<?php
+$name = $data['name'] ?? '';
+$email = $data['email'] ?? '';
+$imagePath = $data['imagePath'] ?? '';
+?>
 
-    <div class="satisfaction-options">
-        <div class="option">
-            <label>
-                <input type="radio" class="radio-button" name="radioGroup" value="option1" checked>Great
-            </label>
-            <img src="/public/images/satisfactions/great.png" alt="">
+<div id="app">
+    <div class="container-fluid content">
+        <div class="user">
+            <div id="user-name" style="display: none"><?= $name ?></div>
+            <div id="user-email" style="display: none"><?= $email ?></div>
+            <div id="user-image-path" style="display: none"><?= $imagePath ?></div>
         </div>
 
-        <div class="option">
-            <label>
-                <input type="radio" class="radio-button" name="radioGroup" value="option2">Good
-            </label>
-            <img src="/public/images/satisfactions/good.png" alt="">
+        <div class="container">
+            <div class="card">
+                <h5>What do you think of the website?</h5>
+                <div class="satisfaction-options">
+                    <div class="radio-group">
+                        <div class="option">
+                            <input type="radio" id="option-1" v-model="selectedOption" value="option1" checked>
+                            <label for="option-1">Great</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" id="option-2" v-model="selectedOption" value="option2" checked>
+                            <label for="option-2">Good</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" id="option-3" v-model="selectedOption" value="option3" checked>
+                            <label for="option-3">Decent</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" id="option-4" v-model="selectedOption" value="option4" checked>
+                            <label for="option-4">Bad</label>
+                        </div>
+                    </div>
+                    <div class="icons">
+                        <img src="/public/images/satisfactions/great.png" alt="">
+                        <img src="/public/images/satisfactions/good.png" alt="">
+                        <img src="/public/images/satisfactions/decent.png" alt="">
+                        <img src="/public/images/satisfactions/bad.png" alt="">
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="option">
-            <label>
-                <input type="radio" class="radio-button" name="radioGroup" value="option3">Decent
-            </label>
-            <img src="/public/images/satisfactions/decent.png" alt="">
-
+        <div class="container">
+            <div class="card">
+                <h5>Do you have any thoughts you'd like to share?</h5>
+                <textarea id="user-text" v-model="userText" class="text-input" placeholder="Share your thoughts"></textarea>
+            </div>
         </div>
 
-        <div class="option">
-            <label>
-                <input type="radio" class="radio-button" name="radioGroup" value="option4">Bad
-            </label>
-            <img src="/public/images/satisfactions/bad.png" alt="">
+        <div class="container">
+            <div class="card">
+                <h5>May we follow you up on your feedback?</h5>
+                <div class="switch-option">
+                    Yes
+                    <label class="switch">
+                        <input type="checkbox" id="checkbox" v-model="isChecked" checked>
+                        <span class="slider"></span>
+                    </label>
+                    No
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="action-buttons">
+                <button @click="discardData" id="btn-discard" class="btn btn-danger">Discard</button>
+                <div class="btn btn-dark">
+                    <a href="<?= $link->url("shop.index") ?>">Cancel</a>
+                </div>
+                <button @click="sendData" id="btn-send" class="btn btn-success">Send</button>
+            </div>
+        </div>
+
+        <div class="card container">
+            <h5>Posts of our costumers</h5>
+            <div class="action-buttons">
+                <button @click="loadData" id="btn-load" class="btn btn-warning btn-log">Load post</button>
+                <button @click="clearData" id="btn-clear" class="btn btn-warning btn-log">Clear log</button>
+            </div>
+
+            <div v-for="(post, index) in posts" :key="index" class="post">
+                <div class="header">
+                    <div class="user-info">
+                        <h6 class="user-name">{{ post.data.first_name }} {{ post.data.last_name }}</h6>
+                        <h6 class="user-email">contact: {{ post.data.email }}</h6>
+                    </div>
+                    <img :src="post.data.avatar" alt="">
+                </div>
+                <div class="divider"></div>
+                <h6 class="body">{{ post.support.text }}</h6>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="question">
-    <h5>Do you have any thoughts you'd like to sare?</h5>
-    <div class="text-input input-group mb-3">
-        <textarea class="feedback-input form-control" placeholder="Share your thoughts"
-                  aria-label="Thoughts"></textarea>
-    </div>
-</div>
-
-<div class="question">
-    <h5>May we follow you up on your feedback?</h5>
-    <div class="switch-option">
-        Yes
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-        No
-    </div>
-</div>
-
-<div class="action-buttons">
-    <div class="btn btn-danger">
-        <a href="<?= $link->url("shop.feedback") ?>">Discard</a>
-    </div>
-    <div class="btn btn-dark">
-        <a href="<?= $link->url("shop.index") ?>">Cancel</a>
-    </div>
-    <div class="btn btn-success">
-        <a href="<?= $link->url("shop.index") ?>">Send</a>
-    </div>
-</div>
+<script src="/public/js/script_feedback.js"></script>

@@ -27,7 +27,7 @@ $total = 0.0;
                 $cost = number_format($data[$i]['cost'], 2) ?? '';
                 $imagePath = $data[$i]['image-path'] ?? '';
                 $amount = $data[$i]['amount'] ?? '';
-                $items += $cost * $amount;
+                $items +=  $cost * $amount;
                 ?>
 
                 <img src="<?= $imagePath ?>" alt="">
@@ -56,19 +56,19 @@ $total = 0.0;
         <div class="check">
             <div class="check-row">
                 <h2 class="check-text">Items:</h2>
-                <h2 class="check-value"><?= $items ?> €</h2>
+                <h2 class="check-value"><?= number_format($items, 2) ?> €</h2>
             </div>
 
             <div class="check-row">
                 <h2 class="check-text">Tax:</h2>
-                <h2 class="check-value"><?= $items * $tax ?> €</h2>
+                <h2 class="check-value"><?= number_format($items * $tax, 2) ?> €</h2>
             </div>
 
             <div class="divider" style="border: 1px solid black; margin: 5px 0"></div>
 
             <div class="check-row">
                 <h1 class="check-text">Total cost:</h1>
-                <h1 class="check-value"><?= $total = $items + ($items * $tax) ?> €</h1>
+                <h1 class="check-value"><?= number_format($total = $items + ($items * $tax), 2) ?> €</h1>
             </div>
         </div>
     </div>

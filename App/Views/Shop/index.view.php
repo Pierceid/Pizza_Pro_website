@@ -14,9 +14,10 @@ $layout = 'primary';
     <div id="carousel-container" class="carousel slide">
         <div class="carousel-inner">
             <?php
-            $pizzas = $data['pizzas'];
-            shuffle($pizzas);
-            $pizzaSets = array_chunk($pizzas, 4);
+            $allPizzas = $data['all-pizzas'];
+            $filteredPizzas = $data['filtered-pizzas'];
+            shuffle($allPizzas);
+            $pizzaSets = array_chunk($allPizzas, 4);
 
             foreach ($pizzaSets as $setIndex => $pizzaSet): ?>
                 <div class="carousel-item<?php echo $setIndex === 0 ? ' active' : ''; ?>">
@@ -41,6 +42,16 @@ $layout = 'primary';
     </div>
 </div>
 
+<form class="form" method="post">
+    <div class="search">
+        <input class="search-field" name="search-field" type="search" placeholder="Search your favorite pizza"
+               aria-label="Search">
+        <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.index") ?>">
+            Search
+        </button>
+    </div>
+</form>
+
 <div class="pizzas-container row">
     <?php if ($data['isAdmin'] > 0) : ?>
         <div class="card add-card" style="background-color: darkorange">
@@ -50,8 +61,8 @@ $layout = 'primary';
         </div>
     <?php endif ?>
 
-    <?php if (!empty($pizzas)) : ?>
-        <?php foreach ($pizzas as $pizza): ?>
+    <?php if (!empty($filteredPizzas)) : ?>
+        <?php foreach ($filteredPizzas as $pizza): ?>
             <div class="card">
                 <?php
                 $id = $pizza['id'];
@@ -59,7 +70,10 @@ $layout = 'primary';
                 $description = $pizza['description'];
                 $cost = number_format($pizza['cost'], 2);
                 $imagePath = $pizza['image-path'];
+                $amount = $pizza['amount'];
                 ?>
+
+                <input id="pizza-id" type="hidden" value="<?= $id ?>">
 
                 <img src="<?= $imagePath ?>" alt="">
                 <h5><?= $name ?></h5>
@@ -71,16 +85,20 @@ $layout = 'primary';
                             <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $id]) ?>"
                             >o</a>
                         </button>
-                    <?php endif; ?>
 
-                    <button type="button" class="btn btn-success">
-                        <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
-                    </button>
+                        <button type="button" class="btn btn-success">
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
+                        </button>
 
-                    <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-danger">
                             <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $id]) ?>">x</a>
                         </button>
+                    <?php else: ?>
+                        <button id="plus-btn" type="button" class="btn btn-success">+</button>
+
+                        <button id="amount-btn" type="button" class="btn btn-light"><?= $amount ?></button>
+
+                        <button id="minus-btn" type="button" class="btn btn-danger">-</button>
                     <?php endif; ?>
                 </div>
             </div>
