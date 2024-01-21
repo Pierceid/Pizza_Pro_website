@@ -128,14 +128,11 @@ h6 {
     margin: 0 10px 10px 10px;
 }
 
-.card .text-input .feedback-input {
+.card .text-input {
     resize: none;
-    width: 100%;
-    height: max-content;
-    min-height: 150px;
+    min-height: 100px;
     font-size: large;
     padding: 5px;
-    margin: 10px 10px 0 10px;
     border: 2px solid black;
 }
 
