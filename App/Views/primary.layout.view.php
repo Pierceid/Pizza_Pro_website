@@ -62,5 +62,12 @@
     </div>
 </div>
 
+<footer class="footer mt-5">
+    <div class="container text-center text-light py-3">
+        <p>&copy; <?= date('Y') ?> <?= \App\Config\Configuration::APP_NAME ?></p>
+        <p>Follow us on <a href="#" class="text-light">Instagram</a> | <a href="#" class="text-light">Facebook</a></p>
+    </div>
+</footer>
+
 </body>
 </html>
