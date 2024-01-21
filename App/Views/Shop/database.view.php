@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php
 
 $layout = 'primary';
 /** @var string $contentHTML */
@@ -20,8 +20,15 @@ $users = $data['users'] ?? [];
                 <h1>Users table</h1>
                 <form class="form" method="post">
                     <div class="search">
-                        <input class="search-field" name="search-field" type="search" placeholder="Search login"
+                        <input class="search-field" name="login-field" type="search" placeholder="Login"
                                aria-label="Search">
+                        <input class="search-field" name="email-field" type="search" placeholder="Email"
+                               aria-label="Search">
+                        <select name="is-admin-field">
+                            <option value="">All users</option>
+                            <option value="0">Not an admin</option>
+                            <option value="1">Is an admin</option>
+                        </select>
                         <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.database") ?>">
                             Search
                         </button>
@@ -36,7 +43,7 @@ $users = $data['users'] ?? [];
                             <th>Admin</th>
                             <?php if ($isAdmin) : ?>
                                 <th>Privilege</th>
-                            <? endif ?>
+                            <?php endif ?>
                         </tr>
                         </thead>
 
@@ -57,7 +64,7 @@ $users = $data['users'] ?? [];
                                                 </a>
                                             </button>
                                         </td>
-                                    <? endif ?>
+                                    <?php endif ?>
                                 </tr>
                             <?php endforeach ?>
                         <?php endif ?>
