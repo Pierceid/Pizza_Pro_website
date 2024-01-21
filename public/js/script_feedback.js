@@ -29,6 +29,8 @@ btn_send.addEventListener("click", function () {
     } catch (error) {
         console.error('Error parsing API response:', error);
     }
+
+    clear();
 });
 
 btn_discard.addEventListener("click", function () {

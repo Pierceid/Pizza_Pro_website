@@ -65,7 +65,7 @@ $imagePath = $data['imagePath'] ?? '';
             <div class="switch-option">
                 Yes
                 <label class="switch">
-                    <input id="checkbox" type="checkbox">
+                    <input id="checkbox" type="checkbox" checked>
                     <span class="slider"></span>
                 </label>
                 No
