@@ -54,7 +54,13 @@ class ShopController extends AControllerBase
 
     public function feedback(): Response
     {
-        return $this->html();
+        $user = User::getOne($this->findUser()->getId());
+        $data = [
+            "name" => $user->getLogin(),
+            "email" => $user->getEmail(),
+            "imagePath" => "public/images/profiles/" . $user->getProfileImage()
+        ];
+        return $this->html($data);
     }
 
     public function order(): Response

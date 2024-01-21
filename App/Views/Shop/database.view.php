@@ -40,7 +40,7 @@ $users = $data['users'] ?? [];
                         </tr>
                         </thead>
 
-                        <tbody id="container">
+                        <tbody>
                         <?php if (!empty($users)) : ?>
                             <?php foreach ($users as $user): ?>
                                 <tr>
@@ -71,8 +71,3 @@ $users = $data['users'] ?? [];
         </div>
     </div>
 </div>
-
-<div id="button" class="btn btn-dark" style="width: 60px; height: 40px; align-self: center">GO</div>
-
-<script src="/public/js/script_database.js"></script>
-
