@@ -30,15 +30,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.posts = [];
             },
             sendData() {
+                let [first_name, last_name] = document.getElementById('user-name').innerText.split(' ');
+                last_name = last_name || '';
+                let user_email = document.getElementById('user-email').innerText;
+                let user_avatar = document.getElementById('user-image-path').innerText;
+                let user_text = document.getElementById('user-text').value;
                 const jsonData = {
                     data: {
-                        first_name: this.user_first_name,
-                        last_name: this.user_last_name,
-                        email: this.user_email,
-                        avatar: this.user_avatar
+                        first_name: first_name,
+                        last_name: last_name,
+                        email: user_email,
+                        avatar: user_avatar
                     },
                     support: {
-                        text: this.userText
+                        text: user_text
                     }
                 };
                 try {
