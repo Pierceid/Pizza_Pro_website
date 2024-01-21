@@ -52,6 +52,7 @@ h6 {
     text-align: center;
     border: 5px solid black;
     border-radius: 10px;
+    padding: 5px;
 }
 
 .post {
@@ -183,8 +184,8 @@ h6 {
 
 .card .switch .slider:before {
     position: absolute;
-    left: 3px;
-    top: 3px;
+    left: 2px;
+    top: 2px;
     height: 24px;
     width: 24px;
     content: "";

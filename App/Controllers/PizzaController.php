@@ -70,6 +70,7 @@ class PizzaController extends AControllerBase
             $pizza->setImagePath($imagePath);
             $pizza->save();
             $message = "Item has been successfully inserted!";
+            $name = $description = $cost = '';
         }
 
         $cost = is_numeric($cost) ? $cost : '';
