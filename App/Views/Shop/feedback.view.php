@@ -96,4 +96,4 @@ $imagePath = $data['imagePath'] ?? '';
     </div>
 </div>
 
-<script src="/public/js/script_posts.js"></script>
+<script src="/public/js/script_feedback.js"></script>
