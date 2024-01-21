@@ -110,8 +110,11 @@ class ShopController extends AControllerBase
 
     private function getFilteredUsers(): array
     {
-        $regex = $this->app->getRequest()->getValue('search-field') ?? '';
-        $users = User::getAll("`login` LIKE ?", ["%$regex%"]);
+        $formData = $this->app->getRequest();
+        $login = $formData->getValue('login-field') ?? '';
+        $email = $formData->getValue('email-field') ?? '';
+        $isAdmin = $formData->getValue('is-admin-field') ?? '';
+        $users = User::getAll("`login` LIKE ? AND `email` LIKE ? AND `isAdmin` = ?", ["%$login%", "%$email", "$isAdmin"]);
         $data = [];
         if (count($users) > 0) {
             for ($i = 0; $i < count($users); $i++) {
