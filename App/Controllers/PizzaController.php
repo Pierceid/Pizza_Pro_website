@@ -72,6 +72,7 @@ class PizzaController extends AControllerBase
             $message = "Item has been successfully inserted!";
         }
 
+        $cost = is_numeric($cost) ? $cost : '';
         $data = ["operation" => "insert", "name" => $name, "description" => $description, "cost" => $cost, "message" => $message];
         return $this->redirect($this->url("shop.crudManagement", $data));
     }

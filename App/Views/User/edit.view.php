@@ -34,7 +34,7 @@ $header = $option == 0 ? 'profile image' : ($option == 1 ? 'name' :
         <input name="password-old" type="<?= ($option == 3) ? 'password' : 'hidden' ?>" placeholder="Old password">
         <input name="password-new" type="<?= ($option == 3) ? 'password' : 'hidden' ?>" placeholder="New password">
         <?php if ($option == 4) : ?>
-            <select name="is-admin">
+            <select class="search-field" name="is-admin">
                 <option value="0">Not an admin</option>
                 <option value="1">Is an admin</option>
             </select>
