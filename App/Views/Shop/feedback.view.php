@@ -11,46 +11,41 @@ $layout = 'secondary';
 
 <?php
 $name = $data['name'] ?? '';
-$email =$data['email'] ?? '';
+$email = $data['email'] ?? '';
 $imagePath = $data['imagePath'] ?? '';
 ?>
 
 <div class="container-fluid content">
-    <div id="user-name" class="user-name"><?= $name ?></div>
-    <div id="user-email" class="user-email"><?= $email ?></div>
-    <div id="user-image-path" class="user-image-path"><?= $imagePath ?></div>
+    <div class="user">
+        <div id="user-name" style="display: none"><?= $name ?></div>
+        <div id="user-email" style="display: none"><?= $email ?></div>
+        <div id="user-image-path" style="display: none"><?= $imagePath ?></div>
+    </div>
 
     <div class="container">
         <div class="card">
             <h5>What do you think of the website?</h5>
 
             <div class="satisfaction-options">
-                <div class="option">
+                <div class="radio-group">
                     <label>
-                        <input type="radio" class="radio-button" name="radioGroup" value="option1" checked>Great
+                        <input id="option-1" type="radio" name="radio" value="great" checked> Great
                     </label>
+                    <label>
+                        <input id="option-2" type="radio" name="radio" value="good"> Good
+                    </label>
+                    <label>
+                        <input id="option-3" type="radio" name="radio" value="decent"> Decent
+                    </label>
+                    <label>
+                        <input id="option-4" type="radio" name="radio" value="bad"> Bad
+                    </label>
+                </div>
+
+                <div class="icons">
                     <img src="/public/images/satisfactions/great.png" alt="">
-                </div>
-
-                <div class="option">
-                    <label>
-                        <input type="radio" class="radio-button" name="radioGroup" value="option2">Good
-                    </label>
                     <img src="/public/images/satisfactions/good.png" alt="">
-                </div>
-
-                <div class="option">
-                    <label>
-                        <input type="radio" class="radio-button" name="radioGroup" value="option3">Decent
-                    </label>
                     <img src="/public/images/satisfactions/decent.png" alt="">
-
-                </div>
-
-                <div class="option">
-                    <label>
-                        <input type="radio" class="radio-button" name="radioGroup" value="option4">Bad
-                    </label>
                     <img src="/public/images/satisfactions/bad.png" alt="">
                 </div>
             </div>
@@ -70,7 +65,7 @@ $imagePath = $data['imagePath'] ?? '';
             <div class="switch-option">
                 Yes
                 <label class="switch">
-                    <input type="checkbox">
+                    <input id="checkbox" type="checkbox">
                     <span class="slider"></span>
                 </label>
                 No

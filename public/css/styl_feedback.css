@@ -106,22 +106,19 @@ h6 {
 
 .card .satisfaction-options {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
     font-weight: bold;
 }
 
-.card .satisfaction-options .option {
+.card .satisfaction-options .radio-group, .card .satisfaction-options .icons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-evenly;
     text-align: center;
-}
-
-.card .satisfaction-options .radio-button {
-    transform: scale(1.5);
-    margin: 10px 5px;
 }
 
 .card .satisfaction-options img {

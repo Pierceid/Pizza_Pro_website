@@ -8,10 +8,10 @@ let [user_first_name, user_last_name] = document.getElementById('user-name').inn
 user_last_name = user_last_name || '';
 let user_email = document.getElementById('user-email').innerText;
 let user_avatar = document.getElementById('user-image-path').innerText;
-let user_text = document.getElementById('user-text').innerText;
 let counter = 1;
 
 btn_send.addEventListener("click", function () {
+    const user_text = document.getElementById('user-text').value;
     const jsonData = {
         data: {
             first_name: user_first_name,
@@ -32,7 +32,7 @@ btn_send.addEventListener("click", function () {
 });
 
 btn_discard.addEventListener("click", function () {
-    user_text = '';
+    clear();
 });
 
 btn_load.addEventListener("click", function () {
@@ -59,6 +59,12 @@ btn_clear.addEventListener("click", function () {
     });
 });
 
+function clear() {
+    document.getElementById('option-1').checked = true;
+    document.getElementById('user-text').value = '';
+    document.getElementById('checkbox').checked = true;
+}
+
 function renderHtml(jsonData) {
     let html = "<div class='post'><div class='header'><div class='user-info'>";
     html += "<h6 class='user-name'>" + jsonData.data.first_name + " " + jsonData.data.last_name + "</h6>";
@@ -66,5 +72,5 @@ function renderHtml(jsonData) {
     html += "<img src='" + jsonData.data.avatar + "' alt='' </img></div>";
     html += "<div class='divider'></div>";
     html += "<h6 class='body'>" + jsonData.support.text + "</h6></div>";
-    container.insertAdjacentHTML('beforeend', html);
+    container.insertAdjacentHTML('afterbegin', html);
 }
