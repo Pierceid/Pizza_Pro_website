@@ -22,9 +22,15 @@ header {
 }
 
 .card {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    max-width: 700px;
     padding: 10px;
     background-color: lightgrey;
     border: 5px solid black;
+    margin: auto;
 }
 
 .card img {
