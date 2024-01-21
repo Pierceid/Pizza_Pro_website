@@ -9,7 +9,6 @@ $layout = 'primary';
 
 <link rel="stylesheet" href="/public/css/styl_buttons.css">
 <link rel="stylesheet" href="/public/css/styl_shop.css">
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <div class="carousel-container">
     <div id="carousel-container" class="carousel slide">
@@ -108,13 +107,3 @@ $layout = 'primary';
 </div>
 
 <script src="/public/js/script_shop.js"></script>
-<script>
-    $(document).ready(function () {
-        increaseAmount();
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        reduceAmount();
-    });
-</script>
