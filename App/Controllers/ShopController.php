@@ -116,7 +116,7 @@ class ShopController extends AControllerBase
         $isAdmin = $formData->getValue('is-admin-field') ?? '';
 
         $sql = "`login` LIKE ? AND `email` LIKE ?";
-        $parameters = ["%$login%", "%$email"];
+        $parameters = ["%$login%", "%$email%"];
         if (in_array($isAdmin, [0, 1])) {
             $sql .= " AND `isAdmin` = ?";
             $parameters[] = "$isAdmin";
