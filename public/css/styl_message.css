@@ -9,14 +9,21 @@ body {
     background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
-h2 {
+.title, .message, h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+.title {
     color: purple;
     text-decoration: underline;
 }
 
-h2, h5 {
-    text-align: center;
-    font-weight: bold;
+.message, .search-field {
+    margin: 10px 0;
+}
+
+.message {
+    color: red;
 }
 
 .form {
@@ -38,13 +45,12 @@ h2, h5 {
     transform: translate(-50%);
 }
 
-.form label {
+.form label, .search-field {
     width: 100%;
 }
 
 .form input {
     width: 100%;
-    max-width: 350px;
     padding: 10px;
     outline: none;
     border: 1px solid black;
@@ -60,9 +66,7 @@ h2, h5 {
     justify-content: space-between;
 }
 
-.btn-submit, .action-buttons .btn, .btn-submit, .action-buttons .btn-submit {
-    display: flex;
-    align-items: center;
+.btn-submit, .action-buttons .btn, .action-buttons .btn-submit {
     text-align: center;
     justify-content: center;
     padding: 5px;
@@ -80,8 +84,8 @@ h2, h5 {
 }
 
 .btn-submit, .action-buttons .btn-submit {
-    width: 90px;
-    height: 40px;
+    width: 95px;
+    height: 45px;
 }
 
 .action-buttons .btn a {

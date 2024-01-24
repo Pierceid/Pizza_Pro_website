@@ -39,7 +39,7 @@ $moveTo = $operation == 'add' ? 'shop.index' : 'shop.cart';
     <input type="hidden" name="location-id" value="<?= $locationId ?>"/>
     <input type="hidden" name="order-cost" value="<?= $purchase ?>"/>
 
-    <h2><?= $header ?></h2>
+    <h2 class="title"><?= $header ?></h2>
 
     <?php if ($operation == 'add' || $operation == 'adjust') : ?>
         <h5 style="color: red"><?= $name ?></h5>

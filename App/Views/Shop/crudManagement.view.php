@@ -30,7 +30,7 @@ $header = $operation == 'insert' ? 'Insert pizza' :
 <form class="form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="pizza-id" value="<?= $pizzaId ?>"/>
 
-    <h2><?= $header ?></h2>
+    <h2 class="title"><?= $header ?></h2>
 
     <?php if ($operation == 'insert' || $operation == 'update') : ?>
         <label><input name="name" type="text" placeholder="Name" value="<?= $name ?>"></label>

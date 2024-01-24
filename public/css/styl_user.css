@@ -14,6 +14,10 @@ body {
     background: linear-gradient(-90deg, rebeccapurple, darkgrey);
 }
 
+.error-message {
+    color: red;
+}
+
 .title {
     font-size: xx-large;
     font-weight: bold;

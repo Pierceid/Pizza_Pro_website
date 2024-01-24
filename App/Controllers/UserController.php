@@ -25,8 +25,7 @@ class UserController extends AControllerBase
 
     public function message(): Response
     {
-        $data = ["isAdmin" => $this->getIsAdmin($this->findUser())];
-        return $this->html($data);
+        return $this->html();
     }
 
     public function checkRegister(): Response
@@ -36,7 +35,6 @@ class UserController extends AControllerBase
         $email = $formData->getValue("sign-up-email");
         $password = $formData->getValue("sign-up-password");
         $message = "Failed to register!";
-        $destination = -1;
 
         if (!empty($name) && !empty($email) && !empty($password)) {
             if ($this->app->getAuth()->register($name, $email)) {
@@ -48,12 +46,14 @@ class UserController extends AControllerBase
                 $user->setProfileImage("default_profile.png");
                 $user->save();
                 $message = "Successfully registered!";
-                $destination = 1;
+
+                $data = ["name" => $name, "message" => $message];
+                return $this->redirect($this->url("user.message", $data));
             }
         }
 
-        $data = ["destination" => $destination, "message" => $message];
-        return $this->redirect($this->url("user.message", $data));
+        $data = ["option" => 2, "sign-up-message" => $message];
+        return $this->redirect($this->url("user.index", $data));
     }
 
     public function checkLogin(): Response
@@ -62,17 +62,18 @@ class UserController extends AControllerBase
         $email = $formData->getValue("sign-in-email");
         $password = $formData->getValue("sign-in-password");
         $message = "Failed to login!";
-        $destination = -1;
 
         if (!empty($email) && !empty($password)) {
             if ($this->app->getAuth()->login($email, $password)) {
                 $message = "Successfully logged in!";
-                $destination = 1;
+
+                $data = ["name" => $this->findUser()->getLogin(), "message" => $message];
+                return $this->redirect($this->url("user.message", $data));
             }
         }
 
-        $data = ["destination" => $destination, "message" => $message];
-        return $this->redirect($this->url("user.message", $data));
+        $data = ["option" => 1, "sign-in-message" => $message];
+        return $this->redirect($this->url("user.index", $data));
     }
 
     public function editProfile(): Response
@@ -122,7 +123,7 @@ class UserController extends AControllerBase
         if (!is_null($imagePathNew)) {
             return $this->validateImagePath($currentUser);
         } elseif (!is_null($nameNew)) {
-            return $this->validateName($currentUser, $nameNew);
+            return $this->validateName($users, $currentUser, $nameNew);
         } elseif (!is_null($emailNew)) {
             return $this->validateEmail($users, $currentUser, $emailNew);
         } elseif (!is_null($passwordOld) && !is_null($passwordNew)) {
@@ -134,9 +135,13 @@ class UserController extends AControllerBase
         }
     }
 
-    private function validateName($currentUser, $nameNew): string
+    private function validateName($users, $currentUser, $nameNew): string
     {
-        if ($nameNew == $currentUser->getLogin() || empty($nameNew) || strlen($nameNew) > 200) {
+        $existingUser = array_filter($users, function ($user) use ($currentUser, $nameNew) {
+            return $user !== $currentUser && $user->getLogin() == $nameNew;
+        });
+
+        if (!empty($existingUser) || $nameNew == $currentUser->getLogin() || empty($nameNew) || strlen($nameNew) > 200) {
             return "Failed to update your name!";
         }
 
@@ -152,7 +157,7 @@ class UserController extends AControllerBase
             return $user !== $currentUser && $user->getEmail() == $emailNew;
         });
 
-        if (!empty($existingUser) || empty($emailNew) || strlen($emailNew) > 200) {
+        if (!empty($existingUser) || $emailNew == $currentUser->getEmail() || empty($emailNew) || strlen($emailNew) > 200) {
             return "Failed to update your email!";
         }
 
