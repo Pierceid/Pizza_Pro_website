@@ -106,12 +106,14 @@ class UserController extends AControllerBase
     public function removeAccount(): Response
     {
         $formData = $this->app->getRequest();
-        $userId = $formData->getValue("user-id");
-        $user = User::getOne($userId);
+        $option = $formData->getValue("option-id");
+        $id = $formData->getValue($option == 5 ? "user-id" : "edit-id");
+        $destination = $option == 5 ? 'user.index' : 'shop.database';
+        $user = User::getOne($id);
         if (!is_null($user)) {
             $user->delete();
         }
-        return $this->redirect($this->url("user.index"));
+        return $this->redirect($this->url($destination));
     }
 
     private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string

@@ -20,9 +20,8 @@ $editUser = !empty($editId) ? \App\Models\User::getOne($editId) : null;
 $editName = !is_null($editUser) ? $editUser->getLogin() : '';
 $name = !empty($currentName) ? $currentName : (!empty($editName) ? $editName : '');
 $destination = $option == 4 || $option == -5 ? 'shop.database' : 'shop.profile';
-$option = !empty($option) ? abs($option) : $option;
-$button = $option != 5 ? 'Edit' : 'Delete';
-$operation = $option != 5 ? 'user.editProfile' : 'user.removeAccount';
+$button = $option == 5 || $option == -5 ? 'Delete' : 'Edit';
+$operation = $option == 5 || $option == -5 ? 'user.removeAccount' : 'user.editProfile';
 $header = $option == 0 ? 'Edit profile image' : ($option == 1 ? 'Edit name' : ($option == 2 ? 'Edit email' :
     ($option == 3 ? 'Edit password' : ($option == 4 ? 'Edit admin privilege' : 'Delete account'))));
 ?>
@@ -50,7 +49,7 @@ $header = $option == 0 ? 'Edit profile image' : ($option == 1 ? 'Edit name' : ($
                 <option value="0">Not an admin</option>
                 <option value="1">Is an admin</option>
             </select>
-        <?php elseif ($option == 5) : ?>
+        <?php elseif ($option == 5 || $option == -5) : ?>
             <h5>Are you sure you want to delete this account?</h5>
         <?php endif ?>
     </label>
