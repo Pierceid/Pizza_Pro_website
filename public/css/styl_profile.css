@@ -9,22 +9,8 @@ body {
     background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
-header {
-    text-align: center;
-    color: purple;
-    font-size: x-large;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.container-fluid {
-    justify-content: center;
-}
-
 .card {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     width: 75%;
     max-width: 700px;
     padding: 10px;
