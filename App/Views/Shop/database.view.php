@@ -42,6 +42,7 @@ $users = $data['users'] ?? [];
                         <th>Admin</th>
                         <?php if ($isAdmin) : ?>
                             <th>Privilege</th>
+                            <th>Account</th>
                         <?php endif ?>
                     </tr>
                     </thead>
@@ -58,8 +59,15 @@ $users = $data['users'] ?? [];
                                 <?php if ($isAdmin) : ?>
                                     <td>
                                         <button type="button" class="btn btn-primary">
-                                            <a href="<?= $link->url("user.edit", ["name" => $user['name'], "editId" => $user['id'], "option" => 4]) ?>">
+                                            <a href="<?= $link->url("user.profileManagement", ["editId" => $user['id'], "option" => 4]) ?>">
                                                 Edit
+                                            </a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger">
+                                            <a href="<?= $link->url("user.profileManagement", ["editId" => $user['id'], "option" => -5]) ?>">
+                                                Remove
                                             </a>
                                         </button>
                                     </td>

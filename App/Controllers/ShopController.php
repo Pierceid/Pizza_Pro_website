@@ -30,6 +30,7 @@ class ShopController extends AControllerBase
     {
         $user = User::getOne($this->findUser()->getId());
         $data = [
+            "userId" => $user->getId(),
             "name" => $user->getLogin(),
             "email" => $user->getEmail(),
             "password" => $user->getPassword(),

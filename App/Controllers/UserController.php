@@ -17,9 +17,9 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
-    public function edit(): Response
+    public function profileManagement(): Response
     {
-        $data = ["name" => $this->findUser()->getLogin(), "editId" => $this->app->getRequest()->getValue('edit-id')];
+        $data = ["userId" => $this->findUser()->getId(), "editId" => $this->app->getRequest()->getValue('edit-id')];
         return $this->html($data);
     }
 
@@ -79,7 +79,7 @@ class UserController extends AControllerBase
     {
         $formData = $this->app->getRequest();
         $option = $formData->getValue("option-id");
-        $name = $formData->getValue("user-name");
+        $userId = $formData->getValue("user-id");
         $nameNew = $formData->getValue("name");
         $emailNew = $formData->getValue("email");
         $passwordOld = $formData->getValue("password-old");
@@ -98,17 +98,19 @@ class UserController extends AControllerBase
             default => "Invalid option!",
         };
 
-        $data = ["name" => $name, "message" => $message];
+        $data = ["userId" => $userId, "message" => $message];
         return $this->redirect($this->url($destination, $data));
     }
 
-    public function removeUser(): Response
+    public function removeAccount(): Response
     {
         $formData = $this->app->getRequest();
-        $editedUserId = $formData->getValue("edit-id");
-        $user = User::getOne($editedUserId);
-        $user->delete();
-        return $this->redirect($this->url("user.edit"));
+        $userId = $formData->getValue("user-id");
+        $user = User::getOne($userId);
+        if (!is_null($user)) {
+            $user->delete();
+        }
+        return $this->redirect($this->url("user.index"));
     }
 
     private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
@@ -150,7 +152,7 @@ class UserController extends AControllerBase
             return $user !== $currentUser && $user->getEmail() == $emailNew;
         });
 
-        if (empty($existingUser) || empty($emailNew) || strlen($emailNew) > 200) {
+        if (!empty($existingUser) || empty($emailNew) || strlen($emailNew) > 200) {
             return "Failed to update your email!";
         }
 

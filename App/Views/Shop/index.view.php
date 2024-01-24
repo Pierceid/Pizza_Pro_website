@@ -65,7 +65,7 @@ $layout = 'primary';
         <?php foreach ($filteredPizzas as $pizza): ?>
             <div class="card">
                 <?php
-                $id = $pizza['id'];
+                $pizzaId = $pizza['id'];
                 $name = $pizza['name'];
                 $description = $pizza['description'];
                 $cost = number_format($pizza['cost'], 2);
@@ -73,7 +73,7 @@ $layout = 'primary';
                 $amount = $pizza['amount'];
                 ?>
 
-                <input id="pizza-id" type="hidden" value="<?= $id ?>">
+                <input id="pizza-id" type="hidden" value="<?= $pizzaId ?>">
 
                 <img src="<?= $imagePath ?>" alt="">
                 <h5><?= $name ?></h5>
@@ -82,22 +82,18 @@ $layout = 'primary';
                 <div class="action-buttons">
                     <?php if ($data['isAdmin']): ?>
                         <button type="button" class="btn btn-primary">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $id]) ?>"
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $pizzaId]) ?>"
                             >o</a>
                         </button>
-
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $pizzaId]) ?>">ADD</a>
                         </button>
-
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $id]) ?>">x</a>
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $pizzaId]) ?>">x</a>
                         </button>
                     <?php else: ?>
                         <button id="plus-btn" type="button" class="btn btn-success">+</button>
-
                         <button id="amount-btn" type="button" class="btn btn-light"><?= $amount ?></button>
-
                         <button id="minus-btn" type="button" class="btn btn-danger">-</button>
                     <?php endif; ?>
                 </div>

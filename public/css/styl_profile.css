@@ -85,3 +85,15 @@ h4 {
     transform: translateX(-50%);
     margin-top: 10px;
 }
+
+.card .action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 20px 0;
+}
+
+.card .action-buttons .btn {
+    width: fit-content;
+    height: fit-content;
+}
