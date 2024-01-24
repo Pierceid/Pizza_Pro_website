@@ -11,7 +11,7 @@ $layout = 'secondary';
 
 <?php
 $locationId = $_GET['location-id'] ?? '';
-$purchase = $_GET['purchase'] ?? '';
+$purchase = isset($_GET['purchase']) ? number_format($_GET['purchase'], 2) : '0.00';
 $operation = $_GET['operation'] ?? '';
 
 $location = \App\Models\Location::getOne($locationId) ?? null;
@@ -20,8 +20,10 @@ $city = (!is_null($location)) ? $location->getCity() : '';
 $zip = (!is_null($location)) ? $location->getZip() : '';
 $address = $street . ', ' . $city . ', ' . $zip;
 
-$destination = $operation == 'discard' ? 'shop.cart' : ($operation == 'choose' ? 'order.createLocation' : 'order.createOrder');
-$header = $operation == 'discard' ? 'Discard order' : ($operation == 'choose' ? 'Choose location' : ($operation == 'order' ? 'Place order' : 'Confirm order'));
+$destination = $operation == 'discard' || $operation == 'ok' ? 'order.discardOrder' :
+    ($operation == 'choose' ? 'order.createLocation' : 'order.createOrder');
+$header = $operation == 'discard' ? 'Discard order' : ($operation == 'choose' ? 'Choose location' :
+    ($operation == 'order' ? 'Place order' : 'Confirm order'));
 $text = $operation == 'discard' ? 'Are you sure you want to discard your order?' :
     ($operation == 'order' ? 'Are you sure you want to place your order?' : 'Your order has been placed!');
 ?>

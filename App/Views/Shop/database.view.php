@@ -17,6 +17,7 @@ $users = $data['users'] ?? [];
     <div class="row">
         <div class="card">
             <h1>Users table</h1>
+
             <form class="form" method="post">
                 <div class="search">
                     <input class="search-field" name="login-field" type="search" placeholder="Login"
@@ -77,6 +78,7 @@ $users = $data['users'] ?? [];
                     <?php endif ?>
                     </tbody>
                 </table>
+
                 <?php if (empty($users)) : ?>
                     <h5 style="color: red">0 results found</h5>
                 <?php endif ?>
