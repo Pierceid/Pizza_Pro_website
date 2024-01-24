@@ -37,14 +37,14 @@ $total = 0.0;
                     <h5>Cost: <?= $cost ?> €</h5>
                     <div class="action-buttons">
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "adjust", "pizzaId" => $id]) ?>">+
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "adjust", "pizza-id" => $id]) ?>">+
                                 / -</a>
                         </button>
 
                         <div class="card amount"><?= $amount ?></div>
 
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "remove", "pizzaId" => $id]) ?>">x</a>
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "remove", "pizza-id" => $id]) ?>">x</a>
                         </button>
                     </div>
                 </div>
@@ -76,13 +76,13 @@ $total = 0.0;
     <div class="container">
         <div class="action-buttons">
             <button type="button" class="btn btn-danger cart-btn">
-                <a href="<?= $link->url("shop.cartManagement", ["operation" => "discard", "purchase" => $total]) ?>">Discard</a>
+                <a href="<?= $link->url("order.orderManagement", ["operation" => "discard", "purchase" => $total]) ?>">Discard</a>
             </button>
             <button type="button" class="btn btn-dark cart-btn">
                 <a href="<?= $link->url("shop.index") ?>">Back</a>
             </button>
             <button type="button" class="btn btn-success cart-btn">
-                <a href="<?= $link->url("shop.cartManagement", ["operation" => "choose", "purchase" => $total]) ?>">Order</a>
+                <a href="<?= $link->url("order.orderManagement", ["operation" => "choose", "purchase" => $total]) ?>">Order</a>
             </button>
         </div>
     </div>

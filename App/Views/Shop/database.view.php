@@ -9,7 +9,7 @@ $layout = 'primary';
 <link rel="stylesheet" href="/public/css/styl_database.css">
 
 <?php
-$isAdmin = (int)$data['isAdmin'] ?? 0;
+$isAdmin = (int)$data['is-admin'] ?? 0;
 $users = $data['users'] ?? [];
 ?>
 
@@ -54,19 +54,19 @@ $users = $data['users'] ?? [];
                                 <td><?= $user['id'] ?></td>
                                 <td><?= $user['name'] ?></td>
                                 <td><?= $user['email'] ?></td>
-                                <td><?= $user['isAdmin'] ? 'Yes' : 'No' ?></td>
+                                <td><?= $user['is-admin'] ? 'Yes' : 'No' ?></td>
 
                                 <?php if ($isAdmin) : ?>
                                     <td>
                                         <button type="button" class="btn btn-primary">
-                                            <a href="<?= $link->url("user.profileManagement", ["editId" => $user['id'], "option" => 4]) ?>">
+                                            <a href="<?= $link->url("user.profileManagement", ["edit-id" => $user['id'], "option" => 4]) ?>">
                                                 Edit
                                             </a>
                                         </button>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger">
-                                            <a href="<?= $link->url("user.profileManagement", ["editId" => $user['id'], "option" => -5]) ?>">
+                                            <a href="<?= $link->url("user.profileManagement", ["edit-id" => $user['id'], "option" => -5]) ?>">
                                                 Remove
                                             </a>
                                         </button>

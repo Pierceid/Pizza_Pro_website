@@ -14,7 +14,7 @@ $layout = 'primary';
 <?php
 $name = $data['name'] ?? '';
 $email = $data['email'] ?? '';
-$imagePath = $data['imagePath'] ?? '';
+$imagePath = $data['image-path'] ?? '';
 ?>
 
 <div id="app">
@@ -31,22 +31,22 @@ $imagePath = $data['imagePath'] ?? '';
                 <div class="satisfaction-options">
                     <div class="radio-group">
                         <div class="option">
-                            <input type="radio" id="option-1" v-model="selectedOption" value="option1" checked>
+                            <input type="radio" id="option-1" v-model="selectedOption" value="option-1" checked="checked">
                             <label for="option-1">Great</label>
                         </div>
 
                         <div class="option">
-                            <input type="radio" id="option-2" v-model="selectedOption" value="option2" checked>
+                            <input type="radio" id="option-2" v-model="selectedOption" value="option-2">
                             <label for="option-2">Good</label>
                         </div>
 
                         <div class="option">
-                            <input type="radio" id="option-3" v-model="selectedOption" value="option3" checked>
+                            <input type="radio" id="option-3" v-model="selectedOption" value="option-3">
                             <label for="option-3">Decent</label>
                         </div>
 
                         <div class="option">
-                            <input type="radio" id="option-4" v-model="selectedOption" value="option4" checked>
+                            <input type="radio" id="option-4" v-model="selectedOption" value="option-4">
                             <label for="option-4">Bad</label>
                         </div>
                     </div>

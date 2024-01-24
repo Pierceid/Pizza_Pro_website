@@ -23,7 +23,7 @@ body {
 }
 
 .message {
-    color: red;
+    color: darkred;
 }
 
 .form {
@@ -45,8 +45,9 @@ body {
     transform: translate(-50%);
 }
 
-.form label, .search-field {
-    width: 100%;
+.form label, label .search-field {
+    width: 90%;
+    max-width: 350px;
 }
 
 .form input {

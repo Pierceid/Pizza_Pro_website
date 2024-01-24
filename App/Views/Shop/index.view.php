@@ -53,7 +53,7 @@ $layout = 'primary';
 </form>
 
 <div class="pizzas-container row">
-    <?php if ($data['isAdmin'] > 0) : ?>
+    <?php if ($data['is-admin'] > 0) : ?>
         <div class="card add-card" style="background-color: darkorange">
             <a href="<?= $link->url("shop.crudManagement", ["operation" => "insert"]) ?>">
                 <img src="/public/images/icons/plus.png" alt="">
@@ -80,16 +80,16 @@ $layout = 'primary';
                 <h6>Cost: <?= $cost ?> €</h6>
 
                 <div class="action-buttons">
-                    <?php if ($data['isAdmin']): ?>
+                    <?php if ($data['is-admin']): ?>
                         <button type="button" class="btn btn-primary">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $pizzaId]) ?>"
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizza-id" => $pizzaId]) ?>"
                             >o</a>
                         </button>
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $pizzaId]) ?>">ADD</a>
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizza-id" => $pizzaId]) ?>">ADD</a>
                         </button>
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $pizzaId]) ?>">x</a>
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizza-id" => $pizzaId]) ?>">x</a>
                         </button>
                     <?php else: ?>
                         <button id="plus-btn" type="button" class="btn btn-success">+</button>

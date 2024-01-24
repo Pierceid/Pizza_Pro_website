@@ -21,6 +21,30 @@ class OrderController extends AControllerBase
         return $this->html();
     }
 
+    public function orderManagement(): Response
+    {
+        return $this->html();
+    }
+
+    public function discardPizzas(): Response
+    {
+        $con = Connection::connect();
+        $sql = "SELECT id FROM vaiicko_db.pizzas WHERE amount > 0";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $discardedPizzas = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        $pizzas = Pizza::getAll();
+        foreach ($pizzas as $pizza) {
+            if (in_array($pizza->getId(), $discardedPizzas)) {
+                $pizza->setAmount(0);
+                $pizza->save();
+            }
+        }
+
+        return $this->redirect($this->url("shop.cart"));
+    }
+
     public function createLocation(): Response
     {
         $formData = $this->app->getRequest();
@@ -39,11 +63,11 @@ class OrderController extends AControllerBase
 
             $message = "Location has been successfully chosen!";
             $data = ["operation" => "order", "locationId" => $place->getId(), "purchase" => $purchase, "message" => $message];
-            return $this->redirect($this->url("shop.order", $data));
+            return $this->redirect($this->url("order.orderManagement", $data));
         }
 
-        $data = ["operation" => "choose", "street" => $street, "city" => $city, "zip" => $zip, "purchase" => $purchase, "message" => $message,];
-        return $this->redirect($this->url("shop.cartManagement", $data));
+        $data = ["operation" => "choose", "street" => $street, "city" => $city, "zip" => $zip, "purchase" => $purchase, "message" => $message];
+        return $this->redirect($this->url("order.orderManagement", $data));
     }
 
     public function createOrder(): Response
@@ -68,8 +92,8 @@ class OrderController extends AControllerBase
             $message = "Order has been placed successfully!";
         }
 
-        $data = ["operation" => $operation, "locationId" => $id, "message" => $message];
-        return $this->redirect($this->url("shop.order", $data));
+        $data = ["operation" => $operation, "location-id" => $id, "message" => $message];
+        return $this->redirect($this->url("order.orderManagement", $data));
     }
 
     public function discardOrder(): Response
@@ -85,25 +109,6 @@ class OrderController extends AControllerBase
 
         $data = ["purchase" => $purchase, "message" => $message];
         return $this->redirect($this->url("shop.cart", $data));
-    }
-
-    public function discardPizzas(): Response
-    {
-        $con = Connection::connect();
-        $sql = "SELECT id FROM vaiicko_db.pizzas WHERE amount > 0";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-        $discardedPizzas = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-        $pizzas = Pizza::getAll();
-        foreach ($pizzas as $pizza) {
-            if (in_array($pizza->getId(), $discardedPizzas)) {
-                $pizza->setAmount(0);
-                $pizza->save();
-            }
-        }
-
-        return $this->redirect($this->url("shop.cart"));
     }
 
     private function validateInput($street, $city, $zip): bool

@@ -19,7 +19,7 @@ class UserController extends AControllerBase
 
     public function profileManagement(): Response
     {
-        $data = ["userId" => $this->findUser()->getId(), "editId" => $this->app->getRequest()->getValue('edit-id')];
+        $data = ["user-id" => $this->findUser()->getId(), "edit-id" => $this->app->getRequest()->getValue('edit-id')];
         return $this->html($data);
     }
 
@@ -88,7 +88,7 @@ class UserController extends AControllerBase
         $imagePathNew = $_FILES["image-path"]['name'];
         $isAdminNew = $formData->getValue("is-admin");
         $editedUserId = $formData->getValue("edit-id");
-        $destination = $option != "4" ? "shop.profile" : "shop.database";
+        $destination = $option != "4" ? "user.profileManagement" : "shop.database";
 
         $message = match ($option) {
             "0" => $this->handleInput(imagePathNew: $imagePathNew),
@@ -99,7 +99,7 @@ class UserController extends AControllerBase
             default => "Invalid option!",
         };
 
-        $data = ["userId" => $userId, "message" => $message];
+        $data = ["user-id" => $userId, "option" => $option, "message" => $message];
         return $this->redirect($this->url($destination, $data));
     }
 
@@ -116,16 +116,15 @@ class UserController extends AControllerBase
 
     private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
     {
-        $users = User::getAll();
         $currentUser = $this->findUser();
         $editedUser = User::getOne($editedUserId);
 
         if (!is_null($imagePathNew)) {
             return $this->validateImagePath($currentUser);
         } elseif (!is_null($nameNew)) {
-            return $this->validateName($users, $currentUser, $nameNew);
+            return $this->validateName($currentUser, $nameNew);
         } elseif (!is_null($emailNew)) {
-            return $this->validateEmail($users, $currentUser, $emailNew);
+            return $this->validateEmail($currentUser, $emailNew);
         } elseif (!is_null($passwordOld) && !is_null($passwordNew)) {
             return $this->validatePassword($currentUser, $passwordOld, $passwordNew);
         } elseif (!is_null($editedUser) && !is_null($isAdminNew)) {
@@ -135,8 +134,9 @@ class UserController extends AControllerBase
         }
     }
 
-    private function validateName($users, $currentUser, $nameNew): string
+    private function validateName($currentUser, $nameNew): string
     {
+        $users = User::getAll();
         $existingUser = array_filter($users, function ($user) use ($currentUser, $nameNew) {
             return $user !== $currentUser && $user->getLogin() == $nameNew;
         });
@@ -151,8 +151,9 @@ class UserController extends AControllerBase
         return "Your name has been successfully updated!";
     }
 
-    private function validateEmail($users, $currentUser, $emailNew): string
+    private function validateEmail($currentUser, $emailNew): string
     {
+        $users = User::getAll();
         $existingUser = array_filter($users, function ($user) use ($currentUser, $emailNew) {
             return $user !== $currentUser && $user->getEmail() == $emailNew;
         });

@@ -11,11 +11,11 @@ $layout = 'secondary';
 
 <?php
 $option = $_GET['option'] ?? '';
-$currentId = $_GET['userId'] ?? '';
+$currentId = $_GET['user-id'] ?? '';
 $currentUser = !empty($currentId) ? \App\Models\User::getOne($currentId) : null;
 $currentName = !is_null($currentUser) ? $currentUser->getLogin() : '';
 $currentEmail = !is_null($currentUser) ? $currentUser->getEmail() : '';
-$editId = $_GET['editId'] ?? '';
+$editId = $_GET['edit-id'] ?? '';
 $editUser = !empty($editId) ? \App\Models\User::getOne($editId) : null;
 $editName = !is_null($editUser) ? $editUser->getLogin() : '';
 $name = !empty($currentName) ? $currentName : (!empty($editName) ? $editName : '');
@@ -54,6 +54,12 @@ $header = $option == 0 ? 'Edit profile image' : ($option == 1 ? 'Edit name' : ($
             <h5>Are you sure you want to delete this account?</h5>
         <?php endif ?>
     </label>
+
+    <?php if (isset($_GET['message'])) : ?>
+        <h5 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; margin: 10px 0">
+            <?= $_GET['message'] ?>
+        </h5>
+    <?php endif ?>
 
     <div class="action-buttons">
         <button class="btn-submit" type="submit" formaction="<?= $link->url($destination) ?>">Cancel</button>

@@ -9,13 +9,14 @@ $layout = 'secondary';
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
 <?php
-$pizzaId = $_GET['pizzaId'] ?? '';
+$pizzaId = $_GET['pizza-id'] ?? '';
 $operation = $_GET['operation'] ?? '';
 
 $pizza = \App\Models\Pizza::getOne($pizzaId) ?? null;
 $name = !is_null($pizza) ? $pizza->getName() : ($_GET['name'] ?? '');
 $description = !is_null($pizza) ? $pizza->getDescription() : ($_GET['description'] ?? '');
-$cost = $cost = !is_null($pizza) ? number_format($pizza->getCost(), 2) : (!empty($_GET['cost']) ? number_format($_GET['cost'], 2) : '');
+$cost = $cost = !is_null($pizza) ? number_format($pizza->getCost(), 2) :
+    (!empty($_GET['cost']) ? number_format($_GET['cost'], 2) : '');
 $amount = !is_null($pizza) ? $pizza->getAmount() : '';
 
 $destination = $operation == 'insert' ? 'pizza.insertItem' :
@@ -40,18 +41,18 @@ $header = $operation == 'insert' ? 'Insert pizza' :
     <?php elseif ($operation == 'delete') : ?>
         <h5>Are you sure you want to delete the item?</h5>
         <?php if (!empty($name)) : ?>
-            <h5 style="color: red">(<?= $name ?>)</h5>
+            <h5 style="color: darkred">(<?= $name ?>)</h5>
         <?php endif ?>
+    <?php endif ?>
+
+    <?php if (isset($_GET['message'])) : ?>
+        <h5 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>; margin: 10px 0">
+            <?= $_GET['message'] ?>
+        </h5>
     <?php endif ?>
 
     <div class="action-buttons">
         <button class="btn-submit" type="submit" formaction="<?= $link->url('shop.index') ?>">Cancel</button>
         <button class="btn-submit" type="submit" formaction="<?= $link->url($destination) ?>"><?= $operation ?></button>
     </div>
-
-    <?php if (isset($_GET['message'])) : ?>
-        <h5 style="color: <?= str_contains($_GET['message'], 'Failed') ? 'red' : 'green' ?>">
-            <?= $_GET['message'] ?>
-        </h5>
-    <?php endif ?>
 </form>

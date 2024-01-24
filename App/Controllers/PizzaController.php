@@ -101,7 +101,7 @@ class PizzaController extends AControllerBase
             }
         }
 
-        $data = ["operation" => "update", "pizzaId" => $id, "message" => $message];
+        $data = ["operation" => "update", "pizza-id" => $id, "message" => $message];
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
@@ -122,6 +122,11 @@ class PizzaController extends AControllerBase
 
     public function validateInput($name, $description, $cost, $imagePath): bool
     {
+        $pizzas = Pizza::getAll();
+        $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
+            return $pizza->getName() == $name;
+        });
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_FILES["image-path"])) {
                 $fileName = $_FILES["image-path"]['name'];
@@ -145,9 +150,9 @@ class PizzaController extends AControllerBase
             }
         }
 
-        return !empty($name) && strlen($name) < 200 &&
+        return empty($existingPizza) && !empty($imagePath) &&
+            !empty($name) && strlen($name) < 200 &&
             !empty($description) && strlen($description) < 200 &&
-            is_numeric($cost) && strlen((string)$cost) < 200 &&
-            !empty($imagePath);
+            is_numeric($cost) && strlen((string)$cost) < 200;
     }
 }
