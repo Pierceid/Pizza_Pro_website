@@ -41,9 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 rect.bottom < 0 || rect.top > window.innerHeight ||
                 rect.right < 0 || rect.left > window.innerWidth
             ) {
-                pizza.style.visibility = 'hidden';
-            } else {
-                pizza.style.visibility = 'visible';
+                pizza.remove();
             }
         });
     }
