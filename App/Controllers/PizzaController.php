@@ -62,15 +62,21 @@ class PizzaController extends AControllerBase
         $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to insert an item!";
 
-        if ($this->validateInput($name, $description, $cost, $imagePath)) {
-            $pizza = new Pizza();
-            $pizza->setName($name);
-            $pizza->setDescription($description);
-            $pizza->setCost($cost);
-            $pizza->setImagePath($imagePath);
-            $pizza->save();
-            $message = "Item has been successfully inserted!";
-            $name = $description = $cost = '';
+        $result = $this->validateInput($name, $description, $cost, $imagePath, 1);
+        if (is_string($result)) {
+            $newPath = $result;
+            $result = $this->validateInput($name, $description, $cost, $imagePath, 2);
+
+            if (is_bool($result)) {
+                $pizza = new Pizza();
+                $pizza->setName($name);
+                $pizza->setDescription($description);
+                $pizza->setCost($cost);
+                $pizza->setImagePath($newPath);
+                $pizza->save();
+                $message = "Item has been successfully inserted!";
+                $name = $description = $cost = '';
+            }
         }
 
         $cost = is_numeric($cost) ? $cost : '';
@@ -88,16 +94,22 @@ class PizzaController extends AControllerBase
         $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to update the item!";
 
-        if ($this->validateInput($name, $description, $cost, $imagePath)) {
-            $pizzaGetOne = Pizza::getOne($id);
+        $result = $this->validateInput($name, $description, $cost, $imagePath, 1);
+        if (is_string($result)) {
+            $newPath = $result;
+            $result = $this->validateInput($name, $description, $cost, $imagePath, 2);
 
-            if (!is_null($pizzaGetOne)) {
-                $pizzaGetOne->setName($name);
-                $pizzaGetOne->setDescription($description);
-                $pizzaGetOne->setCost($cost);
-                $pizzaGetOne->setImagePath($imagePath);
-                $pizzaGetOne->save();
-                $message = "Item has been successfully updated!";
+            if (is_bool($result)) {
+                $pizzaGetOne = Pizza::getOne($id);
+
+                if (!is_null($pizzaGetOne)) {
+                    $pizzaGetOne->setName($name);
+                    $pizzaGetOne->setDescription($description);
+                    $pizzaGetOne->setCost($cost);
+                    $pizzaGetOne->setImagePath($newPath);
+                    $pizzaGetOne->save();
+                    $message = "Item has been successfully updated!";
+                }
             }
         }
 
@@ -120,14 +132,14 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
-    public function validateInput($name, $description, $cost, $imagePath): bool
+    public function validateInput($name, $description, $cost, $imagePath, $option): string|bool
     {
         $pizzas = Pizza::getAll();
         $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
             return $pizza->getName() == $name;
         });
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && $option != 2) {
             if (isset($_FILES["image-path"])) {
                 $fileName = $_FILES["image-path"]['name'];
                 $fileTmpName = $_FILES["image-path"]['tmp_name'];
@@ -139,8 +151,10 @@ class PizzaController extends AControllerBase
 
                 if (in_array($fileExt, $allowed)) {
                     if ($fileError === 0) {
-                        $fileDestination = 'public/images/pizzas/' . $fileName;
+                        $newFileName = time() . '.' . $fileExt;
+                        $fileDestination = 'public/images/pizzas/' . $newFileName;
                         move_uploaded_file($fileTmpName, $fileDestination);
+                        return $newFileName;
                     } else {
                         return false;
                     }
@@ -150,7 +164,8 @@ class PizzaController extends AControllerBase
             }
         }
 
-        return empty($existingPizza) && !empty($imagePath) &&
+        return empty($existingPizza) &&
+            !empty($imagePath) &&
             !empty($name) && strlen($name) < 200 &&
             !empty($description) && strlen($description) < 200 &&
             is_numeric($cost) && strlen((string)$cost) < 200;

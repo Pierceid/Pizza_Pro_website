@@ -43,7 +43,7 @@ class UserController extends AControllerBase
                 $user->setEmail($email);
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $user->setIsAdmin(0);
-                $user->setProfileImage("default_profile.png");
+                $user->setProfileImage("default.png");
                 $user->save();
                 $message = "Successfully registered!";
 
@@ -195,9 +195,10 @@ class UserController extends AControllerBase
 
                 if (in_array($fileExt, $allowed)) {
                     if ($fileError === 0) {
-                        $fileDestination = 'public/images/profiles/' . $fileName;
+                        $newFileName = time() . '.' . $fileExt;
+                        $fileDestination = 'public/images/profiles/' . $newFileName;
                         move_uploaded_file($fileTmpName, $fileDestination);
-                        $currentUser->setProfileImage($fileName);
+                        $currentUser->setProfileImage($newFileName);
                         $currentUser->save();
                         return "Your profile picture has been successfully updated!";
                     }
