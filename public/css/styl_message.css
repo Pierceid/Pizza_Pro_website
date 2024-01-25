@@ -9,6 +9,12 @@ body {
     background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
+.navbar-container {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+}
+
 .title, .message, h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
@@ -27,8 +33,11 @@ body {
 }
 
 .form {
-    position: relative;
+    z-index: 2;
+    position: absolute;
+    top: 15%;
     left: 50%;
+    transform: translate(-50%);
     width: 50%;
     max-width: 400px;
     height: fit-content;
@@ -42,7 +51,6 @@ body {
     border: 3px solid black;
     border-radius: 20px;
     background-color: lightgrey;
-    transform: translate(-50%);
 }
 
 .form label, label .search-field {

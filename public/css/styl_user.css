@@ -200,12 +200,26 @@ body {
     transform: translateX(200%);
 }
 
+/* Animations */
+.title {
+    animation: resize 3s infinite ease-in-out;
+}
+
+@keyframes resize {
+    0%, 100% {
+        font-size: xx-large;
+    }
+    50% {
+        font-size: x-large;
+    }
+}
+
 @keyframes move {
-    0%, 49% {
+    from {
         opacity: 0;
         z-index: 1;
     }
-    50%, 100% {
+    to {
         opacity: 1;
         z-index: 3;
     }
