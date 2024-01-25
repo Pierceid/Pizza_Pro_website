@@ -34,16 +34,33 @@ class OrderController extends AControllerBase
         $city = $formData->getValue("city");
         $zip = $formData->getValue("zip");
         $message = "Failed to choose a location!";
+        $locationId = '';
 
         if ($this->validateInput($street, $city, $zip)) {
-            $place = new Location();
-            $place->setStreet($street);
-            $place->setCity($city);
-            $place->setZip($zip);
-            $place->save();
+            $location = new Location();
+            $location->setStreet($street);
+            $location->setCity($city);
+            $location->setZip($zip);
+
+            $locations = Location::getAll();
+            $existingLocation = array_filter($locations, function ($location) use ($street, $city, $zip) {
+                return $location->getStreet() == $street && $location->getCity() == $city && $location->getZip() == $zip;
+            });
+
+            if (empty($existingLocation)) {
+                $location->save();
+                $locationId = $location->getId();
+            } else {
+                foreach ($locations as $loc) {
+                    if ($loc->getStreet() == $street && $loc->getCity() == $city && $loc->getZip() == $zip) {
+                        $locationId = $loc->getId();
+                        break;
+                    }
+                }
+            }
 
             $message = "Location has been successfully chosen!";
-            $data = ["operation" => "order", "location-id" => $place->getId(), "purchase" => $purchase, "message" => $message];
+            $data = ["operation" => "order", "location-id" => $locationId, "purchase" => $purchase, "message" => $message];
             return $this->redirect($this->url("order.orderManagement", $data));
         }
 
