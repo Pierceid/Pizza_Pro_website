@@ -2,7 +2,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// animation
+// animation of all pizzas
 document.addEventListener("DOMContentLoaded", function () {
     const numberOfPizzas = 10;
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         style.textContent = keyframes;
         document.head.appendChild(style);
 
-        // Check if the pizza goes off screen
+        // check if the pizza goes off screen
         pizza.addEventListener('animationiteration', function () {
             const rect = pizza.getBoundingClientRect();
             if (
