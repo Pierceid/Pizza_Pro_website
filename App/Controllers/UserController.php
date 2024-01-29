@@ -192,31 +192,27 @@ class UserController extends AControllerBase
 
     private function validateImagePath($currentUser): string
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_FILES["image-path"])) {
-                $fileName = $_FILES["image-path"]['name'];
-                $fileTmpName = $_FILES["image-path"]['tmp_name'];
-                $fileError = $_FILES["image-path"]['error'];
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image-path"])) {
+            $fileName = $_FILES["image-path"]['name'];
+            $fileTmpName = $_FILES["image-path"]['tmp_name'];
+            $fileError = $_FILES["image-path"]['error'];
 
-                $fileSeparated = explode('.', $fileName);
-                $fileExt = strtolower(end($fileSeparated));
-                $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+            $fileSeparated = explode('.', $fileName);
+            $fileExt = strtolower(end($fileSeparated));
+            $allowed = array('jpg', 'jpeg', 'png', 'pdf');
 
-                if (in_array($fileExt, $allowed)) {
-                    if ($fileError === 0) {
-                        if (!is_null($currentUser)) {
-                            $oldProfileImage = 'public/images/profiles/' . $currentUser->getProfileImage();
-                            if (file_exists($oldProfileImage)) unlink($oldProfileImage);
-                        }
-
-                        $newFileName = time() . '.' . $fileExt;
-                        $fileDestination = 'public/images/profiles/' . $newFileName;
-                        move_uploaded_file($fileTmpName, $fileDestination);
-                        $currentUser->setProfileImage($newFileName);
-                        $currentUser->save();
-                        return "Your profile picture has been successfully updated!";
-                    }
+            if (in_array($fileExt, $allowed) && $fileError === 0) {
+                if (!is_null($currentUser)) {
+                    $oldProfileImage = 'public/images/profiles/' . $currentUser->getProfileImage();
+                    if (file_exists($oldProfileImage)) unlink($oldProfileImage);
                 }
+
+                $newFileName = time() . '.' . $fileExt;
+                $fileDestination = 'public/images/profiles/' . $newFileName;
+                move_uploaded_file($fileTmpName, $fileDestination);
+                $currentUser->setProfileImage($newFileName);
+                $currentUser->save();
+                return "Your profile picture has been successfully updated!";
             }
         }
         return "Failed to update your profile picture!";

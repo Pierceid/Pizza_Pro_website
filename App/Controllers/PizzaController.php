@@ -64,7 +64,7 @@ class PizzaController extends AControllerBase
         $result = $this->validateInput($name, $description, 1);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description, 2);
+            $result = $this->validateInput($name, $description);
 
             if (is_bool($result) && $result) {
                 $pizza = new Pizza();
@@ -91,12 +91,12 @@ class PizzaController extends AControllerBase
         $cost = str_replace(',', '.', $formData->getValue("cost"));
         $message = "Failed to update the item!";
 
-        $result = $this->validateInput($name, $description, 1);
+        $result = $this->validateInput($name, $description, 2);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description, 2);
+            $result = $this->validateInput($name, $description);
 
-            if (is_bool($result)) {
+            if (is_bool($result) && $result) {
                 $pizzaGetOne = Pizza::getOne($id);
 
                 if (!is_null($pizzaGetOne)) {
@@ -132,45 +132,41 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
-    public function validateInput($name, $description, $option): string|bool
+    public function validateInput($name, $description, $option = null): string|bool
     {
         $pizzas = Pizza::getAll();
+        $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
+            return $pizza->getName() == $name;
+        });
 
-        if (empty($name) || strlen($name) > 200 || empty($description) || strlen($description) > 400) {
+        if (empty($name) || strlen($name) > 200 || empty($description) || strlen($description) > 400 ||
+            ($option == 1 && !empty($existingPizza)) || ($option == 2 && empty($existingPizza))) {
             return false;
         }
 
-        if ($option == 2) {
-            return empty(array_filter($pizzas, function ($pizza) use ($name) {
-                return $pizza->getName() == $name;
-            }));
-        }
+        if (!is_null($option)) {
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image-path"])) {
+                $fileName = $_FILES["image-path"]['name'];
+                $fileTmpName = $_FILES["image-path"]['tmp_name'];
+                $fileError = $_FILES["image-path"]['error'];
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image-path"])) {
-            $fileName = $_FILES["image-path"]['name'];
-            $fileTmpName = $_FILES["image-path"]['tmp_name'];
-            $fileError = $_FILES["image-path"]['error'];
+                $fileSeparated = explode('.', $fileName);
+                $fileExt = strtolower(end($fileSeparated));
+                $allowed = array('jpg', 'jpeg', 'png', 'pdf');
 
-            $fileSeparated = explode('.', $fileName);
-            $fileExt = strtolower(end($fileSeparated));
-            $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+                if (in_array($fileExt, $allowed) && $fileError === 0) {
+                    if (!empty($existingPizza)) {
+                        $oldPizzaImage = 'public/images/pizzas/' . current($existingPizza)->getImagePath();
+                        if (file_exists($oldPizzaImage)) unlink($oldPizzaImage);
+                    }
 
-            if (in_array($fileExt, $allowed) && $fileError === 0) {
-                $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
-                    return $pizza->getName() == $name;
-                });
-
-                if (!empty($existingPizza)) {
-                    $oldPizzaImage = 'public/images/pizzas/' . current($existingPizza)->getImagePath();
-                    if (file_exists($oldPizzaImage)) unlink($oldPizzaImage);
+                    $newFileName = time() . '.' . $fileExt;
+                    $fileDestination = 'public/images/pizzas/' . $newFileName;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    return $newFileName;
+                } else {
+                    return false;
                 }
-
-                $newFileName = time() . '.' . $fileExt;
-                $fileDestination = 'public/images/pizzas/' . $newFileName;
-                move_uploaded_file($fileTmpName, $fileDestination);
-                return $newFileName;
-            } else {
-                return false;
             }
         }
 
