@@ -44,8 +44,12 @@ $layout = 'primary';
 
 <form class="form" method="post">
     <div class="search">
-        <input class="search-field" name="search-field" type="search" placeholder="Search your favorite pizza"
-               aria-label="Search">
+        <input class="search-field" name="name-field" type="search" placeholder="Search your favorite pizza"
+               aria-label="Name filter" style="background-color: mediumpurple">
+        <input class="search-field" name="min-cost-field" type="number" placeholder="Min cost" min="0" max="1000"
+               aria-label="Cost filter" style="max-width: 100px; background-color: indianred">
+        <input class="search-field" name="max-cost-field" type="number" placeholder="Max cost" min="0" max="1000"
+               aria-label="Cost filter" style="max-width: 100px; background-color: lightgreen">
         <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.index") ?>">
             Search
         </button>
@@ -53,7 +57,7 @@ $layout = 'primary';
 </form>
 
 <div class="pizzas-container row">
-    <?php if ($data['isAdmin'] > 0) : ?>
+    <?php if ($data['is-admin'] > 0) : ?>
         <div class="card add-card" style="background-color: darkorange">
             <a href="<?= $link->url("shop.crudManagement", ["operation" => "insert"]) ?>">
                 <img src="/public/images/icons/plus.png" alt="">
@@ -63,47 +67,55 @@ $layout = 'primary';
 
     <?php if (!empty($filteredPizzas)) : ?>
         <?php foreach ($filteredPizzas as $pizza): ?>
+            <?php
+            $pizzaId = $pizza['id'];
+            $name = $pizza['name'];
+            $description = $pizza['description'];
+            $cost = number_format($pizza['cost'], 2);
+            $imagePath = $pizza['image-path'];
+            $amount = $pizza['amount'];
+            ?>
+
             <div class="card">
-                <?php
-                $id = $pizza['id'];
-                $name = $pizza['name'];
-                $description = $pizza['description'];
-                $cost = number_format($pizza['cost'], 2);
-                $imagePath = $pizza['image-path'];
-                $amount = $pizza['amount'];
-                ?>
+                <input id="pizza-id" type="hidden" value="<?= $pizzaId ?>">
 
-                <input id="pizza-id" type="hidden" value="<?= $id ?>">
-
-                <img src="<?= $imagePath ?>" alt="">
+                <img src="<?= $imagePath ?>" alt=""
+                     onclick="openModal('<?= $name ?>', '<?= $description ?>', '<?= $imagePath ?>')">
                 <h5><?= $name ?></h5>
                 <h6>Cost: <?= $cost ?> €</h6>
 
                 <div class="action-buttons">
-                    <?php if ($data['isAdmin']): ?>
+                    <?php if ($data['is-admin']): ?>
                         <button type="button" class="btn btn-primary">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizzaId" => $id]) ?>"
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "update", "pizza-id" => $pizzaId]) ?>"
                             >o</a>
                         </button>
-
                         <button type="button" class="btn btn-success">
-                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizzaId" => $id]) ?>">ADD</a>
+                            <a href="<?= $link->url("shop.cartManagement", ["operation" => "add", "pizza-id" => $pizzaId]) ?>">ADD</a>
                         </button>
-
                         <button type="button" class="btn btn-danger">
-                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizzaId" => $id]) ?>">x</a>
+                            <a href="<?= $link->url("shop.crudManagement", ["operation" => "delete", "pizza-id" => $pizzaId]) ?>">x</a>
                         </button>
                     <?php else: ?>
                         <button id="plus-btn" type="button" class="btn btn-success">+</button>
-
                         <button id="amount-btn" type="button" class="btn btn-light"><?= $amount ?></button>
-
                         <button id="minus-btn" type="button" class="btn btn-danger">-</button>
                     <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php endif ?>
+</div>
+
+<div class="container-fluid">
+    <div class="overlay" id="overlay" onclick="closeModal()">
+        <div class="modal" id="modal">
+            <h1 onclick="closeModal()">&times;</h1>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="">
+            <h3 id="modal-description"></h3>
+        </div>
+    </div>
 </div>
 
 <script src="/public/js/script_shop.js"></script>

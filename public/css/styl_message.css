@@ -9,21 +9,37 @@ body {
     background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
-h2 {
+.navbar-container {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+}
+
+.title, .message, h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+.title {
     color: purple;
     text-decoration: underline;
 }
 
-h2, h5 {
-    text-align: center;
-    font-weight: bold;
+.message, .search-field {
+    margin: 10px 0;
+}
+
+.message {
+    color: darkred;
 }
 
 .form {
-    position: relative;
+    z-index: 2;
+    position: absolute;
+    top: 15%;
     left: 50%;
-    width: 50%;
-    max-width: 400px;
+    transform: translate(-50%);
+    width: 70%;
+    max-width: 600px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -35,22 +51,34 @@ h2, h5 {
     border: 3px solid black;
     border-radius: 20px;
     background-color: lightgrey;
-    transform: translate(-50%);
 }
 
-.form label {
-    width: 100%;
+.form label, label .search-field {
+    width: 90%;
 }
 
-.form input {
+.form input, .form textarea {
     width: 100%;
-    max-width: 350px;
     padding: 10px;
     outline: none;
     border: 1px solid black;
     border-radius: 10px;
-    background-color: lightgrey;
+    background-color: whitesmoke;
     margin: 5px 0;
+}
+
+.form textarea {
+    resize: none;
+    height: auto;
+}
+
+textarea::-webkit-scrollbar {
+    width: 16px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: dimgrey;
+    border-radius: 10px;
 }
 
 .action-buttons {
@@ -60,9 +88,7 @@ h2, h5 {
     justify-content: space-between;
 }
 
-.btn-submit, .action-buttons .btn, .btn-submit, .action-buttons .btn-submit {
-    display: flex;
-    align-items: center;
+.btn-submit, .action-buttons .btn, .action-buttons .btn-submit {
     text-align: center;
     justify-content: center;
     padding: 5px;
@@ -80,8 +106,8 @@ h2, h5 {
 }
 
 .btn-submit, .action-buttons .btn-submit {
-    width: 90px;
-    height: 40px;
+    width: 95px;
+    height: 45px;
 }
 
 .action-buttons .btn a {

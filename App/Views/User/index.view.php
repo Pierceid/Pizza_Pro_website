@@ -7,6 +7,12 @@ $layout = '';
  */
 ?>
 
+<?php
+$option = $_GET['option'] ?? '';
+$signUpMessage = $_GET['sign-up-message'] ?? '';
+$signInMessage = $_GET['sign-in-message'] ?? '';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +31,10 @@ $layout = '';
 </head>
 
 <body>
-<div class="container">
+
+<input id="option" type="hidden" value="<?= $option ?>"/>
+
+<div class="container <?= $option == 2 ? 'register-mode' : '' ?>">
     <div class="form-container sign-up">
         <form class="form-sign-up" method="post" action="<?= $link->url("user.checkRegister") ?>">
             <h1 class="title">Register</h1>
@@ -43,8 +52,11 @@ $layout = '';
 
             <label><input name="sign-up-email" type="email" placeholder="Email"></label>
 
-            <label><input name="sign-up-password" type="password" placeholder="Password"></label>
+            <label><input name="sign-up-password" type="password" minlength="6" placeholder="Password"></label>
 
+            <?php if (!empty($option) && !empty($signUpMessage)) : ?>
+                <h6 id="sign-up-message" class="error-message"><?= $signUpMessage ?></h6>
+            <?php endif ?>
             <button name="sign-up-btn" class="btn-submit" type="submit">Sign up</button>
         </form>
     </div>
@@ -64,7 +76,11 @@ $layout = '';
 
             <label><input name="sign-in-email" type="email" placeholder="Email"></label>
 
-            <label><input name="sign-in-password" type="password" placeholder="Password"></label>
+            <label><input name="sign-in-password" type="password" minlength="6" placeholder="Password"></label>
+
+            <?php if (!empty($option) && !empty($signInMessage)) : ?>
+                <h6 id="sign-in-message" class="error-message"><?= $signInMessage ?></h6>
+            <?php endif ?>
 
             <a href="#">Forgot your password?</a>
 

@@ -75,12 +75,9 @@ h1, h5 {
 
 .table .btn {
     padding: 0;
-    margin: 0;
     width: 100%;
     height: 100%;
-    font-size: large;
     font-weight: bold;
-    border: 2px solid black;
 }
 
 .btn a {
@@ -90,25 +87,4 @@ h1, h5 {
 
 .table td:hover {
     background-color: #d0a0f0;
-}
-
-.card-header {
-    background-color: purple;
-}
-
-.card-header h2 {
-    text-align: center;
-    font-weight: bold;
-    color: white;
-}
-
-.columns td {
-    font-weight: bold;
-    background-color: mediumpurple;
-}
-
-.content td:last-child {
-    max-width: 180px;
-    width: fit-content;
-    overflow-x: hidden;
 }

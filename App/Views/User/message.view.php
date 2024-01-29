@@ -9,18 +9,10 @@ $layout = '';
 
 <link rel="stylesheet" href="/public/css/styl_message.css">
 
-<?php
-$isAdmin = $_GET['isAdmin'] ?? '';
-$message = $_GET['message'] ?? '';
-$destination = ($_GET['destination'] < 0) ? 'user.index' : 'shop.initPizzas';
-$button = ($_GET['destination'] < 0) ? 'Back' : 'Next';
-?>
+<form class="form form-message" method="post" action="<?= $link->url('shop.initPizzas') ?>" style="top: 10%">
+    <h2 class="title"><?= $_GET['message'] ?? '' ?></h2>
 
-<form class="form form-message" method="post" action="<?= $link->url($destination, ["isAdmin" => $isAdmin]) ?>" style="top: 10%">
-    <?php if (isset($_GET['message'])) : ?>
-        <h2 style="color: <?= str_contains($message, 'Failed') ? 'red' : 'green' ?>; text-align: center">
-            <?= $message ?>
-        </h2>
-    <?php endif ?>
-    <button class="btn-submit" type="submit"><?= $button ?></button>
+    <h2 class="message">User: <?= $_GET['name'] ?? '' ?></h2>
+
+    <button class="btn-submit" type="submit" style="width: fit-content">Continue</button>
 </form>

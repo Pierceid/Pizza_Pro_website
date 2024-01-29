@@ -17,16 +17,15 @@ class UserController extends AControllerBase
         return $this->html();
     }
 
-    public function edit(): Response
+    public function profileManagement(): Response
     {
-        $data = ["name" => $this->findUser()->getLogin(), "editId" => $this->app->getRequest()->getValue('edit-id')];
+        $data = ["user-id" => $this->findUser()->getId(), "edit-id" => $this->app->getRequest()->getValue('edit-id')];
         return $this->html($data);
     }
 
     public function message(): Response
     {
-        $data = ["isAdmin" => $this->getIsAdmin($this->findUser())];
-        return $this->html($data);
+        return $this->html();
     }
 
     public function checkRegister(): Response
@@ -36,7 +35,6 @@ class UserController extends AControllerBase
         $email = $formData->getValue("sign-up-email");
         $password = $formData->getValue("sign-up-password");
         $message = "Failed to register!";
-        $destination = -1;
 
         if (!empty($name) && !empty($email) && !empty($password)) {
             if ($this->app->getAuth()->register($name, $email)) {
@@ -45,15 +43,17 @@ class UserController extends AControllerBase
                 $user->setEmail($email);
                 $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 $user->setIsAdmin(0);
-                $user->setProfileImage("default_profile.png");
+                $user->setProfileImage("default.png");
                 $user->save();
                 $message = "Successfully registered!";
-                $destination = 1;
+
+                $data = ["name" => $name, "message" => $message];
+                return $this->redirect($this->url("user.message", $data));
             }
         }
 
-        $data = ["destination" => $destination, "message" => $message];
-        return $this->redirect($this->url("user.message", $data));
+        $data = ["option" => 2, "sign-up-message" => $message];
+        return $this->redirect($this->url("user.index", $data));
     }
 
     public function checkLogin(): Response
@@ -62,24 +62,25 @@ class UserController extends AControllerBase
         $email = $formData->getValue("sign-in-email");
         $password = $formData->getValue("sign-in-password");
         $message = "Failed to login!";
-        $destination = -1;
 
         if (!empty($email) && !empty($password)) {
             if ($this->app->getAuth()->login($email, $password)) {
                 $message = "Successfully logged in!";
-                $destination = 1;
+
+                $data = ["name" => $this->findUser()->getLogin(), "message" => $message];
+                return $this->redirect($this->url("user.message", $data));
             }
         }
 
-        $data = ["destination" => $destination, "message" => $message];
-        return $this->redirect($this->url("user.message", $data));
+        $data = ["option" => 1, "sign-in-message" => $message];
+        return $this->redirect($this->url("user.index", $data));
     }
 
     public function editProfile(): Response
     {
         $formData = $this->app->getRequest();
         $option = $formData->getValue("option-id");
-        $name = $formData->getValue("user-name");
+        $userId = $formData->getValue("user-id");
         $nameNew = $formData->getValue("name");
         $emailNew = $formData->getValue("email");
         $passwordOld = $formData->getValue("password-old");
@@ -87,7 +88,7 @@ class UserController extends AControllerBase
         $imagePathNew = $_FILES["image-path"]['name'];
         $isAdminNew = $formData->getValue("is-admin");
         $editedUserId = $formData->getValue("edit-id");
-        $destination = $option != "4" ? "shop.profile" : "shop.database";
+        $destination = $option != "4" ? "user.profileManagement" : "shop.database";
 
         $message = match ($option) {
             "0" => $this->handleInput(imagePathNew: $imagePathNew),
@@ -98,13 +99,30 @@ class UserController extends AControllerBase
             default => "Invalid option!",
         };
 
-        $data = ["name" => $name, "message" => $message];
+        $data = ["user-id" => $userId, "option" => $option, "message" => $message];
         return $this->redirect($this->url($destination, $data));
+    }
+
+    public function removeAccount(): Response
+    {
+        $formData = $this->app->getRequest();
+        $option = $formData->getValue("option-id");
+        $id = $formData->getValue($option == 5 ? "user-id" : "edit-id");
+        $destination = $option == 5 ? 'user.index' : 'shop.database';
+
+        $user = User::getOne($id);
+        if (!is_null($user)) {
+            $profileImage = 'public/images/pizzas/' . $user->getProfileImage();
+            if (file_exists($profileImage)) unlink($profileImage);
+
+            $user->delete();
+        }
+
+        return $this->redirect($this->url($destination));
     }
 
     private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
     {
-        $users = User::getAll();
         $currentUser = $this->findUser();
         $editedUser = User::getOne($editedUserId);
 
@@ -113,7 +131,7 @@ class UserController extends AControllerBase
         } elseif (!is_null($nameNew)) {
             return $this->validateName($currentUser, $nameNew);
         } elseif (!is_null($emailNew)) {
-            return $this->validateEmail($users, $currentUser, $emailNew);
+            return $this->validateEmail($currentUser, $emailNew);
         } elseif (!is_null($passwordOld) && !is_null($passwordNew)) {
             return $this->validatePassword($currentUser, $passwordOld, $passwordNew);
         } elseif (!is_null($editedUser) && !is_null($isAdminNew)) {
@@ -125,7 +143,12 @@ class UserController extends AControllerBase
 
     private function validateName($currentUser, $nameNew): string
     {
-        if ($nameNew == $currentUser->getLogin() || empty($nameNew) || strlen($nameNew) > 200) {
+        $users = User::getAll();
+        $existingUser = array_filter($users, function ($user) use ($currentUser, $nameNew) {
+            return $user !== $currentUser && $user->getLogin() == $nameNew;
+        });
+
+        if (!empty($existingUser) || $nameNew == $currentUser->getLogin() || empty($nameNew) || strlen($nameNew) > 200) {
             return "Failed to update your name!";
         }
 
@@ -135,13 +158,14 @@ class UserController extends AControllerBase
         return "Your name has been successfully updated!";
     }
 
-    private function validateEmail($users, $currentUser, $emailNew): string
+    private function validateEmail($currentUser, $emailNew): string
     {
+        $users = User::getAll();
         $existingUser = array_filter($users, function ($user) use ($currentUser, $emailNew) {
             return $user !== $currentUser && $user->getEmail() == $emailNew;
         });
 
-        if (empty($existingUser) || empty($emailNew) || strlen($emailNew) > 200) {
+        if (!empty($existingUser) || $emailNew == $currentUser->getEmail() || empty($emailNew) || strlen($emailNew) > 200) {
             return "Failed to update your email!";
         }
 
@@ -176,9 +200,15 @@ class UserController extends AControllerBase
 
                 if (in_array($fileExt, $allowed)) {
                     if ($fileError === 0) {
-                        $fileDestination = 'public/images/profiles/' . $fileName;
+                        if (!is_null($currentUser)) {
+                            $oldProfileImage = 'public/images/profiles/' . $currentUser->getProfileImage();
+                            if (file_exists($oldProfileImage)) unlink($oldProfileImage);
+                        }
+
+                        $newFileName = time() . '.' . $fileExt;
+                        $fileDestination = 'public/images/profiles/' . $newFileName;
                         move_uploaded_file($fileTmpName, $fileDestination);
-                        $currentUser->setProfileImage($fileName);
+                        $currentUser->setProfileImage($newFileName);
                         $currentUser->save();
                         return "Your profile picture has been successfully updated!";
                     }

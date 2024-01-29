@@ -9,22 +9,8 @@ body {
     background: linear-gradient(-90deg, dodgerblue, mediumblue);
 }
 
-header {
-    text-align: center;
-    color: purple;
-    font-size: x-large;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.container-fluid {
-    justify-content: center;
-}
-
 .card {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     width: 75%;
     max-width: 700px;
     padding: 10px;
@@ -67,7 +53,7 @@ h4 {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
+    width: 70px;
     height: 40px;
     font-size: large;
     font-weight: bold;
@@ -77,4 +63,16 @@ h4 {
 .btn a {
     color: white;
     text-decoration: none;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 20px 0;
+}
+
+.profile-btn {
+    width: 160px;
+    height: 45px;
 }

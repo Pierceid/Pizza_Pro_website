@@ -3,10 +3,15 @@ document.addEventListener('DOMContentLoaded', function () {
         el: '#app',
         data: {
             posts: [],
-            selectedOption: 'option1',
+            selectedOption: 'option-1',
             userText: '',
             isChecked: true,
             counter: 1
+        },
+        watch: {
+            selectedOption(newValue, oldValue) {
+                console.log(`Selected Option changed from ${oldValue} to ${newValue}`);
+            }
         },
         methods: {
             loadData() {
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.clear();
             },
             clear() {
-                this.selectedOption = 'option1';
+                this.selectedOption = 'option-1';
                 this.userText = '';
                 this.isChecked = true;
             },

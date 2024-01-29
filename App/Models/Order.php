@@ -7,55 +7,34 @@ use App\Core\Model;
 class Order extends Model
 {
     protected ?int $id = null;
-    protected ?string $name;
-    protected ?string $email;
-    protected ?string $time;
-    protected ?int $place;
+    protected ?int $user;
+    protected ?int $location;
     protected ?float $purchase;
+    protected ?string $time;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getUser(): ?int
     {
-        return $this->name;
+        return $this->user;
     }
 
-    public function setName(?string $name): void
+    public function setUser(?int $user): void
     {
-        $this->name = $name;
+        $this->user = $user;
     }
 
-    public function getEmail(): ?string
+    public function getLocation(): ?int
     {
-        return $this->email;
+        return $this->location;
     }
 
-    public function setEmail(?string $email): void
+    public function setLocation(?int $location): void
     {
-        $this->email = $email;
-    }
-
-    public function getTime(): ?string
-    {
-        return $this->time;
-    }
-
-    public function setTime(?string $time): void
-    {
-        $this->time = $time;
-    }
-
-    public function getPlace(): ?int
-    {
-        return $this->place;
-    }
-
-    public function setPlace(?int $place): void
-    {
-        $this->place = $place;
+        $this->location = $location;
     }
 
     public function getPurchase(): ?float
@@ -66,5 +45,15 @@ class Order extends Model
     public function setPurchase(?float $purchase): void
     {
         $this->purchase = $purchase;
+    }
+
+    public function getTime(): ?string
+    {
+        return $this->time;
+    }
+
+    public function setTime(?string $time): void
+    {
+        $this->time = $time;
     }
 }

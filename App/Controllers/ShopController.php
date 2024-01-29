@@ -15,7 +15,7 @@ class ShopController extends AControllerBase
 
     public function index(): Response
     {
-        $data["isAdmin"] = $this->getIsAdmin($this->findUser());
+        $data["is-admin"] = $this->getIsAdmin($this->findUser());
         $data["all-pizzas"] = $this->getAllPizzas();
         $data["filtered-pizzas"] = $this->getFilteredPizzas();
         return $this->html($data);
@@ -30,11 +30,12 @@ class ShopController extends AControllerBase
     {
         $user = User::getOne($this->findUser()->getId());
         $data = [
+            "user-id" => $user->getId(),
             "name" => $user->getLogin(),
             "email" => $user->getEmail(),
             "password" => $user->getPassword(),
-            "isAdmin" => $user->getIsAdmin(),
-            "imagePath" => $user->getProfileImage()
+            "is-admin" => $user->getIsAdmin(),
+            "image-path" => $user->getProfileImage()
         ];
         return $this->html($data);
     }
@@ -47,7 +48,7 @@ class ShopController extends AControllerBase
 
     public function database(): Response
     {
-        $data["isAdmin"] = $this->getIsAdmin($this->findUser());
+        $data["is-admin"] = $this->getIsAdmin($this->findUser());
         $data["users"] = $this->getFilteredUsers();
         return $this->html($data);
     }
@@ -58,7 +59,7 @@ class ShopController extends AControllerBase
         $data = [
             "name" => $user->getLogin(),
             "email" => $user->getEmail(),
-            "imagePath" => "public/images/profiles/" . $user->getProfileImage()
+            "image-path" => "public/images/profiles/" . $user->getProfileImage()
         ];
         return $this->html($data);
     }
@@ -97,8 +98,23 @@ class ShopController extends AControllerBase
 
     private function getFilteredPizzas(): array
     {
-        $regex = $this->app->getRequest()->getValue('search-field') ?? '';
-        $pizzas = Pizza::getAll("`name` LIKE ?", ["%$regex%"]);
+        $formData = $this->app->getRequest();
+        $name = $formData->getValue('name-field') ?? '';
+        $minCost = $formData->getValue('min-cost-field') ?? '';
+        $maxCost = $formData->getValue('max-cost-field') ?? '';
+
+        $sql = "`name` LIKE ?";
+        $parameters = ["%$name%"];
+        if (!empty($minCost) && $minCost <= $maxCost) {
+            $sql .= " AND `cost` > ?";
+            $parameters[] = "$minCost";
+        }
+        if (!empty($maxCost) && $maxCost >= $minCost) {
+            $sql .= " AND `cost` < ?";
+            $parameters[] = "$maxCost";
+        }
+
+        $pizzas = Pizza::getAll($sql, $parameters);
         return $this->getPizzaData($pizzas);
     }
 
@@ -129,7 +145,7 @@ class ShopController extends AControllerBase
                 $data[$i]['id'] = $users[$i]->getId();
                 $data[$i]['name'] = $users[$i]->getLogin();
                 $data[$i]['email'] = $users[$i]->getEmail();
-                $data[$i]['isAdmin'] = $users[$i]->getIsAdmin();
+                $data[$i]['is-admin'] = $users[$i]->getIsAdmin();
             }
         }
         return $data;

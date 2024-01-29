@@ -1,7 +1,8 @@
 <?php
 
-$layout = 'secondary';
-/* @var \App\Core\LinkGenerator $link
+$layout = 'primary';
+/**
+ * @var \App\Core\LinkGenerator $link
  * @var Array $data
  */
 ?>
@@ -13,7 +14,7 @@ $layout = 'secondary';
 <?php
 $name = $data['name'] ?? '';
 $email = $data['email'] ?? '';
-$imagePath = $data['imagePath'] ?? '';
+$imagePath = $data['image-path'] ?? '';
 ?>
 
 <div id="app">
@@ -28,27 +29,30 @@ $imagePath = $data['imagePath'] ?? '';
             <div class="card">
                 <h5>What do you think of the website?</h5>
                 <div class="satisfaction-options">
-                    <div class="radio-group">
-                        <div class="option">
-                            <input type="radio" id="option-1" v-model="selectedOption" value="option1" checked>
-                            <label for="option-1">Great</label>
-                        </div>
+                    <div>
+                        <div class="radio-group">
+                            <div class="option">
+                                <input type="radio" id="option-1" v-model="selectedOption" value="option-1">
+                                <label for="option-1">Great</label>
+                            </div>
 
-                        <div class="option">
-                            <input type="radio" id="option-2" v-model="selectedOption" value="option2" checked>
-                            <label for="option-2">Good</label>
-                        </div>
+                            <div class="option">
+                                <input type="radio" id="option-2" v-model="selectedOption" value="option-2">
+                                <label for="option-2">Good</label>
+                            </div>
 
-                        <div class="option">
-                            <input type="radio" id="option-3" v-model="selectedOption" value="option3" checked>
-                            <label for="option-3">Decent</label>
-                        </div>
+                            <div class="option">
+                                <input type="radio" id="option-3" v-model="selectedOption" value="option-3">
+                                <label for="option-3">Decent</label>
+                            </div>
 
-                        <div class="option">
-                            <input type="radio" id="option-4" v-model="selectedOption" value="option4" checked>
-                            <label for="option-4">Bad</label>
+                            <div class="option">
+                                <input type="radio" id="option-4" v-model="selectedOption" value="option-4">
+                                <label for="option-4">Bad</label>
+                            </div>
                         </div>
                     </div>
+
                     <div class="icons">
                         <img src="/public/images/satisfactions/great.png" alt="">
                         <img src="/public/images/satisfactions/good.png" alt="">
@@ -62,7 +66,7 @@ $imagePath = $data['imagePath'] ?? '';
         <div class="container">
             <div class="card">
                 <h5>Do you have any thoughts you'd like to share?</h5>
-                <textarea id="user-text" v-model="userText" class="text-input" placeholder="Share your thoughts"></textarea>
+                <textarea id="user-text" v-model="userText" class="text-input" placeholder="Share your thoughts" rows="5"></textarea>
             </div>
         </div>
 
@@ -82,19 +86,19 @@ $imagePath = $data['imagePath'] ?? '';
 
         <div class="container">
             <div class="action-buttons">
-                <button @click="discardData" id="btn-discard" class="btn btn-danger">Discard</button>
-                <div class="btn btn-dark">
-                    <a href="<?= $link->url("shop.index") ?>">Cancel</a>
-                </div>
-                <button @click="sendData" id="btn-send" class="btn btn-success">Send</button>
+                <button @click="discardData" id="btn-discard" class="btn btn-danger feedback-btn">Discard</button>
+                <button type="button" class="btn btn-dark feedback-btn">
+                    <a href="<?= $link->url("shop.index") ?>">Back</a>
+                </button>
+                <button @click="sendData" id="btn-send" class="btn btn-success feedback-btn">Send</button>
             </div>
         </div>
 
         <div class="card container">
             <h5>Posts of our costumers</h5>
             <div class="action-buttons">
-                <button @click="loadData" id="btn-load" class="btn btn-warning btn-log">Load post</button>
-                <button @click="clearData" id="btn-clear" class="btn btn-warning btn-log">Clear log</button>
+                <button @click="loadData" id="btn-load" class="btn btn-warning">Load post</button>
+                <button @click="clearData" id="btn-clear" class="btn btn-warning">Clear log</button>
             </div>
 
             <div v-for="(post, index) in posts" :key="index" class="post">
