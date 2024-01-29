@@ -4,7 +4,7 @@ function getRandomInt(min, max) {
 
 // animation of all pizzas
 document.addEventListener("DOMContentLoaded", function () {
-    const numberOfPizzas = 10;
+    const numberOfPizzas = 15;
 
     for (let i = 1; i <= numberOfPizzas; i++) {
         const pizza = document.createElement("img");
@@ -17,13 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const keyframes = `@keyframes move-pizza-${i} {
             0% { transform: translate(0, 0); }
-            12% { transform: translate(${getRandomInt(-150, 150)}px, ${getRandomInt(-150, 150)}px); }
-            25% { transform: translate(${getRandomInt(-150, 150)}px, 0); }
-            37% { transform: translate(${getRandomInt(-150, 150)}px, ${getRandomInt(-150, 150)}px); }
-            50% { transform: translate(0, ${getRandomInt(-150, 150)}px); }
-            62% { transform: translate(${getRandomInt(-150, 150)}px, ${getRandomInt(-150, 150)}px); }
-            75% { transform: translate(${getRandomInt(-150, 150)}px, 0); }
-            87% { transform: translate(${getRandomInt(-150, 150)}px, ${getRandomInt(-150, 150)}px); }
+            12% { transform: translate(${getRandomInt(-100, 100)}px, ${getRandomInt(-100, 100)}px); }
+            25% { transform: translate(${getRandomInt(-100, 100)}px, 0); }
+            37% { transform: translate(${getRandomInt(-100, 100)}px, ${getRandomInt(-100, 100)}px); }
+            50% { transform: translate(0, ${getRandomInt(-100, 100)}px); }
+            62% { transform: translate(${getRandomInt(-100, 100)}px, ${getRandomInt(-100, 100)}px); }
+            75% { transform: translate(${getRandomInt(-100, 100)}px, 0); }
+            87% { transform: translate(${getRandomInt(-100, 100)}px, ${getRandomInt(-100, 100)}px); }
             100% { transform: translate(0, 0); }
         }`;
 
@@ -34,14 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
         style.textContent = keyframes;
         document.head.appendChild(style);
 
-        // check if the pizza goes off screen
         pizza.addEventListener('animationiteration', function () {
             const rect = pizza.getBoundingClientRect();
-            if (
-                rect.bottom < 0 || rect.top > window.innerHeight ||
-                rect.right < 0 || rect.left > window.innerWidth
-            ) {
-                pizza.remove();
+            if (rect.bottom < 0 || rect.top > window.innerHeight || rect.right < 0 || rect.left > window.innerWidth) {
+                document.removeChild(pizza);
             }
         });
     }

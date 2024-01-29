@@ -39,7 +39,7 @@ body {
     left: 50%;
     transform: translate(-50%);
     width: 50%;
-    max-width: 400px;
+    max-width: 500px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -55,17 +55,31 @@ body {
 
 .form label, label .search-field {
     width: 90%;
-    max-width: 350px;
+    max-width: 400px;
 }
 
-.form input {
+.form input, .form textarea {
     width: 100%;
     padding: 10px;
     outline: none;
     border: 1px solid black;
     border-radius: 10px;
-    background-color: lightgrey;
+    background-color: whitesmoke;
     margin: 5px 0;
+}
+
+.form textarea {
+    resize: none;
+    height: auto;
+}
+
+textarea::-webkit-scrollbar {
+    width: 16px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: dimgrey;
+    border-radius: 10px;
 }
 
 .action-buttons {

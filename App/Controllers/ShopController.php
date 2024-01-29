@@ -98,8 +98,23 @@ class ShopController extends AControllerBase
 
     private function getFilteredPizzas(): array
     {
-        $regex = $this->app->getRequest()->getValue('search-field') ?? '';
-        $pizzas = Pizza::getAll("`name` LIKE ?", ["%$regex%"]);
+        $formData = $this->app->getRequest();
+        $name = $formData->getValue('name-field') ?? '';
+        $minCost = $formData->getValue('min-cost-field') ?? '';
+        $maxCost = $formData->getValue('max-cost-field') ?? '';
+
+        $sql = "`name` LIKE ?";
+        $parameters = ["%$name%"];
+        if (!empty($minCost) && $minCost <= $maxCost) {
+            $sql .= " AND `cost` > ?";
+            $parameters[] = "$minCost";
+        }
+        if (!empty($maxCost) && $maxCost >= $minCost) {
+            $sql .= " AND `cost` < ?";
+            $parameters[] = "$maxCost";
+        }
+
+        $pizzas = Pizza::getAll($sql, $parameters);
         return $this->getPizzaData($pizzas);
     }
 

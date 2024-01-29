@@ -29,27 +29,30 @@ $imagePath = $data['image-path'] ?? '';
             <div class="card">
                 <h5>What do you think of the website?</h5>
                 <div class="satisfaction-options">
-                    <div class="radio-group">
-                        <div class="option">
-                            <input type="radio" id="option-1" v-model="selectedOption" value="option-1" checked="checked">
-                            <label for="option-1">Great</label>
-                        </div>
+                    <div>
+                        <div class="radio-group">
+                            <div class="option">
+                                <input type="radio" id="option-1" v-model="selectedOption" value="option-1">
+                                <label for="option-1">Great</label>
+                            </div>
 
-                        <div class="option">
-                            <input type="radio" id="option-2" v-model="selectedOption" value="option-2">
-                            <label for="option-2">Good</label>
-                        </div>
+                            <div class="option">
+                                <input type="radio" id="option-2" v-model="selectedOption" value="option-2">
+                                <label for="option-2">Good</label>
+                            </div>
 
-                        <div class="option">
-                            <input type="radio" id="option-3" v-model="selectedOption" value="option-3">
-                            <label for="option-3">Decent</label>
-                        </div>
+                            <div class="option">
+                                <input type="radio" id="option-3" v-model="selectedOption" value="option-3">
+                                <label for="option-3">Decent</label>
+                            </div>
 
-                        <div class="option">
-                            <input type="radio" id="option-4" v-model="selectedOption" value="option-4">
-                            <label for="option-4">Bad</label>
+                            <div class="option">
+                                <input type="radio" id="option-4" v-model="selectedOption" value="option-4">
+                                <label for="option-4">Bad</label>
+                            </div>
                         </div>
                     </div>
+
                     <div class="icons">
                         <img src="/public/images/satisfactions/great.png" alt="">
                         <img src="/public/images/satisfactions/good.png" alt="">
@@ -63,7 +66,7 @@ $imagePath = $data['image-path'] ?? '';
         <div class="container">
             <div class="card">
                 <h5>Do you have any thoughts you'd like to share?</h5>
-                <textarea id="user-text" v-model="userText" class="text-input" placeholder="Share your thoughts"></textarea>
+                <textarea id="user-text" v-model="userText" class="text-input" placeholder="Share your thoughts" rows="5"></textarea>
             </div>
         </div>
 

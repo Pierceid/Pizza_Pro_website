@@ -124,10 +124,18 @@ h6 {
 
 .card .text-input {
     resize: none;
-    min-height: 100px;
+    height: auto;
     font-size: large;
     padding: 5px;
     border: 2px solid black;
+}
+
+.text-input::-webkit-scrollbar {
+    width: 20px;
+}
+
+.text-input::-webkit-scrollbar-thumb {
+    background-color: dimgrey;
 }
 
 .card .switch-option {

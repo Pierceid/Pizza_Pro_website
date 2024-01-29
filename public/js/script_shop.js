@@ -43,3 +43,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     container.addEventListener('mouseout', autoSliding);
 });
+
+function openModal(title, description, image) {
+    document.getElementById('modal-image').src = image;
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-description').textContent = description;
+    document.getElementById('overlay').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('overlay').style.display = 'none';
+}

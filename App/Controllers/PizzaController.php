@@ -59,13 +59,12 @@ class PizzaController extends AControllerBase
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = str_replace(',', '.', $formData->getValue("cost"));
-        $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to insert an item!";
 
-        $result = $this->validateInput($name, $description, $cost, $imagePath, 1);
+        $result = $this->validateInput($name, $description, $cost, 1);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description, $cost, $imagePath, 2);
+            $result = $this->validateInput($name, $description, $cost, 2);
 
             if (is_bool($result)) {
                 $pizza = new Pizza();
@@ -91,13 +90,12 @@ class PizzaController extends AControllerBase
         $name = $formData->getValue("name");
         $description = $formData->getValue("description");
         $cost = str_replace(',', '.', $formData->getValue("cost"));
-        $imagePath = $_FILES["image-path"]["name"];
         $message = "Failed to update the item!";
 
-        $result = $this->validateInput($name, $description, $cost, $imagePath, 1);
+        $result = $this->validateInput($name, $description, $cost, 1);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description, $cost, $imagePath, 2);
+            $result = $this->validateInput($name, $description, $cost, 2);
 
             if (is_bool($result)) {
                 $pizzaGetOne = Pizza::getOne($id);
@@ -132,7 +130,7 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
-    public function validateInput($name, $description, $cost, $imagePath, $option): string|bool
+    public function validateInput($name, $description, $cost, $option): string|bool
     {
         $pizzas = Pizza::getAll();
         $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
@@ -165,9 +163,8 @@ class PizzaController extends AControllerBase
         }
 
         return empty($existingPizza) &&
-            !empty($imagePath) &&
             !empty($name) && strlen($name) < 200 &&
-            !empty($description) && strlen($description) < 200 &&
+            !empty($description) && strlen($description) < 400 &&
             is_numeric($cost) && strlen((string)$cost) < 200;
     }
 }

@@ -44,8 +44,12 @@ $layout = 'primary';
 
 <form class="form" method="post">
     <div class="search">
-        <input class="search-field" name="search-field" type="search" placeholder="Search your favorite pizza"
-               aria-label="Search">
+        <input class="search-field" name="name-field" type="search" placeholder="Search your favorite pizza"
+               aria-label="Name filter" style="background-color: mediumpurple">
+        <input class="search-field" name="min-cost-field" type="number" placeholder="Min cost" min="0" max="1000"
+               aria-label="Cost filter" style="max-width: 100px; background-color: indianred">
+        <input class="search-field" name="max-cost-field" type="number" placeholder="Max cost" min="0" max="1000"
+               aria-label="Cost filter" style="max-width: 100px; background-color: lightgreen">
         <button class="btn btn-light" type="submit" formaction="<?= $link->url("shop.index") ?>">
             Search
         </button>
@@ -63,19 +67,20 @@ $layout = 'primary';
 
     <?php if (!empty($filteredPizzas)) : ?>
         <?php foreach ($filteredPizzas as $pizza): ?>
-            <div class="card">
-                <?php
-                $pizzaId = $pizza['id'];
-                $name = $pizza['name'];
-                $description = $pizza['description'];
-                $cost = number_format($pizza['cost'], 2);
-                $imagePath = $pizza['image-path'];
-                $amount = $pizza['amount'];
-                ?>
+            <?php
+            $pizzaId = $pizza['id'];
+            $name = $pizza['name'];
+            $description = $pizza['description'];
+            $cost = number_format($pizza['cost'], 2);
+            $imagePath = $pizza['image-path'];
+            $amount = $pizza['amount'];
+            ?>
 
+            <div class="card">
                 <input id="pizza-id" type="hidden" value="<?= $pizzaId ?>">
 
-                <img src="<?= $imagePath ?>" alt="">
+                <img src="<?= $imagePath ?>" alt=""
+                     onclick="openModal('<?= $name ?>', '<?= $description ?>', '<?= $imagePath ?>')">
                 <h5><?= $name ?></h5>
                 <h6>Cost: <?= $cost ?> €</h6>
 
@@ -100,6 +105,17 @@ $layout = 'primary';
             </div>
         <?php endforeach; ?>
     <?php endif ?>
+</div>
+
+<div class="container-fluid">
+    <div class="overlay" id="overlay" onclick="closeModal()">
+        <div class="modal" id="modal">
+            <h1 onclick="closeModal()">&times;</h1>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="">
+            <h3 id="modal-description"></h3>
+        </div>
+    </div>
 </div>
 
 <script src="/public/js/script_shop.js"></script>
