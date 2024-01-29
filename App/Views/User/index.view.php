@@ -52,7 +52,7 @@ $signInMessage = $_GET['sign-in-message'] ?? '';
 
             <label><input name="sign-up-email" type="email" placeholder="Email"></label>
 
-            <label><input name="sign-up-password" type="password" placeholder="Password"></label>
+            <label><input name="sign-up-password" type="password" minlength="6" placeholder="Password"></label>
 
             <?php if (!empty($option) && !empty($signUpMessage)) : ?>
                 <h6 id="sign-up-message" class="error-message"><?= $signUpMessage ?></h6>
@@ -76,7 +76,7 @@ $signInMessage = $_GET['sign-in-message'] ?? '';
 
             <label><input name="sign-in-email" type="email" placeholder="Email"></label>
 
-            <label><input name="sign-in-password" type="password" placeholder="Password"></label>
+            <label><input name="sign-in-password" type="password" minlength="6" placeholder="Password"></label>
 
             <?php if (!empty($option) && !empty($signInMessage)) : ?>
                 <h6 id="sign-in-message" class="error-message"><?= $signInMessage ?></h6>

@@ -109,10 +109,15 @@ class UserController extends AControllerBase
         $option = $formData->getValue("option-id");
         $id = $formData->getValue($option == 5 ? "user-id" : "edit-id");
         $destination = $option == 5 ? 'user.index' : 'shop.database';
+
         $user = User::getOne($id);
         if (!is_null($user)) {
+            $profileImage = 'public/images/pizzas/' . $user->getProfileImage();
+            if (file_exists($profileImage)) unlink($profileImage);
+
             $user->delete();
         }
+
         return $this->redirect($this->url($destination));
     }
 
@@ -195,6 +200,11 @@ class UserController extends AControllerBase
 
                 if (in_array($fileExt, $allowed)) {
                     if ($fileError === 0) {
+                        if (!is_null($currentUser)) {
+                            $oldProfileImage = 'public/images/profiles/' . $currentUser->getProfileImage();
+                            if (file_exists($oldProfileImage)) unlink($oldProfileImage);
+                        }
+
                         $newFileName = time() . '.' . $fileExt;
                         $fileDestination = 'public/images/profiles/' . $newFileName;
                         move_uploaded_file($fileTmpName, $fileDestination);

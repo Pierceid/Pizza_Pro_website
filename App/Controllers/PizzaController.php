@@ -61,12 +61,12 @@ class PizzaController extends AControllerBase
         $cost = str_replace(',', '.', $formData->getValue("cost"));
         $message = "Failed to insert an item!";
 
-        $result = $this->validateInput($name, $description, $cost, 1);
+        $result = $this->validateInput($name, $description, 1);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description, $cost, 2);
+            $result = $this->validateInput($name, $description, 2);
 
-            if (is_bool($result)) {
+            if (is_bool($result) && $result) {
                 $pizza = new Pizza();
                 $pizza->setName($name);
                 $pizza->setDescription($description);
@@ -78,7 +78,6 @@ class PizzaController extends AControllerBase
             }
         }
 
-        $cost = is_numeric($cost) ? $cost : '';
         $data = ["operation" => "insert", "name" => $name, "description" => $description, "cost" => $cost, "message" => $message];
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
@@ -92,10 +91,10 @@ class PizzaController extends AControllerBase
         $cost = str_replace(',', '.', $formData->getValue("cost"));
         $message = "Failed to update the item!";
 
-        $result = $this->validateInput($name, $description, $cost, 1);
+        $result = $this->validateInput($name, $description, 1);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description, $cost, 2);
+            $result = $this->validateInput($name, $description, 2);
 
             if (is_bool($result)) {
                 $pizzaGetOne = Pizza::getOne($id);
@@ -118,11 +117,14 @@ class PizzaController extends AControllerBase
     public function deleteItem(): Response
     {
         $id = $this->app->getRequest()->getValue("pizza-id");
-        $pizzaGetOne = Pizza::getOne($id);
+        $pizza = Pizza::getOne($id);
         $message = "Failed to delete the item!";
 
-        if (!is_null($pizzaGetOne)) {
-            $pizzaGetOne->delete();
+        if (!is_null($pizza)) {
+            $pizzaImage = 'public/images/pizzas/' . $pizza->getImagePath();
+            if (file_exists($pizzaImage)) unlink($pizzaImage);
+
+            $pizza->delete();
             $message = "Item has been successfully deleted!";
         }
 
@@ -130,41 +132,48 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
-    public function validateInput($name, $description, $cost, $option): string|bool
+    public function validateInput($name, $description, $option): string|bool
     {
         $pizzas = Pizza::getAll();
-        $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
-            return $pizza->getName() == $name;
-        });
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && $option != 2) {
-            if (isset($_FILES["image-path"])) {
-                $fileName = $_FILES["image-path"]['name'];
-                $fileTmpName = $_FILES["image-path"]['tmp_name'];
-                $fileError = $_FILES["image-path"]['error'];
+        if (empty($name) || strlen($name) > 200 || empty($description) || strlen($description) > 400) {
+            return false;
+        }
 
-                $fileSeparated = explode('.', $fileName);
-                $fileExt = strtolower(end($fileSeparated));
-                $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+        if ($option == 2) {
+            return empty(array_filter($pizzas, function ($pizza) use ($name) {
+                return $pizza->getName() == $name;
+            }));
+        }
 
-                if (in_array($fileExt, $allowed)) {
-                    if ($fileError === 0) {
-                        $newFileName = time() . '.' . $fileExt;
-                        $fileDestination = 'public/images/pizzas/' . $newFileName;
-                        move_uploaded_file($fileTmpName, $fileDestination);
-                        return $newFileName;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image-path"])) {
+            $fileName = $_FILES["image-path"]['name'];
+            $fileTmpName = $_FILES["image-path"]['tmp_name'];
+            $fileError = $_FILES["image-path"]['error'];
+
+            $fileSeparated = explode('.', $fileName);
+            $fileExt = strtolower(end($fileSeparated));
+            $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+            if (in_array($fileExt, $allowed) && $fileError === 0) {
+                $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
+                    return $pizza->getName() == $name;
+                });
+
+                if (!empty($existingPizza)) {
+                    $oldPizzaImage = 'public/images/pizzas/' . current($existingPizza)->getImagePath();
+                    if (file_exists($oldPizzaImage)) unlink($oldPizzaImage);
                 }
+
+                $newFileName = time() . '.' . $fileExt;
+                $fileDestination = 'public/images/pizzas/' . $newFileName;
+                move_uploaded_file($fileTmpName, $fileDestination);
+                return $newFileName;
+            } else {
+                return false;
             }
         }
 
-        return empty($existingPizza) &&
-            !empty($name) && strlen($name) < 200 &&
-            !empty($description) && strlen($description) < 400 &&
-            is_numeric($cost) && strlen((string)$cost) < 200;
+        return true;
     }
 }

@@ -42,8 +42,8 @@ $header = $option == 0 ? 'Edit profile image' : ($option == 1 ? 'Edit name' : ($
         <?php elseif ($option == 2) : ?>
             <input name="email" type="email" placeholder="Email" value="<?= $currentEmail ?>">
         <?php elseif ($option == 3) : ?>
-            <input name="password-old" type="password" placeholder="Old password">
-            <input name="password-new" type="password" placeholder="New password">
+            <input name="password-old" type="password" minlength="6" placeholder="Old password">
+            <input name="password-new" type="password" minlength="6" placeholder="New password">
         <?php elseif ($option == 4) : ?>
             <select class="search-field" name="is-admin">
                 <option value="0">Not an admin</option>

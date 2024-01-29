@@ -143,7 +143,7 @@ h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(0, 0, 0, .7);
+    background: rgb(0, 0, 0, .8);
 }
 
 .modal {
@@ -161,7 +161,9 @@ h6 {
     max-height: 80%;
     background: linear-gradient(-45deg, lightgrey, mediumpurple);
     padding: 20px;
+    border: 2px solid black;
     border-radius: 10px;
+    box-shadow: -10px -10px 10px whitesmoke;
 }
 
 .modal h1 {

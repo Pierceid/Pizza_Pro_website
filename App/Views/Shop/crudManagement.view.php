@@ -37,7 +37,8 @@ $header = $operation == 'insert' ? 'Insert pizza' :
         <label><input name="name" type="text" placeholder="Name" value="<?= $name ?>"></label>
         <label><textarea name="description" type="text" placeholder="Description"
                          rows="5"><?= $description ?></textarea></label>
-        <label><input name="cost" type="text" placeholder="Cost" value="<?= $cost ?>"></label>
+        <label><input name="cost" type="number" step="any" min="0" max="1000" placeholder="Cost"
+                      value="<?= $cost ?>"></label>
         <label><input name="image-path" type="file" placeholder="Image path"></label>
     <?php elseif ($operation == 'delete') : ?>
         <h5>Are you sure you want to delete the item?</h5>
