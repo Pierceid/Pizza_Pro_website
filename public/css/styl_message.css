@@ -38,8 +38,8 @@ body {
     top: 15%;
     left: 50%;
     transform: translate(-50%);
-    width: 50%;
-    max-width: 500px;
+    width: 70%;
+    max-width: 600px;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -55,7 +55,6 @@ body {
 
 .form label, label .search-field {
     width: 90%;
-    max-width: 400px;
 }
 
 .form input, .form textarea {
