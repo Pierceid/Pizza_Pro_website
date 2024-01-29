@@ -15,7 +15,7 @@ class ShopController extends AControllerBase
 
     public function index(): Response
     {
-        $data["is-admin"] = $this->getIsAdmin($this->findUser());
+        $data["is-admin"] = $this->findUser()->getIsAdmin();
         $data["all-pizzas"] = $this->getAllPizzas();
         $data["filtered-pizzas"] = $this->getFilteredPizzas();
         return $this->html($data);
@@ -48,7 +48,7 @@ class ShopController extends AControllerBase
 
     public function database(): Response
     {
-        $data["is-admin"] = $this->getIsAdmin($this->findUser());
+        $data["is-admin"] = $this->findUser()->getIsAdmin();
         $data["users"] = $this->getFilteredUsers();
         return $this->html($data);
     }
@@ -160,11 +160,6 @@ class ShopController extends AControllerBase
             }
         }
         return null;
-    }
-
-    public function getIsAdmin($user): int
-    {
-        return $user ? $user->getIsAdmin() : 0;
     }
 
     private function getPizzaData($pizzas): array

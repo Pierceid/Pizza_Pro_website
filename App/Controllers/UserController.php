@@ -19,7 +19,10 @@ class UserController extends AControllerBase
 
     public function profileManagement(): Response
     {
-        $data = ["user-id" => $this->findUser()->getId(), "edit-id" => $this->app->getRequest()->getValue('edit-id')];
+        $data = [
+            "user-id" => $this->findUser()->getId(),
+            "edit-id" => $this->app->getRequest()->getValue('edit-id')
+        ];
         return $this->html($data);
     }
 
@@ -121,7 +124,8 @@ class UserController extends AControllerBase
         return $this->redirect($this->url($destination));
     }
 
-    private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null, $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
+    private function handleInput($nameNew = null, $emailNew = null, $passwordOld = null, $passwordNew = null,
+                                 $imagePathNew = null, $isAdminNew = null, $editedUserId = null): string
     {
         $currentUser = $this->findUser();
         $editedUser = User::getOne($editedUserId);
@@ -238,10 +242,5 @@ class UserController extends AControllerBase
             }
         }
         return null;
-    }
-
-    public function getIsAdmin($user): int
-    {
-        return $user ? $user->getIsAdmin() : 0;
     }
 }
