@@ -9,6 +9,8 @@ $layout = '';
 
 <?php
 $option = $_GET['option'] ?? '';
+$name = $_GET['name'] ?? '';
+$email = $_GET['email'] ?? '';
 $signUpMessage = $_GET['sign-up-message'] ?? '';
 $signInMessage = $_GET['sign-in-message'] ?? '';
 ?>
@@ -48,9 +50,9 @@ $signInMessage = $_GET['sign-in-message'] ?? '';
 
             <span>or use your email for registration</span>
 
-            <label><input name="sign-up-name" type="text" placeholder="Username"></label>
+            <label><input name="sign-up-name" type="text" placeholder="Username" value="<?= $name ?>"></label>
 
-            <label><input name="sign-up-email" type="email" placeholder="Email"></label>
+            <label><input name="sign-up-email" type="email" placeholder="Email" value="<?= $email ?>"></label>
 
             <label><input name="sign-up-password" type="password" minlength="6" placeholder="Password"></label>
 
@@ -74,7 +76,7 @@ $signInMessage = $_GET['sign-in-message'] ?? '';
 
             <span>or use your email and password</span>
 
-            <label><input name="sign-in-email" type="email" placeholder="Email"></label>
+            <label><input name="sign-in-email" type="email" placeholder="Email" value="<?= $email ?>"></label>
 
             <label><input name="sign-in-password" type="password" minlength="6" placeholder="Password"></label>
 

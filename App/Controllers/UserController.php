@@ -55,7 +55,7 @@ class UserController extends AControllerBase
             }
         }
 
-        $data = ["option" => 2, "sign-up-message" => $message];
+        $data = ["option" => 2, "name" => $name, "email" => $email, "sign-up-message" => $message];
         return $this->redirect($this->url("user.index", $data));
     }
 
@@ -75,7 +75,7 @@ class UserController extends AControllerBase
             }
         }
 
-        $data = ["option" => 1, "sign-in-message" => $message];
+        $data = ["option" => 1, "email" => $email, "sign-in-message" => $message];
         return $this->redirect($this->url("user.index", $data));
     }
 

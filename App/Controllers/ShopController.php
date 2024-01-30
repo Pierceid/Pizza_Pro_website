@@ -21,11 +21,6 @@ class ShopController extends AControllerBase
         return $this->html($data);
     }
 
-    public function user(): Response
-    {
-        return $this->html();
-    }
-
     public function profile(): Response
     {
         $user = User::getOne($this->findUser()->getId());
@@ -51,6 +46,11 @@ class ShopController extends AControllerBase
         $data["is-admin"] = $this->findUser()->getIsAdmin();
         $data["users"] = $this->getFilteredUsers();
         return $this->html($data);
+    }
+
+    public function about(): Response
+    {
+        return $this->html();
     }
 
     public function feedback(): Response
