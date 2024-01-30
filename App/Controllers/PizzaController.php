@@ -97,14 +97,14 @@ class PizzaController extends AControllerBase
             $result = $this->validateInput($name, $description, $cost);
 
             if (is_bool($result) && $result) {
-                $pizzaGetOne = Pizza::getOne($id);
+                $pizza = Pizza::getOne($id);
 
-                if (!is_null($pizzaGetOne)) {
-                    $pizzaGetOne->setName($name);
-                    $pizzaGetOne->setDescription($description);
-                    $pizzaGetOne->setCost($cost);
-                    $pizzaGetOne->setImagePath($newPath);
-                    $pizzaGetOne->save();
+                if (!is_null($pizza)) {
+                    $pizza->setName($name);
+                    $pizza->setDescription($description);
+                    $pizza->setCost($cost);
+                    $pizza->setImagePath($newPath);
+                    $pizza->save();
                     $message = "Item has been successfully updated!";
                 }
             }
