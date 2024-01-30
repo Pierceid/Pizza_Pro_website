@@ -151,7 +151,7 @@ class ShopController extends AControllerBase
         return $data;
     }
 
-    public function findUser(): ?User
+    private function findUser(): ?User
     {
         $users = User::getAll();
         foreach ($users as $user) {

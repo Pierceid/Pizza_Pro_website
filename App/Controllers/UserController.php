@@ -229,7 +229,7 @@ class UserController extends AControllerBase
         return "Admin privilege has been successfully updated!";
     }
 
-    public function findUser(): ?User
+    private function findUser(): ?User
     {
         $users = User::getAll();
         foreach ($users as $user) {
