@@ -61,10 +61,10 @@ class PizzaController extends AControllerBase
         $cost = str_replace(',', '.', $formData->getValue("cost"));
         $message = "Failed to insert an item!";
 
-        $result = $this->validateInput($name, $description, 1);
+        $result = $this->validateInput($name, $description, $cost, 1);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description);
+            $result = $this->validateInput($name, $description, $cost);
 
             if (is_bool($result) && $result) {
                 $pizza = new Pizza();
@@ -91,10 +91,10 @@ class PizzaController extends AControllerBase
         $cost = str_replace(',', '.', $formData->getValue("cost"));
         $message = "Failed to update the item!";
 
-        $result = $this->validateInput($name, $description, 2);
+        $result = $this->validateInput($name, $description, $cost, 2);
         if (is_string($result)) {
             $newPath = $result;
-            $result = $this->validateInput($name, $description);
+            $result = $this->validateInput($name, $description, $cost);
 
             if (is_bool($result) && $result) {
                 $pizzaGetOne = Pizza::getOne($id);
@@ -132,14 +132,14 @@ class PizzaController extends AControllerBase
         return $this->redirect($this->url("shop.crudManagement", $data));
     }
 
-    public function validateInput($name, $description, $option = null): string|bool
+    public function validateInput($name, $description, $cost, $option = null): string|bool
     {
         $pizzas = Pizza::getAll();
         $existingPizza = array_filter($pizzas, function ($pizza) use ($name) {
             return $pizza->getName() == $name;
         });
 
-        if (empty($name) || strlen($name) > 200 || empty($description) || strlen($description) > 400 ||
+        if (empty($name) || strlen($name) > 200 || empty($description) || strlen($description) > 400 || empty($cost) || !is_numeric($cost) ||
             ($option == 1 && !empty($existingPizza)) || ($option == 2 && empty($existingPizza))) {
             return false;
         }
