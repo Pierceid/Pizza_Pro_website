@@ -201,19 +201,6 @@ body {
 }
 
 /* Animations */
-.title {
-    animation: resize 3s infinite ease-in-out;
-}
-
-@keyframes resize {
-    0%, 100% {
-        font-size: xx-large;
-    }
-    50% {
-        font-size: x-large;
-    }
-}
-
 @keyframes move {
     from {
         opacity: 0;
